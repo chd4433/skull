@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <time.h>
-#include "resource.h"
+//#include "resource.h"
 
 #pragma comment(lib, "msimg32.lib")
 
@@ -93,7 +93,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 	case WM_CREATE:
 		GetClientRect(hwnd, &rectView);
 		// Map
-		map_back = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_MAP_BACK));
+		//map_back = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_MAP_BACK));
+		map_back = (HBITMAP)LoadImage(NULL, TEXT("Back.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 		GetObject(map_back, sizeof(BITMAP), &bmp);
 		map_Width = bmp.bmWidth, map_Height = bmp.bmHeight;
 
@@ -107,13 +108,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 		attackMotion = 0;
 
 		// Swordman
-		bitmap_swordman = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_SWORDMAN));
-		bitmap_swordman_L = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_SWORDMAN_L));
+		//bitmap_swordman = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_SWORDMAN));
+		//bitmap_swordman_L = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_SWORDMAN_L));
+		bitmap_swordman = (HBITMAP)LoadImage(NULL, TEXT("swordman.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+		bitmap_swordman_L = (HBITMAP)LoadImage(NULL, TEXT("swordman_L.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 		GetObject(bitmap_swordman, sizeof(BITMAP), &bmp);
 		swordman_Width = bmp.bmWidth, swordman_Height = bmp.bmHeight;
 		// Alchemist
-		bitmap_alchemist = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_ALCHEMIST));
-		bitmap_alchemist_L = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_ALCHEMIST_L));
+		//bitmap_alchemist = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_ALCHEMIST));
+		//bitmap_alchemist_L = LoadBitmap(g_hinst, MAKEINTRESOURCE(IDB_CHAR_ALCHEMIST_L));
+		bitmap_alchemist = (HBITMAP)LoadImage(NULL, TEXT("alchemist.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+		bitmap_alchemist_L = (HBITMAP)LoadImage(NULL, TEXT("alchemist_L.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 		// Camera
 		camera_xPos = 0, camera_yPos = 200;
