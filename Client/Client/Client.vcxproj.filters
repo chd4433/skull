@@ -56,6 +56,9 @@
     <Filter Include="02 Scene\01 tutorial Stage">
       <UniqueIdentifier>{7acb8d31-cc22-440d-b073-fe7104b9c0ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\01 Throw">
+      <UniqueIdentifier>{8d90e821-b452-4a68-9922-02ae8806c0e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -124,6 +127,9 @@
     <ClInclude Include="TurorialStage.h">
       <Filter>02 Scene\01 tutorial Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Throw.h">
+      <Filter>01 Obj\01 Throw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -183,6 +189,9 @@
     </ClCompile>
     <ClCompile Include="TurorialStage.cpp">
       <Filter>02 Scene\01 tutorial Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Throw.cpp">
+      <Filter>01 Obj\01 Throw</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

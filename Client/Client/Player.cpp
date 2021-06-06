@@ -59,6 +59,10 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_pKeyMgr->KeyDown(KEY_UP))
 			ChangeState(JUMP);
 
+		// 공격
+		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+			ChangeState(ATTACK);
+
 		// 캐릭터 교체
 		if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
 			if (m_bCharacter1)	m_bCharacter1 = false;
@@ -96,6 +100,10 @@ INT CPlayer::Update(const float& fTimeDelta)
 		// 점프
 		if (m_pKeyMgr->KeyDown(KEY_UP))
 			ChangeState(JUMP);
+
+		// 공격
+		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+			ChangeState(ATTACK);
 
 		// 캐릭터 교체
 		if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
@@ -138,7 +146,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			m_fDashLen = 0;
 		}
 		break;
-	case CPlayer::JUMP://test
+	case CPlayer::JUMP:
 		m_tInfo.fY -= 8.f;
 		m_fJumpHeight += 8.f;
 
@@ -171,8 +179,9 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (!m_bDash)	m_bDash = true;
 			ChangeState(DASH);
 		}
+
 		break;
-	case CPlayer::FALL://test
+	case CPlayer::FALL:
 		m_tInfo.fY += 1.f + m_fGravityAccel;
 		m_fGravityAccel += 0.35f;
 
@@ -209,6 +218,29 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_bCharacter1 && !m_bDash && m_pKeyMgr->KeyDown(KEY_DASH)) {
 			if (!m_bDash)	m_bDash = true;
 			ChangeState(DASH);
+		}
+
+		// 공격
+		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+			ChangeState(ATTACK);
+		break;
+	case CPlayer::ATTACK:
+		m_fAttackCount += 0.2f;
+		if ((m_bCharacter1 && m_fAttackCount >= 4) || (!m_bCharacter1 && m_fAttackCount >= 8)) {
+			if (m_bFall)	ChangeState(FALL);
+			else				ChangeState(IDLE);
+			m_fAttackCount = 0;
+		}
+
+		if (m_bFall) {
+			m_tInfo.fY += 1.f + m_fGravityAccel;
+			m_fGravityAccel += 0.35f;
+
+			if ((m_tInfo.fX <= 135 && m_tInfo.fY >= 345)
+				|| (m_tInfo.fX > 135 && m_tInfo.fY >= 505)) {		// 임시 땅바닥 ( 맵 타일 만들어지면 각 타일의 y축으로 바꾸면될듯? )
+				if (m_tInfo.fX <= 135)	m_tInfo.fY = 345;
+				else					m_tInfo.fY = 505;
+			}
 		}
 		break;
 	default:
@@ -336,6 +368,22 @@ HRESULT CPlayer::ChangeState(STATE eState)
 				m_tInfo.fCY = 50.f;
 				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 2, 1, 0, 4);
 				else			SetFrame(L"Test4", 10.f, 2, 1, 0, 4);
+			}
+			break;
+		case CPlayer::ATTACK:
+			if (m_bCharacter1)
+			{
+				m_tInfo.fCX = 50.f;
+				m_tInfo.fCY = 43.f;
+				if (!m_bLeft)	SetFrame(L"Test", 10.f, 5, 1, 0, 5);
+				else			SetFrame(L"Test2", 10.f, 5, 1, 0, 5);
+			}
+			else
+			{
+				m_tInfo.fCX = 50.f;
+				m_tInfo.fCY = 50.f;
+				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 8, 1, 0, 5);
+				else			SetFrame(L"Test4", 10.f, 8, 1, 0, 5);
 			}
 			break;
 		default:
