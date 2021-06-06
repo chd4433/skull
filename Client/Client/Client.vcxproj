@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{471f5ec5-1182-46c2-8282-8322067f60ee}</ProjectGuid>
+    <ProjectGuid>{34caf847-8e9c-4175-9155-95d69c4df5a4}</ProjectGuid>
     <RootNamespace>Client</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,7 +139,52 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="소스.cpp" />
+    <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="BitmapMgr.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Enum.h" />
+    <ClInclude Include="FrameMgr.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Obj.h" />
+    <ClInclude Include="ObjMgr.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderMgr.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneLogo.h" />
+    <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="ScrollMgr.h" />
+    <ClInclude Include="Struct.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TurorialStage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="FrameMgr.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Obj.cpp" />
+    <ClCompile Include="ObjMgr.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderMgr.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneLogo.cpp" />
+    <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="ScrollMgr.cpp" />
+    <ClCompile Include="TurorialStage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Client.ico" />
+    <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

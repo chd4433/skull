@@ -1,22 +1,188 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="99 Default">
+      <UniqueIdentifier>{6037ffa8-4dad-460b-9928-b35b3841c9b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
+    <Filter Include="99 Default\리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="98 Headers">
+      <UniqueIdentifier>{ec0c0227-65ef-49f0-9088-737787dafdd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00 MainGame">
+      <UniqueIdentifier>{c8be02f1-e59a-4a25-9f60-345056a04abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers">
+      <UniqueIdentifier>{d441aed6-7648-4998-af68-49e24f096a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\00 FrameManager">
+      <UniqueIdentifier>{de7b52d0-e141-4afe-8c37-30a0446b9459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\01 KeyManager">
+      <UniqueIdentifier>{9433428f-f30b-4d28-ae71-c695eec1996e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\02 BitmapManager">
+      <UniqueIdentifier>{66c213b6-37f5-41fb-a2dc-57f6e65d197a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\02 BitmapManager\Bitmap">
+      <UniqueIdentifier>{c89f606e-0f46-4f55-be5e-6a3477ee40ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\99 ObjManager">
+      <UniqueIdentifier>{4e9ae201-d06b-4d6a-99a9-64b68a7eb626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\98 RenderManager">
+      <UniqueIdentifier>{f508a19b-f64b-40ec-90c5-159e5fa70273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj">
+      <UniqueIdentifier>{5712c0a3-b1ce-481b-8efe-be1db6b8cf0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02 Scene">
+      <UniqueIdentifier>{c9e55467-e5be-472a-94d0-044714d3e0ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\97 SceneMgr">
+      <UniqueIdentifier>{1cea748a-94f1-466f-9b45-f4cdd54940b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\00 Player">
+      <UniqueIdentifier>{7f6f2ed4-b933-4420-ae56-7c3709fb24fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02 Scene\00 Logo">
+      <UniqueIdentifier>{b68752c5-c30c-401c-b017-b13bdc1bc6ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97 Managers\03 ScrollManager">
+      <UniqueIdentifier>{40ad9b89-d935-4957-92b5-88e1ce2388bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02 Scene\01 tutorial Stage">
+      <UniqueIdentifier>{7acb8d31-cc22-440d-b073-fe7104b9c0ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="소스.cpp">
-      <Filter>소스 파일</Filter>
+    <ClInclude Include="Client.h">
+      <Filter>99 Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99 Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99 Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>98 Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>98 Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>98 Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>98 Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>98 Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>00 MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameMgr.h">
+      <Filter>97 Managers\00 FrameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>97 Managers\01 KeyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapMgr.h">
+      <Filter>97 Managers\02 BitmapManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>97 Managers\02 BitmapManager\Bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMgr.h">
+      <Filter>97 Managers\98 RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>01 Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMgr.h">
+      <Filter>97 Managers\99 ObjManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>97 Managers\97 SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>02 Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>01 Obj\00 Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLogo.h">
+      <Filter>02 Scene\00 Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>97 Managers\03 ScrollManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TurorialStage.h">
+      <Filter>02 Scene\01 tutorial Stage</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>99 Default\리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>99 Default\리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>99 Default\리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>99 Default</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>00 MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameMgr.cpp">
+      <Filter>97 Managers\00 FrameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>97 Managers\01 KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapMgr.cpp">
+      <Filter>97 Managers\02 BitmapManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>97 Managers\02 BitmapManager\Bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMgr.cpp">
+      <Filter>97 Managers\98 RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
+      <Filter>01 Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMgr.cpp">
+      <Filter>97 Managers\99 ObjManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>97 Managers\97 SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>02 Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>01 Obj\00 Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLogo.cpp">
+      <Filter>02 Scene\00 Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>97 Managers\03 ScrollManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TurorialStage.cpp">
+      <Filter>02 Scene\01 tutorial Stage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,0 +1,10 @@
+Back ../Binary/Back.bmp
+Back2 ../Binary/Back.bmp
+Test ../Binary/Test/Test.bmp
+Test2 ../Binary/Test/Test2.bmp
+Menu ../Binary/Map/Menu.bmp
+Map1 ../Binary/Map/Map1.bmp
+Map2 ../Binary/Map/Map2.bmp
+Map3 ../Binary/Map/Map3.bmp
+WalkR ../Binary/Player/Walk/Player_Walk_HeadR.bmp
+WalkL ../Binary/Player/Walk/Player_Walk_HeadL.bmp
