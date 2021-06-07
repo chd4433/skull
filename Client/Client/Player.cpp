@@ -358,4 +358,8 @@ CPlayer* CPlayer::Create()
 	if (FAILED(pInstance->Initialize()))
 		SafeDelete(pInstance);
 	return pInstance;
+
+
+
+
 }
