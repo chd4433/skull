@@ -32,7 +32,7 @@ void CKeyMgr::UpdateKey()
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 		m_dwCurKey |= KEY_RIGHT;
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
-		m_dwCurKey |= KEY_CHANGE;
+		m_dwCurKey |= KEY_JUMP;
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 		m_dwCurKey |= KEY_ENTER;
 	if (GetAsyncKeyState(0x5A) & 0x8000)		// 0x5A == 'Z'

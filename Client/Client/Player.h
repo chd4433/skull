@@ -35,7 +35,6 @@ public:
 	static CPlayer* Create();
 
 public:
-	bool	m_bCharacter1;
 	bool	m_bLeft;
 	bool	m_bJump = false;
 	bool	m_bDoubleJump = false;
