@@ -142,6 +142,7 @@
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="FrameMgr.h" />
@@ -152,12 +153,19 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="RenderMgr.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneLogo.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="ScrollMgr.h" />
+    <ClInclude Include="Stage1.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TurorialStage.h" />
@@ -166,17 +174,25 @@
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="FrameMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneLogo.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="ScrollMgr.cpp" />
+    <ClCompile Include="Stage1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TurorialStage.cpp" />
   </ItemGroup>
   <ItemGroup>

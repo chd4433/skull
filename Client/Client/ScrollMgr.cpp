@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "ScrollMgr.h"
-
+#include "Player.h"
 
 IMPLEMENT_SINGLETON(CScrollManager)
 
@@ -32,6 +32,10 @@ void CScrollManager::ScrollLock(SCENE_ID eID)
 			m_iScrollY = WINCY - 600;
 		break;
 	case SCENE_STAGE1:
+		if (WINCX - 2400 > m_iScrollX)
+			m_iScrollX = WINCX - 2400;
+		if (WINCY - 600 > m_iScrollY)
+			m_iScrollY = WINCY - 600;
 		break;
 	case SCENE_STAGE2:
 		break;

@@ -4,7 +4,7 @@
 #include "BitmapMgr.h"
 #include "FrameMgr.h"
 #include "ScrollMgr.h"
-
+#include "CollisionMgr.h"
 CMainGame::CMainGame()
 {
 }
@@ -21,6 +21,7 @@ HRESULT CMainGame::Initialize()
 	m_pKeyMgr = CKeyMgr::GetInstance();
 	m_pBmpMgr = CBitmapMgr::GetInstance();
 	m_pSceneMgr = CSceneMgr::GetInstance();
+	m_pCollisionMgr = CCollisionMgr::GetInstance();
 	if (FAILED(CBitmapMgr::GetInstance()->LoadBmpFromPath(L"../Binary/Path.txt")))
 		return E_FAIL;
 	if (FAILED(m_pSceneMgr->ChangeScene(SCENE_LOGO)))//무조건 마지막

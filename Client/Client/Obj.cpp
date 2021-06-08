@@ -15,6 +15,8 @@ HRESULT CObj::Initialize()
 	m_pKeyMgr = CKeyMgr::GetInstance();
 	m_pBmpMgr = CBitmapMgr::GetInstance();
 	m_pRenderMgr = CRenderMgr::GetInstance();
+	m_pCollisionMgr = CCollisionMgr::GetInstance();
+	m_pSCenceMgr = CSceneMgr::GetInstance();
 
 	return NOERROR;
 }
@@ -56,5 +58,7 @@ void CObj::FrameMove(const float& fTimeDelta)
 	if (int(m_tFrame.fX) >= int(m_tFrame.fCntX))
 	{
 		m_tFrame.fX = 0.f;
+		if (int(m_tFrame.fX) >= int(m_tFrame.fCntX))
+			m_tFrame.fX = 0.f;
 	}
 }

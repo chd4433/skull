@@ -4,6 +4,7 @@
 #include "SceneMgr.h"
 #include "ScrollMgr.h"
 #include "Obj.h"
+#include "Portal.h"
 
 CTutorialStage::CTutorialStage()
 {
@@ -20,6 +21,7 @@ HRESULT CTutorialStage::Initialize()
 	CObj* pPlayer = CPlayer::Create();
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_TUTORIAL);
 	m_pObjMgr->Add(PLAYER, pPlayer);
+	m_pObjMgr->Add(PORTAL, CPortal::Create(1379, 290));
 
 	//pObj = CPortal::Create(2231.25f, 357.354f);
 	//m_pGameMgr->Add_GameObject(MAP, pObj);
@@ -49,29 +51,25 @@ INT CTutorialStage::Update(const float& fTimeDelta)
 	//{
 	//	CScrollManager::Set_ScrollX(5);
 	//}
-
 	return 0;
 }
 
 VOID CTutorialStage::Render(HDC hDC)
 {
-	//int iScrollX = CScrollManager::Get_ScrollX();
-	//int iScrollY = CScrollManager::Get_ScrollY();
-	CObj* pPlayer = CPlayer::Create();
-	
-	INFO iScroll = static_cast<CPlayer*>(pPlayer)->GetInfo(); //?
+	int iScrollX = CScrollManager::Get_ScrollX();
 	int iScrollY = CScrollManager::Get_ScrollY();
-	HDC hMemDC = m_pBmpMgr->FindBmp(L"Map1");
-	BitBlt(hDC, -iScroll.fX, iScrollY, 1600 + iScroll.fX, 600-iScrollY, hMemDC, 0, 0, SRCCOPY);
-	m_pRenderMgr->Render(hDC);
-
-	// 임시 사각형
-	RECT tmpRect1 = { 0, 370, 135, 600 };
-	FrameRect(hDC, &tmpRect1, (HBRUSH)RGB(255, 0, 0));
-	RECT tmpRect2 = { 135, 530, 800, 600 };
-	FrameRect(hDC, &tmpRect2, (HBRUSH)RGB(255, 0, 0));
+	//CObj* pPlayer = CPlayer::Create();
 	//
-
+	//INFO iScroll = static_cast<CPlayer*>(pPlayer)->GetInfo(); //?
+	//int iScrollY = CScrollManager::Get_ScrollY();
+	HDC hMemDC = m_pBmpMgr->FindBmp(L"Map1");
+	BitBlt(hDC, iScrollX, iScrollY, 1600, 600, hMemDC, 0, 0, SRCCOPY);
+	if (m_pSCenceMgr->Get_ChangeScene())
+	{
+		m_pSCenceMgr->ChangeScene(m_pSCenceMgr->Get_NextScene());
+	}
+	else
+		m_pRenderMgr->Render(hDC);
 	//if (m_pKeyMgr->KeyDown(KEY_NEXTSTAGE))
 	//{
 	//	m_pSceneMgr->ChangeScene(CSceneMgr::SCENE_STAGE1);

@@ -38,3 +38,4 @@ using namespace std;
 #include "RenderMgr.h"
 #include "SceneMgr.h"
 #include "ScrollMgr.h"
+#include "CollisionMgr.h"

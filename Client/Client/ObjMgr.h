@@ -13,6 +13,7 @@ public:
 	CObj* Get_Player() { return m_ObjLst[PLAYER].front(); }	// 플레이어만
 	OBJLIST& Get_ObjLst(OBJID eID) {	return m_ObjLst[eID];}
 
+
 public:
 	HRESULT	Update(const float& fTimeDelta);
 

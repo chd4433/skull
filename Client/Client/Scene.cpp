@@ -29,7 +29,12 @@ INT CScene::Update(const float& fTimeDelta)
 
 VOID CScene::Render(HDC hDC)
 {
-	return VOID();
+	if (m_pSCenceMgr->Get_ChangeScene())
+	{
+		m_pSCenceMgr->ChangeScene(m_pSCenceMgr->Get_NextScene());
+	}
+	else
+		m_pRenderMgr->Render(hDC);
 }
 
 void CScene::Release()

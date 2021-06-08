@@ -39,6 +39,8 @@ void CKeyMgr::UpdateKey()
 		m_dwCurKey |= KEY_DASH;
 	if (GetAsyncKeyState(0x58) & 0x8000)		// 0x58 == 'X'
 		m_dwCurKey |= KEY_ATTACK;
+	if (GetAsyncKeyState(0x46) & 0x8000)		// 0x46 == 'F'
+		m_dwCurKey |= KEY_INTERECT;
 }
 
 bool CKeyMgr::KeyDown(DWORD dwCurKey)

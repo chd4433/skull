@@ -56,6 +56,15 @@
     <Filter Include="02 Scene\01 tutorial Stage">
       <UniqueIdentifier>{7acb8d31-cc22-440d-b073-fe7104b9c0ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97 Managers\04CollisionMgr">
+      <UniqueIdentifier>{df85c70d-db3d-4548-bcdc-e8d60458f68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\01 Portal">
+      <UniqueIdentifier>{e992a58c-7461-4501-b193-f13741904198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02 Scene\02 Stage1">
+      <UniqueIdentifier>{9c50aa77-af7e-465e-afc1-73a9575a861b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -124,6 +133,15 @@
     <ClInclude Include="TurorialStage.h">
       <Filter>02 Scene\01 tutorial Stage</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionMgr.h">
+      <Filter>97 Managers\04CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>01 Obj\01 Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>02 Scene\02 Stage1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -183,6 +201,15 @@
     </ClCompile>
     <ClCompile Include="TurorialStage.cpp">
       <Filter>02 Scene\01 tutorial Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionMgr.cpp">
+      <Filter>97 Managers\04CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>01 Obj\01 Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>02 Scene\02 Stage1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

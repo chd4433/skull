@@ -4,6 +4,9 @@ class CObjMgr;
 class CKeyMgr;
 class CBitmapMgr;
 class CRenderMgr;
+class CCollisionMgr;
+class CSceneMgr;
+
 class CObj
 {
 public:
@@ -14,6 +17,7 @@ public:
 	VOID SetInfoXleft() { m_tInfo.fX -= 5; }
 	VOID SetInfoXright() { m_tInfo.fX += 5; }
 	INFO GetInfo() { return m_tInfo; }
+	RECT& GetRect() { return m_tRect; }
 public:
 	// ±øÅë
 	virtual HRESULT Initialize();
@@ -36,5 +40,7 @@ protected:
 	CKeyMgr* m_pKeyMgr = nullptr;
 	CBitmapMgr* m_pBmpMgr = nullptr;
 	CRenderMgr* m_pRenderMgr = nullptr;
+	CCollisionMgr* m_pCollisionMgr = nullptr;//?
+	CSceneMgr* m_pSCenceMgr = nullptr;
 };
 

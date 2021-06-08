@@ -3,6 +3,7 @@
 
 #include "SceneLogo.h"
 #include "TurorialStage.h"
+#include "Stage1.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
@@ -42,6 +43,7 @@ HRESULT CSceneMgr::ChangeScene(SCENE_ID eID)
 			m_pScene = CTutorialStage::Create();
 			break;
 		case SCENE_STAGE1:
+			m_pScene = CStage1::Create();
 			break;
 		default:
 			break;
@@ -53,6 +55,12 @@ HRESULT CSceneMgr::ChangeScene(SCENE_ID eID)
 		m_ePreScene = m_eCurScene;
 	}
 
+	return NOERROR;
+}
+
+HRESULT CSceneMgr::Change_NextScene()
+{
+	m_eNextScene = SCENE_ID(m_ePreScene + 1);
 	return NOERROR;
 }
 

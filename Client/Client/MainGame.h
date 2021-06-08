@@ -25,6 +25,7 @@ private:
 	CKeyMgr* m_pKeyMgr = nullptr;
 	CBitmapMgr* m_pBmpMgr = nullptr;
 	CSceneMgr* m_pSceneMgr = nullptr;
+	CCollisionMgr* m_pCollisionMgr = nullptr;
 
 public:
 	static CMainGame* Create();

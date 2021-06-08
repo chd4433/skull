@@ -12,8 +12,12 @@ public:
 	virtual ~CPlayer();
 
 public:
+	VOID Setbool(bool Bool) { bScrollrock = Bool; }
+public:
 	SCENE_ID Get_Scene() { return CurrScene; }
 	VOID Set_Scene(SCENE_ID ChangeScene) { CurrScene = ChangeScene; }
+	VOID SetRectPlayer(float fCX, float fCY);
+	RECT GetRectPlayer() { return rectPlayer; }
 public:
 	// ±øÅë
 	virtual HRESULT Initialize();
@@ -22,6 +26,7 @@ public:
 
 private:
 	HRESULT ChangeState(STATE eState);
+	VOID	Update_Collision();
 
 private:
 	STATE m_ePreState = END;
@@ -33,6 +38,9 @@ private:
 
 public:
 	static CPlayer* Create();
+private:
+	bool bScrollrock = false;
+	RECT rectPlayer;
 
 public:
 	bool	m_bCharacter1;
@@ -42,9 +50,13 @@ public:
 	bool	m_bFall = false;
 	bool	m_bDash = false;
 	bool	m_bGravity = false;
+	float	m_fMoveLen = 0.f;
 	float	m_fDashLen = 0.f;
 	float	m_fJumpHeight = 0.f;
 	float	m_fGravityAccel = 0.f;
 	float	m_fAttackCount = 0.f;
+
+public:
+	float	m_fMapCount = 0.f;
 };
 

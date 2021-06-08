@@ -10,3 +10,12 @@ Map2 ../Binary/Map/Map2.bmp
 Map3 ../Binary/Map/Map3.bmp
 WalkR ../Binary/Player/Walk/Player_Walk_HeadR.bmp
 WalkL ../Binary/Player/Walk/Player_Walk_HeadL.bmp
+GroundTree_AttackL ../Binary/Monster/GroundTree/Attack/Ground_Tree_AttackL-sheet.bmp
+GroundTree_AttackR ../Binary/Monster/GroundTree/Attack/Ground_Tree_AttackR-sheet.bmp
+GroundTree_HitL ../Binary/Monster/GroundTree/Hit/Ground_Tree_HitL-sheet.bmp
+GroundTree_HitR ../Binary/Monster/GroundTree/Hit/Ground_Tree_HitR-sheet.bmp
+GroundTree_IdleL ../Binary/Monster/GroundTree/Idle/Ground_Tree_IdleL-sheet.bmp
+GroundTree_IdleR ../Binary/Monster/GroundTree/Idle/Ground_Tree_IdleR-sheet.bmp
+GroundTree_WalkL ../Binary/Monster/GroundTree/Walk/Ground_Tree_WalkL-sheet.bmp
+GroundTree_WalkR ../Binary/Monster/GroundTree/Walk/Ground_Tree_WalkR-sheet.bmp
+Portal ../Binary/Portal/Portal.bmp
