@@ -150,6 +150,7 @@
     <ClInclude Include="Function.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="GrondTree.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="FrameMgr.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="GrondTree.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />

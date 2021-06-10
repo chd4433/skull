@@ -26,7 +26,7 @@ INT CPortal::Update(const float& fTimeDelta)
 {
 	UpdateRect();
 	RECT temp;
-	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();//CPlayer::Create()->GetRectPlayer();
+	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	if (IntersectRect(&temp, &m_tRect, &PlayerRect))
 	{
 		m_bRenderUI = true;

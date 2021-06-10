@@ -65,6 +65,12 @@
     <Filter Include="02 Scene\02 Stage1">
       <UniqueIdentifier>{9c50aa77-af7e-465e-afc1-73a9575a861b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\02 Monster">
+      <UniqueIdentifier>{40c9ea6e-c87f-4a59-bb57-1e09bb7fc626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\02 Monster\00 GroundTree">
+      <UniqueIdentifier>{dc29c97a-05bd-48f4-94e7-53573bf47a2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -142,6 +148,9 @@
     <ClInclude Include="Stage1.h">
       <Filter>02 Scene\02 Stage1</Filter>
     </ClInclude>
+    <ClInclude Include="GrondTree.h">
+      <Filter>01 Obj\02 Monster\00 GroundTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -210,6 +219,9 @@
     </ClCompile>
     <ClCompile Include="Stage1.cpp">
       <Filter>02 Scene\02 Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="GrondTree.cpp">
+      <Filter>01 Obj\02 Monster\00 GroundTree</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

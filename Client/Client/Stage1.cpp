@@ -5,6 +5,7 @@
 #include "ScrollMgr.h"
 #include "Obj.h"
 #include "Portal.h"
+#include "GrondTree.h"
 
 CStage1::CStage1()
 {
@@ -24,6 +25,8 @@ HRESULT CStage1::Initialize()
 	CObj* pPlayer = CPlayer::Create();
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
 	m_pObjMgr->Add(PLAYER, pPlayer);
+	m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
+	m_pObjMgr->Add(MONSTER, CGrondTree::Create(1000, 495));
 	return NOERROR;
 }
 
