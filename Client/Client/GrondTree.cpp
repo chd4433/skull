@@ -20,11 +20,83 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_tInfo.fCX = 57.f;
 	m_tInfo.fCY = 66.f;
 	ChangeState(IDLE);
+	CObj::Update_Collision();
 	return NOERROR;
 }
 
 INT CGrondTree::Update(const float& fTimeDelta)
 {
+	//SetRect();
+	CheckWalk();
+	CheckAttack();
+	switch (m_eCurrState)
+	{
+	case CGrondTree::IDLE:
+		if (!m_bRight)
+		//else
+			break;
+	case CGrondTree::WALK:
+		if (!m_bRight)
+		{
+			for (auto pCollRect : m_pCollisionMgr->GetlistCollision())
+			{
+				RECT tTemp = {};
+				RECT tDstRect = { pCollRect->left,pCollRect->top,pCollRect->right,pCollRect->bottom };
+				if (IntersectRect(&tTemp, &rectGroundTree, &tDstRect))
+				{
+					float fDstX = (float)tDstRect.right - tDstRect.left;
+					float fDstY = (float)tDstRect.bottom - tDstRect.top;
+
+					float fMoveX = (float)tTemp.right - tTemp.left;
+					float fMoveY = (float)tTemp.bottom - tTemp.top;
+					if (fMoveX < fMoveY)
+					{
+						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
+						{
+							m_tInfo.fX -= fMoveX;
+							m_bRight != m_bRight;
+						}
+						else
+						{
+							m_tInfo.fX += fMoveX;
+							m_bRight != m_bRight;
+						}
+					}
+				}
+			}
+			//if (m_tInfo.fX > 550)
+			//{
+			//	--m_tInfo.fX;
+			//}
+			//else
+			//{
+			//	m_bRight = !m_bRight;
+			//	SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
+			//}
+
+		}	
+		else
+		{
+			if (m_tInfo.fX < 1100)
+			{
+				++m_tInfo.fX;
+
+			}
+			else
+			{
+				m_bRight = !m_bRight;
+				SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
+			}
+
+		}
+		break;
+	case CGrondTree::ATTACK:
+
+		break;
+	default:
+		break;
+	}
+
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
 	FrameMove(fTimeDelta);
@@ -66,7 +138,18 @@ HRESULT CGrondTree::ChangeState(STATE eState)
 				SetFrame(L"GroundTree_IdleR", 10.f, 5, 1);
 			break;
 		case CGrondTree::WALK:
-
+			if (!m_bRight)
+				SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
+			else
+				SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
+			SetInfo(54.f, 65.f);
+			break;
+		case CGrondTree::ATTACK:
+			if (!m_bRight)
+				SetFrame(L"GroundTree_AttackL", 5.f, 8, 1);
+			else
+				SetFrame(L"GroundTree_AttackR", 5.f, 8, 1);
+			SetInfo(82.f, 67.f);
 			break;
 		default:
 			break;
@@ -83,11 +166,34 @@ BOOL CGrondTree::CheckWalk()
 	RECT temp;
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	RECT CheckPlayer = m_tRect;
-	if (IntersectRect(&temp, &m_tRect, &PlayerRect))
+	CheckPlayer.left -= 450, CheckPlayer.right += 500, CheckPlayer.top -= 520;
+	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect)&&m_tFrame.fX==0)
 	{
 		ChangeState(WALK);
 	}
 	return 0;
+}
+
+BOOL CGrondTree::CheckAttack()
+{
+	UpdateRect();
+	RECT temp;
+	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
+	RECT CheckPlayer = m_tRect;
+	CheckPlayer.left -= 200, CheckPlayer.right += 200;
+	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect) && m_tFrame.fX == 0)
+	{
+		ChangeState(ATTACK);
+	}
+	return 0;
+}
+
+void CGrondTree::SetRect()
+{
+	rectGroundTree.left = m_tInfo.fX - 18;
+	rectGroundTree.right = m_tInfo.fX + 18;
+	rectGroundTree.top = m_tRect.top;
+	rectGroundTree.bottom = m_tRect.bottom;
 }
 
 CGrondTree* CGrondTree::Create(float fStartX, float fStartY)

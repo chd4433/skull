@@ -16,6 +16,8 @@ public:
 	static CGrondTree* Create(float fStartX, float fStartY);
 	HRESULT ChangeState(STATE eState);
 	BOOL CheckWalk();
+	BOOL CheckAttack();
+	void SetRect();
 
 private:
 	STATE m_ePreState = DEAD;
@@ -25,5 +27,6 @@ private:
 
 private:
 	bool m_bRight;
+	RECT rectGroundTree;
 };
 

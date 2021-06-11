@@ -62,3 +62,34 @@ void CObj::FrameMove(const float& fTimeDelta)
 			m_tFrame.fX = 0.f;
 	}
 }
+
+void CObj::SetInfo(float fCntX, float fCntY)
+{
+	m_tInfo.fCX = fCntX;
+	m_tInfo.fCY = fCntY;
+}
+
+VOID CObj::Update_Collision()
+{
+	switch (CurrScenes)
+	{
+	case SCENE_LOGO:
+		break;
+	case SCENE_TUTORIAL:
+		m_pCollisionMgr->LoadCollisionFromPath(L"Map1Collision");
+		break;
+	case SCENE_STAGE1:
+		m_pCollisionMgr->LoadCollisionFromPath(L"Map2Collision");
+		break;
+	case SCENE_STAGE2:
+		m_pCollisionMgr->LoadCollisionFromPath(L"Map3Collision");
+		break;
+	case SCENE_GAMEOVER:
+		break;
+	case SCENE_END:
+		break;
+	default:
+		break;
+	}
+
+}

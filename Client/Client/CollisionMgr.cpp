@@ -95,7 +95,7 @@ bool CCollisionMgr::Check_Sphere(CObj* pDst, CObj* pSrc)
 
 	// 두 원의 거리를 구한다. 피타고라스를 이용.
 	float w = pDst->GetInfo().fX - pSrc->GetInfo().fX;
-	float h = pDst->GetInfo().fY - pSrc->GetInfo().fY;
+	float h = pDst->GetInfo().fY - pSrc->GetInfo().fY; 
 
 	// sqrtf(X): X에 대한 제곱근을 구해주는 함수.
 	float fDist = sqrtf(w * w + h * h);

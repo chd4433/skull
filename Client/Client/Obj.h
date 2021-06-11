@@ -23,17 +23,21 @@ public:
 	virtual HRESULT Initialize();
 	virtual INT Update(const float& fTimeDelta);
 	virtual VOID Render(HDC hDC);
+	VOID SetObjScene(SCENE_ID ChangeScene) { CurrScenes = ChangeScene; }
 
 protected:
 	virtual void Release();
 	void UpdateRect();
 	void SetFrame(wstring strKey, float fSpeed, float fCntX, float fCntY, float fX = 0.f, float fY = 0.f);
 	void FrameMove(const float& fTimeDelta);
+	void SetInfo(float fCntX, float fCntY);
+	void Update_Collision();
 
 protected:
 	INFO m_tInfo;
 	RECT m_tRect;
 	FRAME m_tFrame;
+	SCENE_ID CurrScenes;
 
 protected:
 	CObjMgr* m_pObjMgr = nullptr;

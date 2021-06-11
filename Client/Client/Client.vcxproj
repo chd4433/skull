@@ -148,6 +148,7 @@
     <ClInclude Include="FrameMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Function.h" />
+    <ClInclude Include="GroundTreeAttack.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="GrondTree.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="FrameMgr.cpp" />
+    <ClCompile Include="GroundTreeAttack.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="GrondTree.cpp" />

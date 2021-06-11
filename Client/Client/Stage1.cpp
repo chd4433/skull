@@ -26,7 +26,10 @@ HRESULT CStage1::Initialize()
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
 	m_pObjMgr->Add(PLAYER, pPlayer);
 	m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
-	m_pObjMgr->Add(MONSTER, CGrondTree::Create(1000, 495));
+	CObj* pGroundMonster = CGrondTree::Create(1000,495);
+	pGroundMonster->SetObjScene(SCENE_STAGE1);
+	m_pObjMgr->Add(MONSTER, pGroundMonster);
+	CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"Map2");
 	return NOERROR;
 }
 
