@@ -77,6 +77,9 @@
     <Filter Include="01 Obj\03 Monster Attack\GroundTree Attack">
       <UniqueIdentifier>{e7ab1dcc-ab9e-48ba-80c8-f0a42e1164e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\02 Monster\01 RangeTree">
+      <UniqueIdentifier>{4baebb9d-d72d-4e51-b655-d74bedd2a732}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -160,6 +163,9 @@
     <ClInclude Include="GroundTreeAttack.h">
       <Filter>01 Obj\03 Monster Attack\GroundTree Attack</Filter>
     </ClInclude>
+    <ClInclude Include="RangeTree.h">
+      <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -234,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="GroundTreeAttack.cpp">
       <Filter>01 Obj\03 Monster Attack\GroundTree Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeTree.cpp">
+      <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

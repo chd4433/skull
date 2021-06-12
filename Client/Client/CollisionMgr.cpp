@@ -117,16 +117,16 @@ HRESULT CCollisionMgr::LoadCollisionFromPath(wstring strPath)
 
 	if (fin.fail())
 		return E_FAIL;;
-	RECT* pRect = nullptr;
 	RECT rectCollision = {};
 
 	while (true)
 	{
+		RECT* pRect = new RECT;
 		if (fin.eof())
 			break;
 
-		fin >> rectCollision.left >> rectCollision.top >> rectCollision.right >> rectCollision.bottom;
-		pRect = &rectCollision;
+		fin >> pRect->left >> pRect->top >> pRect->right >> pRect ->bottom;
+		//pRect = &rectCollision;
 		if (FAILED(AddCollision(pRect)))
 			return E_FAIL;
 	}
@@ -148,7 +148,8 @@ HRESULT CCollisionMgr::AddCollision(RECT* pRect)
 
 void CCollisionMgr::Release()
 {
-	for (auto pColl : m_lstCollision)
-		SafeDelete(pColl);
+	for (RECT* pColl : m_lstCollision)
+		delete pColl;
+		//SafeDelete(pColl);
 	m_lstCollision.clear();
 }

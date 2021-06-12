@@ -18,4 +18,10 @@ GroundTree_IdleL ../Binary/Monster/GroundTree/Idle/Ground_Tree_IdleL-sheet.bmp
 GroundTree_IdleR ../Binary/Monster/GroundTree/Idle/Ground_Tree_IdleR-sheet.bmp
 GroundTree_WalkL ../Binary/Monster/GroundTree/Walk/Ground_Tree_WalkL-sheet.bmp
 GroundTree_WalkR ../Binary/Monster/GroundTree/Walk/Ground_Tree_WalkR-sheet.bmp
-Portal ../Binary/Portal/Portal.bmp
+Portal ../Binary/Portal/Stage1/Portal.bmp
+Active_Portal2 ../Binary/Portal/Stage2/Active/Activate_sheet.bmp
+Deactive_Portal2 ../Binary/Portal/Stage2/Deactive/Deactivate.bmp
+GroundTree_Attack_Motion ../Binary/Monster/GroundTree/Attack/Ent_Attack..bmp
+RangeTree_Attack ../Binary/Monster/RangeTree/Attack/Range_Tree_Attack00-sheet.bmp
+RangeTree_Idle ../Binary/Monster/RangeTree/idle/Range_Tree_Idle00-sheet.bmp
+RangeTree_Death ../Binary/Monster/RangeTree/Death/Range_Tree_Dead00.bmp

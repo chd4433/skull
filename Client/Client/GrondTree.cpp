@@ -1,8 +1,9 @@
 #include "framework.h"
 #include "GrondTree.h"
 #include "Player.h"
+#include "GroundTreeAttack.h"
 
-CGrondTree::CGrondTree()
+CGrondTree::CGrondTree():CObj()
 {
 }
 
@@ -19,6 +20,8 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_tInfo.fY = fStartY;
 	m_tInfo.fCX = 57.f;
 	m_tInfo.fCY = 66.f;
+	m_bGetTick = FALSE;
+	m_bMotionGetTick = FALSE;
 	ChangeState(IDLE);
 	return NOERROR;
 }
@@ -28,7 +31,7 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	SetRect();
 	CheckWalk();
 	CheckAttack();
-	//Update_Collision();
+	Update_Collision();
 	//m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	switch (m_eCurrState)
 	{
@@ -55,16 +58,18 @@ INT CGrondTree::Update(const float& fTimeDelta)
 						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
 						{
 							m_tInfo.fX -= fMoveX;
-							m_bRight != m_bRight;
+							m_bRight = !m_bRight;
 						}
 						else
 						{
 							m_tInfo.fX += fMoveX;
-							m_bRight != m_bRight;
+							m_bRight = !m_bRight;
 						}
 					}
 				}
 			}
+			
+			--m_tInfo.fX;
 			//if (m_tInfo.fX > 550)
 			//{
 			//	--m_tInfo.fX;
@@ -80,6 +85,7 @@ INT CGrondTree::Update(const float& fTimeDelta)
 		{
 			if (m_tInfo.fX < 1100)
 			{
+				SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
 				++m_tInfo.fX;
 
 			}
@@ -92,12 +98,21 @@ INT CGrondTree::Update(const float& fTimeDelta)
 		}
 		break;
 	case CGrondTree::ATTACK:
-
+		if (!m_bGetTick)
+		{
+			Attack_Time = GetTickCount();
+			m_bGetTick = !m_bGetTick;
+		}
+		if (Attack_Time + 1000 < GetTickCount()&& m_tFrame.fX > 6)
+		{
+			m_pObjMgr->Add(MON_ATT, CGroundTreeAttack::Create());
+			m_bGetTick = !m_bGetTick;
+		}
 		break;
 	default:
 		break;
 	}
-
+	m_pCollisionMgr->Release();
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
 	FrameMove(fTimeDelta);
@@ -184,7 +199,13 @@ BOOL CGrondTree::CheckAttack()
 	CheckPlayer.left -= 200, CheckPlayer.right += 200;
 	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect) && m_tFrame.fX == 0)
 	{
-		ChangeState(ATTACK);
+		if (!m_bMotionGetTick)
+		{
+			AttackMotion_Time = GetTickCount();
+			m_bMotionGetTick = !m_bMotionGetTick;
+		}
+		if(AttackMotion_Time+1000< GetTickCount())
+			ChangeState(ATTACK);
 	}
 	return 0;
 }

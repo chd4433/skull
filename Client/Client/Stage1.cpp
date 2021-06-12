@@ -6,6 +6,7 @@
 #include "Obj.h"
 #include "Portal.h"
 #include "GrondTree.h"
+#include "RangeTree.h"
 
 CStage1::CStage1()
 {
@@ -29,7 +30,8 @@ HRESULT CStage1::Initialize()
 	CObj* pGroundMonster = CGrondTree::Create(1000,495);
 	pGroundMonster->SetObjScene(SCENE_STAGE1);
 	m_pObjMgr->Add(MONSTER, pGroundMonster);
-	CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
+	m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
+	//CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	return NOERROR;
 }
 
@@ -67,4 +69,6 @@ CStage1* CStage1::Create()
 
 void CStage1::Release()
 {
+	m_pObjMgr->Reset();
+	m_pRenderMgr->Clear();
 }

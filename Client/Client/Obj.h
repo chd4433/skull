@@ -44,7 +44,7 @@ protected:
 	CKeyMgr* m_pKeyMgr = nullptr;
 	CBitmapMgr* m_pBmpMgr = nullptr;
 	CRenderMgr* m_pRenderMgr = nullptr;
-	CCollisionMgr* m_pCollisionMgr = nullptr;//?
+	CCollisionMgr* m_pCollisionMgr = nullptr;
 	CSceneMgr* m_pSCenceMgr = nullptr;
 };
 

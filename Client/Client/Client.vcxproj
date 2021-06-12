@@ -156,6 +156,7 @@
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="RangeTree.h" />
     <ClInclude Include="RenderMgr.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="RangeTree.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneLogo.cpp" />

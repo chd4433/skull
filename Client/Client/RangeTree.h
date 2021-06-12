@@ -1,21 +1,21 @@
 #pragma once
 #include "Obj.h"
-class CGrondTree : public CObj
+class CRangeTree : public CObj
 {
 public:
-	enum STATE { IDLE, ATTACK, WALK,DEAD };
+	enum STATE { IDLE, ATTACK, DEAD };
 public:
-	explicit CGrondTree();
-	virtual ~CGrondTree();
+	explicit CRangeTree();
+	virtual ~CRangeTree();
 public:
 	// ±øÅë
 	virtual HRESULT Initialize(float fStartX, float fStartY);
 	virtual INT Update(const float& fTimeDelta);
 	virtual VOID Render(HDC hDC);
-public: 
-	static CGrondTree* Create(float fStartX, float fStartY);
+public:
+	static CRangeTree* Create(float fStartX, float fStartY);
 	HRESULT ChangeState(STATE eState);
-	BOOL CheckWalk();
+	BOOL CheckIdle();
 	BOOL CheckAttack();
 	void SetRect();
 
