@@ -20,15 +20,16 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_tInfo.fCX = 57.f;
 	m_tInfo.fCY = 66.f;
 	ChangeState(IDLE);
-	CObj::Update_Collision();
 	return NOERROR;
 }
 
 INT CGrondTree::Update(const float& fTimeDelta)
 {
-	//SetRect();
+	SetRect();
 	CheckWalk();
 	CheckAttack();
+	//Update_Collision();
+	//m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	switch (m_eCurrState)
 	{
 	case CGrondTree::IDLE:

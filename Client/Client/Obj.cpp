@@ -76,13 +76,13 @@ VOID CObj::Update_Collision()
 	case SCENE_LOGO:
 		break;
 	case SCENE_TUTORIAL:
-		m_pCollisionMgr->LoadCollisionFromPath(L"Map1Collision");
+		m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map1Collision.txt");
 		break;
 	case SCENE_STAGE1:
-		m_pCollisionMgr->LoadCollisionFromPath(L"Map2Collision");
+		m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 		break;
 	case SCENE_STAGE2:
-		m_pCollisionMgr->LoadCollisionFromPath(L"Map3Collision");
+		m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map3Collision.txt");
 		break;
 	case SCENE_GAMEOVER:
 		break;

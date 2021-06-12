@@ -29,7 +29,7 @@ HRESULT CStage1::Initialize()
 	CObj* pGroundMonster = CGrondTree::Create(1000,495);
 	pGroundMonster->SetObjScene(SCENE_STAGE1);
 	m_pObjMgr->Add(MONSTER, pGroundMonster);
-	CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"Map2");
+	CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	return NOERROR;
 }
 
