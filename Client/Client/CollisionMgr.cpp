@@ -92,7 +92,7 @@ bool CCollisionMgr::Check_Sphere(CObj* pDst, CObj* pSrc)
 
 	// 두 원의 반지름 합을 구한다.
 	float fSumRad = (pDst->GetInfo().fCX + pSrc->GetInfo().fCX) * 0.5f;
-
+	 
 	// 두 원의 거리를 구한다. 피타고라스를 이용.
 	float w = pDst->GetInfo().fX - pSrc->GetInfo().fX;
 	float h = pDst->GetInfo().fY - pSrc->GetInfo().fY; 

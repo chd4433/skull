@@ -27,7 +27,6 @@ public:
 private:
 	HRESULT ChangeState(STATE eState);
 	VOID	Update_Collision();
-
 private:
 	STATE m_ePreState = END;
 	STATE m_eCurrState = END;
@@ -50,6 +49,7 @@ public:
 	bool	m_bFall = false;
 	bool	m_bDash = false;
 	bool	m_bGravity = false;
+	bool	m_bChangeCharacter = false;
 	float	m_fMoveLen = 0.f;
 	float	m_fDashLen = 0.f;
 	float	m_fJumpHeight = 0.f;

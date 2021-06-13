@@ -27,3 +27,4 @@ GroundTree_Attack_Motion ../Binary/Monster/GroundTree/Attack/Ent_Attack..bmp
 RangeTree_Attack ../Binary/Monster/RangeTree/Attack/Range_Tree_Attack00-sheet.bmp
 RangeTree_Idle ../Binary/Monster/RangeTree/idle/Range_Tree_Idle00-sheet.bmp
 RangeTree_Death ../Binary/Monster/RangeTree/Death/Range_Tree_Dead00.bmp
+Grave ../Binary/Grave/Grave_sheet.bmp

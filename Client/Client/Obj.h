@@ -32,12 +32,15 @@ protected:
 	void FrameMove(const float& fTimeDelta);
 	void SetInfo(float fCntX, float fCntY);
 	void Update_Collision();
+	BOOL GetbGrave() { return m_bInterectGrave; }
 
 protected:
 	INFO m_tInfo;
 	RECT m_tRect;
 	FRAME m_tFrame;
 	SCENE_ID CurrScenes;
+
+	bool m_bInterectGrave;
 
 protected:
 	CObjMgr* m_pObjMgr = nullptr;

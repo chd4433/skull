@@ -86,6 +86,9 @@
     <Filter Include="02 Scene\03 Stage2">
       <UniqueIdentifier>{47e62eb8-125e-41ca-b662-6a74f743aaaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\05 Grave">
+      <UniqueIdentifier>{da01a60a-11b9-49fe-bfed-0c2c1a061e25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -178,6 +181,9 @@
     <ClInclude Include="Stage2.h">
       <Filter>02 Scene\03 Stage2</Filter>
     </ClInclude>
+    <ClInclude Include="Grave.h">
+      <Filter>01 Obj\05 Grave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -261,6 +267,9 @@
     </ClCompile>
     <ClCompile Include="Stage2.cpp">
       <Filter>02 Scene\03 Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="Grave.cpp">
+      <Filter>01 Obj\05 Grave</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

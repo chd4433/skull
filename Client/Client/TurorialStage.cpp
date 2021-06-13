@@ -5,6 +5,7 @@
 #include "ScrollMgr.h"
 #include "Obj.h"
 #include "Portal.h"
+#include "Grave.h"
 
 CTutorialStage::CTutorialStage()
 {
@@ -24,6 +25,7 @@ HRESULT CTutorialStage::Initialize()
 	CObj* pPortal = CPortal::Create(1379, 290);
 	pPortal->SetObjScene(SCENE_TUTORIAL);
 	m_pObjMgr->Add(PORTAL, pPortal);
+	m_pObjMgr->Add(GRAVE, CGrave::Create(720,505));
 
 	//pObj = CPortal::Create(2231.25f, 357.354f);
 	//m_pGameMgr->Add_GameObject(MAP, pObj);

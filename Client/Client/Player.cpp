@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Player.h"
 #include "Throw.h"
+#include "Grave.h"
 
 SCENE_ID CurrScene = SCENE_END;
 
@@ -50,6 +51,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 {
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
+	if (m_pObjMgr->Get_SingleObjLst(GRAVE)==nullptr)
+	{
+		m_bChangeCharacter = TRUE;
+	}
+	else
+	{
+		m_bChangeCharacter = dynamic_cast<CGrave*>(m_pObjMgr->Get_SingleObjLst(GRAVE))->GetbGrave();
+	}
 	switch (m_eCurrState)
 	{
 	case CPlayer::IDLE:
@@ -115,11 +124,15 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 
 		// 캐릭터 교체
-		if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
-			if (m_bCharacter1)	m_bCharacter1 = false;
-			else				m_bCharacter1 = true;
-			m_tInfo.fY--;
+		if (m_bChangeCharacter)
+		{
+			if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
+				if (m_bCharacter1)	m_bCharacter1 = false;
+				else				m_bCharacter1 = true;
+				m_tInfo.fY--;
+			}
 		}
+
 		break;
 	case CPlayer::RUN:
 		// 해당 상태에서 해야되는거
@@ -210,10 +223,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 
 		}
 		// 캐릭터 교체
-		if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
-			if (m_bCharacter1)	m_bCharacter1 = false;
-			else				m_bCharacter1 = true;
-			m_tInfo.fY--;
+		if (m_bChangeCharacter)
+		{
+			if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
+				if (m_bCharacter1)	m_bCharacter1 = false;
+				else				m_bCharacter1 = true;
+				m_tInfo.fY--;
+			}
 		}
 		break;
 	case CPlayer::DASH:

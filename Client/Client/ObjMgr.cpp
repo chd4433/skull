@@ -17,6 +17,13 @@ CObjMgr::~CObjMgr()
 	}
 }
 
+CObj* CObjMgr::Get_SingleObjLst(OBJID eID)
+{
+	if(m_ObjLst[eID].empty())
+		return nullptr;
+	return m_ObjLst[eID].front(); 
+}
+
 HRESULT CObjMgr::Update(const float& fTimeDelta)
 {
 	for (int i = 0; i < OBJID::OBJ_END; ++i)

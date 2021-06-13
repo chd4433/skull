@@ -57,4 +57,6 @@ CStage2* CStage2::Create()
 
 void CStage2::Release()
 {
+	m_pObjMgr->Reset();
+	m_pRenderMgr->Clear();
 }
