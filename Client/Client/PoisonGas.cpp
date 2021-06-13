@@ -37,7 +37,7 @@ INT CPoisonGas::Update(const float& fTimeDelta)
 	if (!m_bOverRange) // 이걸 그릴지 말지 결정하는 조건
 		m_pRenderMgr->AddBack(this);
 	else
-		CPoisonGas::~CPoisonGas();
+		return OBJ_DEAD; //CPoisonGas::~CPoisonGas();
 	return 0;
 }
 

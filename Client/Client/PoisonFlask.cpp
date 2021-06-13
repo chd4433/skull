@@ -42,7 +42,7 @@ INT CPoisonFlask::Update(const float& fTimeDelta)
 	if (!m_bOverRange) // 이걸 그릴지 말지 결정하는 조건
 		m_pRenderMgr->AddBack(this);
 	else
-		CPoisonFlask::~CPoisonFlask();
+		return OBJ_DEAD; //CPoisonFlask::~CPoisonFlask();
 	return 0;
 }
 
