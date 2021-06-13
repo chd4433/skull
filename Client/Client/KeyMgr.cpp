@@ -23,7 +23,7 @@ void CKeyMgr::UpdateKey()
 			m_dwCurKey = !m_dwCurKey;
 	}
 
-	if (GetAsyncKeyState(0x43) & 0x8000)		// 0x43 == 'C'
+	if (GetAsyncKeyState('C') & 0x8000)		// 0x43 == 'C'
 		m_dwCurKey |= KEY_UP;
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 		m_dwCurKey |= KEY_DOWN;
@@ -35,12 +35,14 @@ void CKeyMgr::UpdateKey()
 		m_dwCurKey |= KEY_CHANGE;
 	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
 		m_dwCurKey |= KEY_ENTER;
-	if (GetAsyncKeyState(0x5A) & 0x8000)		// 0x5A == 'Z'
+	if (GetAsyncKeyState('Z') & 0x8000)		// 0x5A == 'Z'
 		m_dwCurKey |= KEY_DASH;
-	if (GetAsyncKeyState(0x58) & 0x8000)		// 0x58 == 'X'
+	if (GetAsyncKeyState('X') & 0x8000)		// 0x58 == 'X'
 		m_dwCurKey |= KEY_ATTACK;
-	if (GetAsyncKeyState(0x46) & 0x8000)		// 0x46 == 'F'
+	if (GetAsyncKeyState('F') & 0x8000)		// 0x46 == 'F'
 		m_dwCurKey |= KEY_INTERECT;
+	if (GetAsyncKeyState('A') & 0x8000)
+		m_dwCurKey |= KEY_SKILL;
 }
 
 bool CKeyMgr::KeyDown(DWORD dwCurKey)

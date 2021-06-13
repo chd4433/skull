@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Player.h"
-#include "Throw.h"
+#include "Energyball.h"
+#include "PoisonFlask.h"
 #include "Grave.h"
 
 SCENE_ID CurrScene = SCENE_END;
@@ -62,9 +63,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 	switch (m_eCurrState)
 	{
 	case CPlayer::IDLE:
-		// 해당 상태에서 해야되는거
-
-		// (임시) 발 아래에 타일이 없으면 낙하
+		// 발 아래에 타일이 없으면 낙하
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
 			if (m_tInfo.fX > 305 && m_tInfo.fX < 1160 && m_tInfo.fY < 505)	ChangeState(FALL);
@@ -80,7 +79,6 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
 			break;
 		}
-		// 나중에 타일에 맞춰서 수정해야댐!
 
 		// 이동
 		if (m_pKeyMgr->KeyPressing(KEY_LEFT)) {
@@ -103,8 +101,18 @@ INT CPlayer::Update(const float& fTimeDelta)
 			ChangeState(JUMP);
 
 		// 공격
-		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
-			ChangeState(ATTACK);
+		if (m_bCharacter1) {
+			if (m_pKeyMgr->KeyPressing(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+		else {
+			if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+
+		// 스킬
+		if (m_pKeyMgr->KeyDown(KEY_SKILL))
+			ChangeState(SKILL);
 
 		// 하단 점프
 		if (m_pKeyMgr->KeyDown(KEY_DOWN)) {
@@ -129,13 +137,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
 				if (m_bCharacter1)	m_bCharacter1 = false;
 				else				m_bCharacter1 = true;
-				m_tInfo.fY--;
+
+				ChangeState(CHANGE);
 			}
 		}
 
 		break;
 	case CPlayer::RUN:
-		// 해당 상태에서 해야되는거
 		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		// 이동
 		if (m_bLeft) {
@@ -148,7 +156,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tRect.left + iScrollX >= 301)
 				CScrollManager::Set_ScrollX(-5);
 		}
-		// (임시) 옆에 타일로 막혀있으면 이동불가
+		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
 			if (m_tInfo.fX - 5 <= 0)	m_tInfo.fX += 5;
@@ -165,9 +173,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX + 5 >= 2400)	m_tInfo.fX -= 5;
 			break;
 		}
-		// 나중에 타일에 맞춰서 수정해야댐!
 
-		// (임시) 발 아래에 타일이 없으면 낙하
+		// 발 아래에 타일이 없으면 낙하
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
 			if (m_tInfo.fX > 310 && m_tInfo.fX < 1160 && m_tInfo.fY < 505)	ChangeState(FALL);
@@ -183,7 +190,6 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
 			break;
 		}
-		// 나중에 타일에 맞춰서 수정해야댐!
 
 		// 멈춤
 		if (!m_bLeft && m_pKeyMgr->KeyUp(KEY_RIGHT))
@@ -202,8 +208,18 @@ INT CPlayer::Update(const float& fTimeDelta)
 			ChangeState(JUMP);
 
 		// 공격
-		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
-			ChangeState(ATTACK);
+		if (m_bCharacter1) {
+			if (m_pKeyMgr->KeyPressing(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+		else {
+			if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+
+		// 스킬
+		if (m_pKeyMgr->KeyDown(KEY_SKILL))
+			ChangeState(SKILL);
 
 		// 하단 점프
 		if (m_pKeyMgr->KeyDown(KEY_DOWN)) {
@@ -228,82 +244,110 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_pKeyMgr->KeyDown(KEY_CHANGE)) {
 				if (m_bCharacter1)	m_bCharacter1 = false;
 				else				m_bCharacter1 = true;
-				m_tInfo.fY--;
+
+				ChangeState(CHANGE);
 			}
+		}
+		break;
+	case CPlayer::CHANGE:
+		m_fChangeCount++;
+		if (m_fChangeCount >= 15) {
+			m_fChangeCount = 0.f;
+			if (m_pKeyMgr->KeyPressing(KEY_LEFT)) {
+				m_bLeft = true;
+				ChangeState(RUN);
+			}
+			else if (m_pKeyMgr->KeyPressing(KEY_RIGHT)) {
+				m_bLeft = false;
+				ChangeState(RUN);
+			}
+			else ChangeState(IDLE);
 		}
 		break;
 	case CPlayer::DASH:
 		if (m_bCharacter1) {
 			if (m_bLeft) {
-				m_tInfo.fX -= 8;
+				m_tInfo.fX -= 10;
 				if (m_tRect.left + iScrollX <= 800 - 500)//윈도우 - 사진크기 사진 왼쪽 기준  
-					CScrollManager::Set_ScrollX(8);
+					CScrollManager::Set_ScrollX(10);
 			}
 			else {
-				m_tInfo.fX += 8;
+				m_tInfo.fX += 10;
 				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-8);
+					CScrollManager::Set_ScrollX(-10);
 			}
-			m_fDashLen += 8;
-			// (임시) 옆에 타일로 막혀있으면 이동불가
+			m_fDashLen += 10;
+			// 옆에 타일로 막혀있으면 이동불가
 			switch (CurrScene) {
 			case SCENE_TUTORIAL:
-				if (m_tInfo.fX - 8 <= 0)	m_tInfo.fX += 8;
-				if (m_tInfo.fX - 8 <= 305 && m_tInfo.fY > 370)	m_tInfo.fX += 8;
-				if (m_tInfo.fX + 8 >= 1600)	m_tInfo.fX -= 8;
-				if (m_tInfo.fX + 8 >= 1160 && m_tInfo.fY > 370)	m_tInfo.fX -= 8;
+				if (m_tInfo.fX - 10 <= 0)							m_tInfo.fX += 10;
+				if (m_tInfo.fX - 10 <= 305 && m_tInfo.fY > 370)		m_tInfo.fX += 10;
+				if (m_tInfo.fX + 10 >= 1600)						m_tInfo.fX -= 10;
+				if (m_tInfo.fX + 10 >= 1160 && m_tInfo.fY > 370)	m_tInfo.fX -= 10;
 				break;
 			case SCENE_STAGE1:
-				if (m_tInfo.fX - 8 <= 0)	m_tInfo.fX += 8;
-				if (m_tInfo.fX >= 400 && m_tInfo.fX <= 410 && m_tInfo.fY >= 385)	m_tInfo.fX -= 8;
-				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 8;
-				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 8;
-				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 8;
-				if (m_tInfo.fX + 8 >= 2400)	m_tInfo.fX -= 8;
+				if (m_tInfo.fX - 10 <= 0)											m_tInfo.fX += 10;
+				if (m_tInfo.fX >= 400 && m_tInfo.fX <= 410 && m_tInfo.fY >= 385)	m_tInfo.fX -= 10;
+				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
+				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 10;
+				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
+				if (m_tInfo.fX + 10 >= 2400)										m_tInfo.fX -= 10;
 				break;
 			}
-			// 나중에 타일에 맞춰서 수정해야댐!
+
+			// 일정 거리 대쉬하면 대쉬 종료
+			if (m_fDashLen >= 110) {
+				if (m_bJump || m_bFall) ChangeState(FALL);
+				else if (m_pKeyMgr->KeyPressing(KEY_LEFT)
+					|| m_pKeyMgr->KeyPressing(KEY_RIGHT)) ChangeState(RUN);
+				else ChangeState(IDLE);
+
+				m_fDashLen = 0;
+			}
 		}
 		else {
+			// Alchemist는 대시 모션에 따라 이동하는 거리가 다름 (자연스러운 연출을 위해서ㅎㅎ)
+			if (m_fDashCount < 2 * 5)		m_fDashLen = 8.f;
+			else							m_fDashLen = 3.f;
+
 			if (m_bLeft) {
-				m_tInfo.fX -= 3;
+				m_tInfo.fX -= m_fDashLen;
 				if (m_tRect.left + iScrollX <= 800 - 500)//윈도우 - 사진크기 사진 왼쪽 기준  
-					CScrollManager::Set_ScrollX(3);
+					CScrollManager::Set_ScrollX(m_fDashLen);
 			}
 			else {
-				m_tInfo.fX += 4;
+				m_tInfo.fX += m_fDashLen;
 				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-3);
+					CScrollManager::Set_ScrollX(-m_fDashLen);
 			}
-			m_fDashLen += 3;
-			// (임시) 옆에 타일로 막혀있으면 이동불가
+			m_fDashCount++;
+			// 옆에 타일로 막혀있으면 이동불가
 			switch (CurrScene) {
 			case SCENE_TUTORIAL:
-				if (m_tInfo.fX - 3 <= 0)	m_tInfo.fX += 3;
-				if (m_tInfo.fX - 3 <= 305 && m_tInfo.fY > 370)	m_tInfo.fX += 3;
-				if (m_tInfo.fX + 3 >= 1600)	m_tInfo.fX -= 3;
-				if (m_tInfo.fX + 3 >= 1160 && m_tInfo.fY > 370)	m_tInfo.fX -= 3;
+				if (m_tInfo.fX - m_fDashLen <= 0)						m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX - m_fDashLen <= 305 && m_tInfo.fY > 370)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX + m_fDashLen >= 1600)						m_tInfo.fX -= m_fDashLen;
+				if (m_tInfo.fX + m_fDashLen >= 1160 && m_tInfo.fY > 370)	m_tInfo.fX -= m_fDashLen;
 				break;
 			case SCENE_STAGE1:
-				if (m_tInfo.fX - 3 <= 0)	m_tInfo.fX += 3;
-				if (m_tInfo.fX >= 400 && m_tInfo.fX <= 410 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
-				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
-				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
-				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
-				if (m_tInfo.fX + 3 >= 2400)	m_tInfo.fX -= 3;
+				if (m_tInfo.fX - m_fDashLen <= 0)									m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX >= 400 && m_tInfo.fX <= 410 && m_tInfo.fY >= 385)	m_tInfo.fX -= m_fDashLen;
+				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= m_fDashLen;
+				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX + m_fDashLen >= 2400)								m_tInfo.fX = 2400 - m_fDashLen;
 				break;
 			}
-			// 나중에 타일에 맞춰서 수정해야댐!
-		}
 
-		// 일정 거리 대쉬하면 대쉬 종료
-		if (m_fDashLen >= 96) {
-			if (m_bJump || m_bFall) ChangeState(FALL);
-			else if (m_pKeyMgr->KeyPressing(KEY_LEFT)
-				|| m_pKeyMgr->KeyPressing(KEY_RIGHT)) ChangeState(RUN);
-			else ChangeState(IDLE);
+			// 일정 거리 대쉬하면 대쉬 종료
+			if (m_fDashCount == 8 * 5) {
+				if (m_bJump || m_bFall) ChangeState(FALL);
+				else if (m_pKeyMgr->KeyPressing(KEY_LEFT)
+					|| m_pKeyMgr->KeyPressing(KEY_RIGHT)) ChangeState(RUN);
+				else ChangeState(IDLE);
 
-			m_fDashLen = 0;
+				m_fDashLen = m_fDashCount = 0.f;
+			}
 		}
 		break;
 	case CPlayer::JUMP:
@@ -335,7 +379,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tRect.left + iScrollX >= 301)
 				CScrollManager::Set_ScrollX(-4);
 		}
-		// (임시) 옆에 타일로 막혀있으면 이동불가
+		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
 			if (m_tInfo.fX - 4 <= 0)	m_tInfo.fX += 4;
@@ -352,12 +396,19 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX + 4 >= 2400)	m_tInfo.fX -= 4;
 			break;
 		}
-		// 나중에 타일에 맞춰서 수정해야댐!
 
 		// 점프 중 대쉬
 		if (m_bCharacter1 && !m_bDash && m_pKeyMgr->KeyDown(KEY_DASH)) {
 			if (!m_bDash)	m_bDash = true;
 			ChangeState(DASH);
+		}
+
+		// 점프 중 스킬
+		if (m_bCharacter1) {
+			if (!m_bUsedSkill1 && m_pKeyMgr->KeyDown(KEY_SKILL)) {
+				m_bUsedSkill1 = true;
+				ChangeState(SKILL);
+			}
 		}
 
 		break;
@@ -371,7 +422,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 		case SCENE_TUTORIAL:
 			if ((m_tInfo.fX <= 305 && m_tInfo.fY >= 345)
 				|| (m_tInfo.fX > 305 && m_tInfo.fX < 1160 && m_tInfo.fY >= 505)
-				|| (m_tInfo.fX >= 1200 && m_tInfo.fY > 345)) {		// 임시 땅바닥 ( 맵 타일 만들어지면 각 타일의 y축으로 바꾸면될듯? )
+				|| (m_tInfo.fX >= 1200 && m_tInfo.fY > 345)) {
 				if (m_tInfo.fX <= 305)	m_tInfo.fY = 345;
 				else if (m_tInfo.fX >= 1160) m_tInfo.fY = 345;
 				else					m_tInfo.fY = 505;
@@ -432,7 +483,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tRect.left + iScrollX >= 301)
 				CScrollManager::Set_ScrollX(-3);
 		}
-		// (임시) 옆에 타일로 막혀있으면 이동불가
+		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
 			if (m_tInfo.fX - 3 <= 0)	m_tInfo.fX += 3;
@@ -448,7 +499,6 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX + 3 >= 2400)	m_tInfo.fX -= 3;
 			break;
 		}
-		// 나중에 타일에 맞춰서 수정해야댐!
 
 		// 낙하 중 대쉬
 		if (m_bCharacter1 && !m_bDash && m_pKeyMgr->KeyDown(KEY_DASH)) {
@@ -457,19 +507,89 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 
 		// 공격
-		if (m_pKeyMgr->KeyDown(KEY_ATTACK))
-			ChangeState(ATTACK);
+		if (m_bCharacter1) {
+			if (m_pKeyMgr->KeyPressing(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+		else {
+			if (m_pKeyMgr->KeyDown(KEY_ATTACK))
+				ChangeState(ATTACK);
+		}
+
+		// 점프 중 스킬
+		if (m_bCharacter1) {
+			if (!m_bUsedSkill1 && m_pKeyMgr->KeyDown(KEY_SKILL)) {
+				m_bUsedSkill1 = true;
+				ChangeState(SKILL);
+			}
+		}
 		break;
 	case CPlayer::ATTACK:
 		m_fAttackCount++;
 
-		// 투척
-		if (!m_bCharacter1 && m_fAttackCount == 6 * 5)	m_pObjMgr->Add(THROW, CThrow::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+		if (m_bCharacter1) {
+			switch (m_iSwordAttackMotion)
+			{
+			case 0:
+				if (m_fAttackCount >= 5 * 3) {
+					if (m_bFall)	ChangeState(FALL);
+					else			ChangeState(IDLE);
+					m_fAttackCount = 0;
+					m_iSwordAttackMotion++;
+				}
+				break;
+			case 1:
+				if (m_fAttackCount >= 4 * 3) {
+					if (m_bFall)	ChangeState(FALL);
+					else			ChangeState(IDLE);
+					m_fAttackCount = 0;
+					m_iSwordAttackMotion++;
+				}
+				break;
+			case 2:
+				if (m_fAttackCount >= 6 * 3) {
+					if (m_bFall)	ChangeState(FALL);
+					else			ChangeState(IDLE);
+					m_fAttackCount = 0;
+					m_iSwordAttackMotion = 0;
+				}
+			}
+			// 대쉬 모션캔슬
+			if (!m_bDash) {
+				if (m_pKeyMgr->KeyDown(KEY_DASH)) {
+					if (m_pKeyMgr->KeyPressing(KEY_LEFT))		m_bLeft = true;
+					else if (m_pKeyMgr->KeyPressing(KEY_RIGHT))	m_bLeft = false;
+					m_bDash = true;
+					m_fAttackCount = 0;
+					m_iSwordAttackMotion = 0;
+					ChangeState(DASH);
+				}
+			}
+			// 점프 모션캔슬
+			if (!m_bJump && !m_bFall) {
+				if (m_pKeyMgr->KeyDown(KEY_UP)) {
+					if (m_pKeyMgr->KeyPressing(KEY_LEFT))		m_bLeft = true;
+					else if (m_pKeyMgr->KeyPressing(KEY_RIGHT))	m_bLeft = false;
+					m_bJump = true;
+					m_fAttackCount = 0;
+					m_iSwordAttackMotion = 0;
+					ChangeState(JUMP);
+				}
+			}
+		}
+		else {
+			// 투척
+			if (m_fAttackCount <= 1) {
+				if (m_bLeft)	m_pObjMgr->Add(ENERGYBALL, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
+				else			m_pObjMgr->Add(ENERGYBALL, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10, m_bLeft));
+			}
 
-		if ((m_bCharacter1 && m_fAttackCount >= 4 * 5) || (!m_bCharacter1 && m_fAttackCount >= 8 * 5)) {
-			if (m_bFall)	ChangeState(FALL);
-			else				ChangeState(IDLE);
-			m_fAttackCount = 0;
+			// 상태 복구
+			if (m_fAttackCount >= 5) {		// 쿨타임
+				if (m_bFall)	ChangeState(FALL);
+				else			ChangeState(IDLE);
+				m_fAttackCount = 0;
+			}
 		}
 
 		if (m_bFall) {
@@ -511,6 +631,64 @@ INT CPlayer::Update(const float& fTimeDelta)
 				}
 
 				break;
+			}
+		}
+		break;
+	case CPlayer::SKILL:
+		if (m_bCharacter1) {
+			if (m_fSkillDelay > 2 * 5) {	// Swordman의 skill1은 모션2 이전엔 제자리에서 기를 모았다가 3에서 날아감.
+				if (m_bLeft) {
+					m_tInfo.fX -= 15;
+					if (m_tRect.left + iScrollX <= 800 - 500)//윈도우 - 사진크기 사진 왼쪽 기준  
+						CScrollManager::Set_ScrollX(15);
+				}
+				else {
+					m_tInfo.fX += 15;
+					if (m_tRect.left + iScrollX >= 301)
+						CScrollManager::Set_ScrollX(-15);
+				}
+				m_fDashLen += 15;
+			}
+			m_fSkillDelay++;
+			// 옆에 타일로 막혀있으면 이동불가
+			switch (CurrScene) {
+			case SCENE_TUTORIAL:
+				if (m_tInfo.fX - 15 <= 0)							m_tInfo.fX += 15;
+				if (m_tInfo.fX - 15 <= 305 && m_tInfo.fY > 370)		m_tInfo.fX += 15;
+				if (m_tInfo.fX + 15 >= 1600)						m_tInfo.fX -= 15;
+				if (m_tInfo.fX + 15 >= 1160 && m_tInfo.fY > 370)	m_tInfo.fX -= 15;
+				break;
+			case SCENE_STAGE1:
+				if (m_tInfo.fX - 15 <= 0)											m_tInfo.fX += 15;
+				if (m_tInfo.fX >= 400 && m_tInfo.fX <= 410 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
+				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
+				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
+				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
+				if (m_tInfo.fX + 15 >= 2400)										m_tInfo.fX -= 15;
+				break;
+			}
+
+			// 일정 거리 대쉬하면 대쉬 종료
+			if (m_fDashLen >= 180) {
+				if (m_bJump || m_bFall) ChangeState(FALL);
+				else if (m_pKeyMgr->KeyPressing(KEY_LEFT)
+					|| m_pKeyMgr->KeyPressing(KEY_RIGHT)) ChangeState(RUN);
+				else ChangeState(IDLE);
+
+				m_fDashLen = 0.f;
+				m_fSkillDelay = 0.f;
+			}
+		}
+		else
+		{
+			m_fAttackCount++;
+
+			// 투척
+			if (m_fAttackCount == 6 * 5)	m_pObjMgr->Add(POISON_FLASK, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+
+			if (m_fAttackCount >= 8 * 5) {
+				ChangeState(IDLE);
+				m_fAttackCount = 0;
 			}
 		}
 		break;
@@ -574,43 +752,60 @@ HRESULT CPlayer::ChangeState(STATE eState)
 		switch (m_eCurrState)
 		{
 		case CPlayer::IDLE:
-			// 처음 이 상태로 들어갈때 해줘야 하는것들 여기ㅓ ㅅ해
 			if (m_bJump)		m_bJump = false;
 			if (m_bDoubleJump)	m_bDoubleJump = false;
 			if (m_bFall)		m_bFall = false;
 			if (m_bDash)		m_bDash = false;
+			if (m_bUsedSkill1)	m_bUsedSkill1 = false;
 
 			if (m_bCharacter1)
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 40.f;
-				if (!m_bLeft)		SetFrame(L"Test", 10.f, 4, 1, 0, 0);
-				else				SetFrame(L"Test2", 10.f, 4, 1, 0, 0);
+				if (!m_bLeft)		SetFrame(L"S_IdleR", 10.f, 4, 1, 0, 0);
+				else				SetFrame(L"S_IdleL", 10.f, 4, 1, 0, 0);
 			}
 			else
 			{
 				m_tInfo.fCX = 30.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 6, 1, 0, 0);
-				else			SetFrame(L"Test4", 10.f, 6, 1, 0, 0);
+				if (!m_bLeft)	SetFrame(L"A_IdleR", 10.f, 6, 1, 0, 0);
+				else			SetFrame(L"A_IdleL", 10.f, 6, 1, 0, 0);
 			}
 			break;
 		case CPlayer::RUN:
 			if (m_bDash)		m_bDash = false;
+			if (m_bUsedSkill1)	m_bUsedSkill1 = false;
 
 			if (m_bCharacter1)
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 40.f;
-				if (!m_bLeft)	SetFrame(L"Test", 10.f, 8, 1, 0, 1);
-				else			SetFrame(L"Test2", 10.f, 8, 1, 0, 1);
+				if (!m_bLeft)	SetFrame(L"S_RunR", 10.f, 8, 1, 0, 0);
+				else			SetFrame(L"S_RunL", 10.f, 8, 1, 0, 0);
 			}
 			else
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 6, 1, 0, 1);
-				else			SetFrame(L"Test4", 10.f, 6, 1, 0, 1);
+				if (!m_bLeft)	SetFrame(L"A_RunR", 10.f, 6, 1, 0, 0);
+				else			SetFrame(L"A_RunL", 10.f, 6, 1, 0, 0);
+			}
+			break;
+		case CPlayer::CHANGE:
+			if (m_bCharacter1)
+			{
+				m_tInfo.fCX = 40.f;
+				m_tInfo.fCY = 60.f;
+				if (!m_bLeft)	SetFrame(L"S_SwitchR", 10.f, 1, 1, 0, 0);
+				else			SetFrame(L"S_SwitchL", 10.f, 1, 1, 0, 0);
+			}
+			else
+			{
+				m_tInfo.fCX = 40.f;
+				m_tInfo.fCY = 50.f;
+				if (!m_bLeft)	SetFrame(L"A_SwitchR", 10.f, 3, 1, 0, 0);
+				else			SetFrame(L"A_SwitchL", 10.f, 3, 1, 0, 0);
 			}
 			break;
 		case CPlayer::DASH:
@@ -618,15 +813,15 @@ HRESULT CPlayer::ChangeState(STATE eState)
 			{
 				m_tInfo.fCX = 50.f;
 				m_tInfo.fCY = 40.f;
-				if (!m_bLeft)		SetFrame(L"Test", 10.f, 4, 1, 0, 2);
-				else				SetFrame(L"Test2", 10.f, 4, 1, 0, 2);
+				if (!m_bLeft)		SetFrame(L"S_DashR", 10.f, 4, 1, 0, 0);
+				else				SetFrame(L"S_DashL", 10.f, 4, 1, 0, 0);
 			}
 			else
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 7, 1, 0, 2);
-				else			SetFrame(L"Test4", 10.f, 7, 1, 0, 2);
+				if (!m_bLeft)	SetFrame(L"A_DashR", 10.f, 7, 1, 0, 0);
+				else			SetFrame(L"A_DashL", 10.f, 7, 1, 0, 0);
 			}
 			break;
 		case CPlayer::JUMP:
@@ -637,15 +832,15 @@ HRESULT CPlayer::ChangeState(STATE eState)
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 40.f;
-				if (!m_bLeft)	SetFrame(L"Test", 10.f, 1, 1, 0, 3);
-				else			SetFrame(L"Test2", 10.f, 1, 1, 0, 3);
+				if (!m_bLeft)	SetFrame(L"S_JumpR", 10.f, 1, 1, 0, 0);
+				else			SetFrame(L"S_JumpL", 10.f, 1, 1, 0, 0);
 			}
 			else
 			{
-				m_tInfo.fCX = 50.f;
+				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 1, 1, 0, 3);
-				else			SetFrame(L"Test4", 10.f, 1, 1, 0, 3);
+				if (!m_bLeft)	SetFrame(L"A_JumpR", 10.f, 1, 1, 0, 0);
+				else			SetFrame(L"A_JumpL", 10.f, 1, 1, 0, 0);
 			}
 			break;
 		case CPlayer::FALL:
@@ -656,31 +851,64 @@ HRESULT CPlayer::ChangeState(STATE eState)
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 40.f;
-				if (!m_bLeft)	SetFrame(L"Test", 10.f, 2, 1, 0, 4);
-				else			SetFrame(L"Test2", 10.f, 2, 1, 0, 4);
+				if (!m_bLeft)	SetFrame(L"S_FallR", 10.f, 2, 1, 0, 0);
+				else			SetFrame(L"S_FallL", 10.f, 2, 1, 0, 0);
 			}
 			else
 			{
 				m_tInfo.fCX = 40.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 2, 1, 0, 4);
-				else			SetFrame(L"Test4", 10.f, 2, 1, 0, 4);
+				if (!m_bLeft)	SetFrame(L"A_FallR", 10.f, 2, 1, 0, 0);
+				else			SetFrame(L"A_FallL", 10.f, 2, 1, 0, 0);
 			}
 			break;
 		case CPlayer::ATTACK:
 			if (m_bCharacter1)
 			{
-				m_tInfo.fCX = 50.f;
-				m_tInfo.fCY = 43.f;
-				if (!m_bLeft)	SetFrame(L"Test", 10.f, 5, 1, 0, 5);
-				else			SetFrame(L"Test2", 10.f, 5, 1, 0, 5);
+				switch (m_iSwordAttackMotion)
+				{
+				case 0:
+					m_tInfo.fCX = 50.f;
+					m_tInfo.fCY = 50.f;
+					if (!m_bLeft)	SetFrame(L"S_Attack1R", 15.f, 5, 1, 0, 0);
+					else			SetFrame(L"S_Attack1L", 15.f, 5, 1, 0, 0);
+					break;
+				case 1:
+					m_tInfo.fCX = 60.f;
+					m_tInfo.fCY = 40.f;
+					if (!m_bLeft)	SetFrame(L"S_Attack2R", 15.f, 4, 1, 0, 0);
+					else			SetFrame(L"S_Attack2L", 15.f, 4, 1, 0, 0);
+					break;
+				case 2:
+					m_tInfo.fCX = 60.f;
+					m_tInfo.fCY = 40.f;
+					if (!m_bLeft)	SetFrame(L"S_Attack3R", 15.f, 6, 1, 0, 0);
+					else			SetFrame(L"S_Attack3L", 15.f, 6, 1, 0, 0);
+					break;
+				}
+			}
+			else
+			{
+				m_tInfo.fCX = 30.f;
+				m_tInfo.fCY = 50.f;
+				if (!m_bLeft)	SetFrame(L"A_IdleR", 10.f, 6, 1, 0, 0);
+				else			SetFrame(L"A_IdleL", 10.f, 6, 1, 0, 0);
+			}
+			break;
+		case CPlayer::SKILL:
+			if (m_bCharacter1)
+			{
+				m_tInfo.fCX = 60.f;
+				m_tInfo.fCY = 40.f;
+				if (!m_bLeft)		SetFrame(L"S_SkillR", 10.f, 6, 1, 0, 0);
+				else				SetFrame(L"S_SkillL", 10.f, 6, 1, 0, 0);
 			}
 			else
 			{
 				m_tInfo.fCX = 50.f;
 				m_tInfo.fCY = 50.f;
-				if (!m_bLeft)	SetFrame(L"Test3", 10.f, 8, 1, 0, 5);
-				else			SetFrame(L"Test4", 10.f, 8, 1, 0, 5);
+				if (!m_bLeft)	SetFrame(L"A_SkillR", 10.f, 8, 1, 0, 0);
+				else			SetFrame(L"A_SkillL", 10.f, 8, 1, 0, 0);
 			}
 			break;
 		default:

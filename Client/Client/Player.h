@@ -5,7 +5,7 @@
 class CPlayer : public CObj
 {
 public:
-	enum STATE { IDLE, RUN, DASH, JUMP, FALL, ATTACK, END };
+	enum STATE { IDLE, CHANGE, RUN, DASH, JUMP, FALL, ATTACK, SKILL, END };
 
 public:
 	explicit CPlayer();
@@ -50,11 +50,16 @@ public:
 	bool	m_bDash = false;
 	bool	m_bGravity = false;
 	bool	m_bChangeCharacter = false;
+	bool	m_bUsedSkill1 = false;
+	float	m_fChangeCount = 0.f;
 	float	m_fMoveLen = 0.f;
 	float	m_fDashLen = 0.f;
+	float	m_fDashCount = 0.f;
 	float	m_fJumpHeight = 0.f;
 	float	m_fGravityAccel = 0.f;
 	float	m_fAttackCount = 0.f;
+	float	m_fSkillDelay = 0.f;
+	int		m_iSwordAttackMotion = 0;
 
 public:
 	float	m_fMapCount = 0.f;

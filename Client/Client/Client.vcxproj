@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
+    <ClInclude Include="Energyball.h" />
     <ClInclude Include="Grave.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionMgr.h" />
@@ -156,6 +157,8 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PoisonFlask.h" />
+    <ClInclude Include="PoisonGas.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RangeTree.h" />
     <ClInclude Include="RenderMgr.h" />
@@ -173,12 +176,12 @@
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Throw.h" />
     <ClInclude Include="TurorialStage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="Energyball.cpp" />
     <ClCompile Include="Grave.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
@@ -190,6 +193,8 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PoisonFlask.cpp" />
+    <ClCompile Include="PoisonGas.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RangeTree.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
@@ -204,7 +209,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Stage2.cpp" />
-    <ClCompile Include="Throw.cpp" />
     <ClCompile Include="TurorialStage.cpp" />
   </ItemGroup>
   <ItemGroup>

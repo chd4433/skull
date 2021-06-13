@@ -89,6 +89,9 @@
     <Filter Include="01 Obj\05 Grave">
       <UniqueIdentifier>{da01a60a-11b9-49fe-bfed-0c2c1a061e25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\04 Throw\01 Alchemist">
+      <UniqueIdentifier>{dc858568-dad0-40a8-9495-08d92322302f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -175,14 +178,20 @@
     <ClInclude Include="RangeTree.h">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
     </ClInclude>
-    <ClInclude Include="Throw.h">
-      <Filter>01 Obj\04 Throw</Filter>
-    </ClInclude>
     <ClInclude Include="Stage2.h">
       <Filter>02 Scene\03 Stage2</Filter>
     </ClInclude>
     <ClInclude Include="Grave.h">
       <Filter>01 Obj\05 Grave</Filter>
+    </ClInclude>
+    <ClInclude Include="Energyball.h">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClInclude>
+    <ClInclude Include="PoisonFlask.h">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClInclude>
+    <ClInclude Include="PoisonGas.h">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,14 +271,20 @@
     <ClCompile Include="RangeTree.cpp">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
     </ClCompile>
-    <ClCompile Include="Throw.cpp">
-      <Filter>01 Obj\04 Throw</Filter>
-    </ClCompile>
     <ClCompile Include="Stage2.cpp">
       <Filter>02 Scene\03 Stage2</Filter>
     </ClCompile>
     <ClCompile Include="Grave.cpp">
       <Filter>01 Obj\05 Grave</Filter>
+    </ClCompile>
+    <ClCompile Include="Energyball.cpp">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClCompile>
+    <ClCompile Include="PoisonFlask.cpp">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClCompile>
+    <ClCompile Include="PoisonGas.cpp">
+      <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
