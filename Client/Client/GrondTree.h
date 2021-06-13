@@ -32,5 +32,6 @@ private:
 	DWORD	AttackMotion_Time;
 	bool m_bGetTick;
 	bool m_bMotionGetTick;
+	bool m_bAttackMotion;
 };
 

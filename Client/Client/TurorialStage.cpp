@@ -21,7 +21,9 @@ HRESULT CTutorialStage::Initialize()
 	CObj* pPlayer = CPlayer::Create();
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_TUTORIAL);
 	m_pObjMgr->Add(PLAYER, pPlayer);
-	m_pObjMgr->Add(PORTAL, CPortal::Create(1379, 290));
+	CObj* pPortal = CPortal::Create(1379, 290);
+	pPortal->SetObjScene(SCENE_TUTORIAL);
+	m_pObjMgr->Add(PORTAL, pPortal);
 
 	//pObj = CPortal::Create(2231.25f, 357.354f);
 	//m_pGameMgr->Add_GameObject(MAP, pObj);

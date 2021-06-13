@@ -22,6 +22,7 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_tInfo.fCY = 66.f;
 	m_bGetTick = FALSE;
 	m_bMotionGetTick = FALSE;
+	m_bAttackMotion = FALSE;
 	ChangeState(IDLE);
 	return NOERROR;
 }
@@ -57,44 +58,52 @@ INT CGrondTree::Update(const float& fTimeDelta)
 					{
 						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
 						{
-							m_tInfo.fX -= fMoveX;
+							m_tInfo.fX -= fMoveX+1;
 							m_bRight = !m_bRight;
+							SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
 						}
 						else
 						{
-							m_tInfo.fX += fMoveX;
+							m_tInfo.fX += fMoveX+1;
 							m_bRight = !m_bRight;
+							SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
 						}
 					}
 				}
 			}
-			
 			--m_tInfo.fX;
-			//if (m_tInfo.fX > 550)
-			//{
-			//	--m_tInfo.fX;
-			//}
-			//else
-			//{
-			//	m_bRight = !m_bRight;
-			//	SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
-			//}
-
 		}	
 		else
 		{
-			if (m_tInfo.fX < 1100)
+			for (auto pCollRect : m_pCollisionMgr->GetlistCollision())
 			{
-				SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
-				++m_tInfo.fX;
+				RECT tTemp = {};
+				RECT tDstRect = { pCollRect->left,pCollRect->top,pCollRect->right,pCollRect->bottom };
+				if (IntersectRect(&tTemp, &rectGroundTree, &tDstRect))
+				{
+					float fDstX = (float)tDstRect.right - tDstRect.left;
+					float fDstY = (float)tDstRect.bottom - tDstRect.top;
 
+					float fMoveX = (float)tTemp.right - tTemp.left;
+					float fMoveY = (float)tTemp.bottom - tTemp.top;
+					if (fMoveX < fMoveY)
+					{
+						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
+						{
+							m_tInfo.fX -= fMoveX+1;
+							m_bRight = !m_bRight;
+							SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
+						}
+						else
+						{
+							m_tInfo.fX += fMoveX+1;
+							m_bRight = !m_bRight;
+							SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
+						}
+					}
+				}
 			}
-			else
-			{
-				m_bRight = !m_bRight;
-				SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
-			}
-
+			++m_tInfo.fX;
 		}
 		break;
 	case CGrondTree::ATTACK:
@@ -161,7 +170,7 @@ HRESULT CGrondTree::ChangeState(STATE eState)
 			SetInfo(54.f, 65.f);
 			break;
 		case CGrondTree::ATTACK:
-			if (!m_bRight)
+			if (!m_bAttackMotion)
 				SetFrame(L"GroundTree_AttackL", 5.f, 8, 1);
 			else
 				SetFrame(L"GroundTree_AttackR", 5.f, 8, 1);
@@ -195,17 +204,37 @@ BOOL CGrondTree::CheckAttack()
 	UpdateRect();
 	RECT temp;
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
-	RECT CheckPlayer = m_tRect;
-	CheckPlayer.left -= 200, CheckPlayer.right += 200;
-	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect) && m_tFrame.fX == 0)
+	RECT CheckPlayerL = m_tRect;
+	RECT CheckPlayerR = m_tRect;
+	CheckPlayerL.left -= 200;
+	CheckPlayerR.right += 200;
+	if (IntersectRect(&temp, &CheckPlayerL, &PlayerRect) && m_tFrame.fX == 0)
 	{
 		if (!m_bMotionGetTick)
 		{
 			AttackMotion_Time = GetTickCount();
 			m_bMotionGetTick = !m_bMotionGetTick;
 		}
-		if(AttackMotion_Time+1000< GetTickCount())
+		if (AttackMotion_Time + 1000 < GetTickCount())
+		{
 			ChangeState(ATTACK);
+			m_bAttackMotion = FALSE;
+		}
+
+	}
+	if (IntersectRect(&temp, &CheckPlayerR, &PlayerRect) && m_tFrame.fX == 0)
+	{
+		if (!m_bMotionGetTick)
+		{
+			AttackMotion_Time = GetTickCount();
+			m_bMotionGetTick = !m_bMotionGetTick;
+		}
+		if (AttackMotion_Time + 1000 < GetTickCount())
+		{
+			ChangeState(ATTACK);
+			m_bAttackMotion = TRUE;
+		}
+
 	}
 	return 0;
 }

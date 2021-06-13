@@ -18,7 +18,25 @@ HRESULT CPortal::Initialize(float fStartX, float fStartY)
 	m_tInfo.fY = fStartY;
 	m_tInfo.fCX = 215.f;
 	m_tInfo.fCY = 159.f;
-	SetFrame(L"Portal", 10.f, 8, 1);
+	switch (CurrScenes)
+	{
+	case SCENE_LOGO:
+		break;
+	case SCENE_TUTORIAL:
+		SetFrame(L"Portal", 10.f, 8, 1);
+		break;
+	case SCENE_STAGE1:
+		SetFrame(L"Deactive_Portal2", 10.f, 1, 1);
+		break;
+	case SCENE_STAGE2:
+		break;
+	case SCENE_GAMEOVER:
+		break;
+	case SCENE_END:
+		break;
+	default:
+		break;
+	}
 	return NOERROR;
 }
 
@@ -51,7 +69,7 @@ VOID CPortal::Render(HDC hDC)
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
 	UpdateRect();
-	HDC hMemDC = m_pBmpMgr->FindBmp(L"Portal");
+	HDC hMemDC = m_pBmpMgr->FindBmp(m_tFrame.strFrameKey);
 	GdiTransparentBlt(hDC,
 		m_tRect.left+iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
 		m_tInfo.fCX, m_tInfo.fCY,
