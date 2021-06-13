@@ -83,6 +83,9 @@
     <Filter Include="01 Obj\04 Throw">
       <UniqueIdentifier>{18e5ae91-16fc-4ce2-a93b-9cf25d5d442b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02 Scene\03 Stage2">
+      <UniqueIdentifier>{47e62eb8-125e-41ca-b662-6a74f743aaaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -172,6 +175,9 @@
     <ClInclude Include="Throw.h">
       <Filter>01 Obj\04 Throw</Filter>
     </ClInclude>
+    <ClInclude Include="Stage2.h">
+      <Filter>02 Scene\03 Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -252,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="Throw.cpp">
       <Filter>01 Obj\04 Throw</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage2.cpp">
+      <Filter>02 Scene\03 Stage2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

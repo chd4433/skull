@@ -16,42 +16,30 @@ HRESULT CPortal::Initialize(float fStartX, float fStartY)
 	CObj::Initialize();
 	m_tInfo.fX = fStartX;
 	m_tInfo.fY = fStartY;
-	m_tInfo.fCX = 215.f;
-	m_tInfo.fCY = 159.f;
-	switch (CurrScenes)
-	{
-	case SCENE_LOGO:
-		break;
-	case SCENE_TUTORIAL:
-		SetFrame(L"Portal", 10.f, 8, 1);
-		break;
-	case SCENE_STAGE1:
-		SetFrame(L"Deactive_Portal2", 10.f, 1, 1);
-		break;
-	case SCENE_STAGE2:
-		break;
-	case SCENE_GAMEOVER:
-		break;
-	case SCENE_END:
-		break;
-	default:
-		break;
-	}
 	return NOERROR;
 }
 
 INT CPortal::Update(const float& fTimeDelta)
 {
 	UpdateRect();
+	ChangeScene(CurrScenes);
+	if ((m_pObjMgr->Get_ObjLst(MONSTER).empty()) && (m_tFrame.strFrameKey == L"Deactive0_Portal2"))
+	{
+		m_tFrame.strFrameKey = L"Active_Portal2";
+		m_tFrame.fCntX = 8.f;
+	}
 	RECT temp;
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	if (IntersectRect(&temp, &m_tRect, &PlayerRect))
 	{
 		m_bRenderUI = true;
-		if (m_pKeyMgr->KeyDown(KEY_INTERECT))
+		if (m_pObjMgr->Get_ObjLst(MONSTER).empty())
 		{
-			CSceneMgr::GetInstance()->Change_NextScene();
-			CSceneMgr::GetInstance()->Get_ChangeScene() = TRUE;
+			if (m_pKeyMgr->KeyDown(KEY_INTERECT))
+			{
+				CSceneMgr::GetInstance()->Change_NextScene();
+				CSceneMgr::GetInstance()->Get_ChangeScene() = TRUE;
+			}
 		}
 	}
 	else
@@ -87,6 +75,43 @@ CPortal* CPortal::Create(float fStartX, float fStartY)
 	return pInstance;
 }
 
+HRESULT CPortal::ChangeScene(SCENE_ID eState)
+{
+	m_eCurrState = eState;
+
+	if (m_ePreState != m_eCurrState)
+	{
+		switch (CurrScenes)
+		{
+		case SCENE_LOGO:
+			break;
+		case SCENE_TUTORIAL:
+			// 처음 이 상태로 들어갈때 해줘야 하는것들 여기ㅓ ㅅ해
+			//m_tInfo.fCX = 197.f;
+			//m_tInfo.fCY = 226.f;
+			m_tInfo.fCX = 215.f;
+			m_tInfo.fCY = 159.f;
+			SetFrame(L"Portal", 10.f, 8, 1);
+			break;
+		case SCENE_STAGE1:
+			m_tInfo.fCX = 176.f;
+			m_tInfo.fCY = 128.f;
+			SetFrame(L"Deactive0_Portal2", 10.f, 1, 1);
+			break;
+		case SCENE_STAGE2:
+			break;
+		case SCENE_GAMEOVER:
+			break;
+		case SCENE_END:
+			break;
+		default:
+			break;
+		}
+		m_ePreState = m_eCurrState;
+	}
+
+	return NOERROR;
+}
 void CPortal::Release()
 {
 }

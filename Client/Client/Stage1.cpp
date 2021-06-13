@@ -26,11 +26,14 @@ HRESULT CStage1::Initialize()
 	CObj* pPlayer = CPlayer::Create();
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
 	m_pObjMgr->Add(PLAYER, pPlayer);
-	m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
-	CObj* pGroundMonster = CGrondTree::Create(1000,495);
-	pGroundMonster->SetObjScene(SCENE_STAGE1);
-	m_pObjMgr->Add(MONSTER, pGroundMonster);
-	m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
+	//m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
+	//CObj* pGroundMonster = CGrondTree::Create(1000,495);
+	//pGroundMonster->SetObjScene(SCENE_STAGE1);
+	//m_pObjMgr->Add(MONSTER, pGroundMonster);
+	//m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
+	CObj* pPortal = CPortal::Create(2120, 225);
+	pPortal->SetObjScene(SCENE_STAGE1);
+	m_pObjMgr->Add(PORTAL, pPortal);
 	//CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	return NOERROR;
 }
