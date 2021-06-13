@@ -80,6 +80,9 @@
     <Filter Include="01 Obj\02 Monster\01 RangeTree">
       <UniqueIdentifier>{4baebb9d-d72d-4e51-b655-d74bedd2a732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\04 Throw">
+      <UniqueIdentifier>{18e5ae91-16fc-4ce2-a93b-9cf25d5d442b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -166,6 +169,9 @@
     <ClInclude Include="RangeTree.h">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
     </ClInclude>
+    <ClInclude Include="Throw.h">
+      <Filter>01 Obj\04 Throw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -243,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="RangeTree.cpp">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Throw.cpp">
+      <Filter>01 Obj\04 Throw</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

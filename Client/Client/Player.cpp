@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Player.h"
+#include "Throw.h"
 
 SCENE_ID CurrScene = SCENE_END;
 
@@ -444,8 +445,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 			ChangeState(ATTACK);
 		break;
 	case CPlayer::ATTACK:
-		m_fAttackCount += 0.2f;
-		if ((m_bCharacter1 && m_fAttackCount >= 4) || (!m_bCharacter1 && m_fAttackCount >= 8)) {
+		m_fAttackCount++;
+
+		// 투척
+		if (!m_bCharacter1 && m_fAttackCount == 6 * 5)	m_pObjMgr->Add(THROW, CThrow::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+
+		if ((m_bCharacter1 && m_fAttackCount >= 4 * 5) || (!m_bCharacter1 && m_fAttackCount >= 8 * 5)) {
 			if (m_bFall)	ChangeState(FALL);
 			else				ChangeState(IDLE);
 			m_fAttackCount = 0;
@@ -455,10 +460,41 @@ INT CPlayer::Update(const float& fTimeDelta)
 			m_tInfo.fY += 1.f + m_fGravityAccel;
 			m_fGravityAccel += 0.35f;
 
-			if ((m_tInfo.fX <= 305 && m_tInfo.fY >= 345)
-				|| (m_tInfo.fX > 305 && m_tInfo.fY >= 505)) {		// 임시 땅바닥 ( 맵 타일 만들어지면 각 타일의 y축으로 바꾸면될듯? )
-				if (m_tInfo.fX <= 305)	m_tInfo.fY = 345;
-				else					m_tInfo.fY = 505;
+			// 발판 아래로 떨어지는 것 방지
+			switch (CurrScene) {
+			case SCENE_TUTORIAL:
+				if ((m_tInfo.fX <= 305 && m_tInfo.fY >= 345)
+					|| (m_tInfo.fX > 305 && m_tInfo.fX < 1155 && m_tInfo.fY >= 505)
+					|| (m_tInfo.fX >= 1155 && m_tInfo.fY > 345)) {
+					if (m_tInfo.fX <= 305)	m_tInfo.fY = 345;
+					else if (m_tInfo.fX >= 1155) m_tInfo.fY = 345;
+					else					m_tInfo.fY = 505;
+				}
+				break;
+			case SCENE_STAGE1:
+				if (m_tInfo.fX <= 400 && m_tInfo.fY >= 505) {
+					m_tInfo.fY = 505;
+				}
+				if (m_tInfo.fX > 400 && m_tInfo.fX < 530 && m_tInfo.fY >= 385) {
+					m_tInfo.fY = 385;
+				}
+				if (m_tInfo.fX > 520 && m_tInfo.fX <= 1035 && m_tInfo.fY >= 505) {
+					m_tInfo.fY = 505;
+				}
+				if (m_tInfo.fX > 650 && m_tInfo.fX <= 1000 && m_tInfo.fY >= 340 && m_tInfo.fY <= 350) {
+					m_tInfo.fY = 339;
+				}
+				if (m_tInfo.fX > 1035 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385) {
+					m_tInfo.fY = 385;
+				}
+				if (m_tInfo.fX > 1480 && m_tInfo.fY >= 505) {
+					m_tInfo.fY = 505;
+				}
+				if (m_tInfo.fX > 1720 && m_tInfo.fY >= 265 && m_tInfo.fY <= 275) {
+					m_tInfo.fY = 264;
+				}
+
+				break;
 			}
 		}
 		break;

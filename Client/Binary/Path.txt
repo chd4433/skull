@@ -4,6 +4,7 @@ Test ../Binary/Test/Test.bmp
 Test2 ../Binary/Test/Test2.bmp
 Test3 ../Binary/Test/Test3.bmp
 Test4 ../Binary/Test/Test4.bmp
+Posion1 ../Binary/Test/Posion1.bmp
 Menu ../Binary/Map/Menu.bmp
 Map1 ../Binary/Map/Map1.bmp
 Map2 ../Binary/Map/Map2.bmp
