@@ -23,7 +23,10 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_bGetTick = FALSE;
 	m_bMotionGetTick = FALSE;
 	m_bAttackMotion = FALSE;
+	m_bDead = FALSE;
 	ChangeState(IDLE);
+
+	iMonsterHp = 200;
 	return NOERROR;
 }
 
@@ -33,7 +36,16 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	CheckWalk();
 	CheckAttack();
 	Update_Collision();
-	//m_pCollisionMgr->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
+	if (b_ChangeSceneDead)
+	{
+		ChangeState(HIT);
+		if (m_tFrame.fX == 0)
+			b_ChangeSceneDead = FALSE;
+	}
+	if (iMonsterHp <= 0)
+	{
+		ChangeState(DEAD);
+	}
 	switch (m_eCurrState)
 	{
 	case CGrondTree::IDLE:
@@ -118,6 +130,20 @@ INT CGrondTree::Update(const float& fTimeDelta)
 			m_bGetTick = !m_bGetTick;
 		}
 		break;
+	case CGrondTree::HIT:
+		if (!m_bRight)
+			++m_tInfo.fX;
+		else
+			--m_tInfo.fX;
+		if (m_tFrame.fX == 0)
+			iMonsterHp -= PLAYERATT;
+		break;
+	case CGrondTree::DEAD:
+		if(m_tFrame.fX == 0 && m_bDead)
+			return OBJ_DEAD;
+		if (m_tFrame.fX == 0 && !m_bDead)
+			m_bDead = !m_bDead;
+		break;
 	default:
 		break;
 	}
@@ -171,10 +197,28 @@ HRESULT CGrondTree::ChangeState(STATE eState)
 			break;
 		case CGrondTree::ATTACK:
 			if (!m_bAttackMotion)
+			{
 				SetFrame(L"GroundTree_AttackL", 5.f, 8, 1);
+				m_bRight = FALSE;
+			}
 			else
+			{
 				SetFrame(L"GroundTree_AttackR", 5.f, 8, 1);
+				m_bRight = TRUE;
+			}
+			
 			SetInfo(82.f, 67.f);
+			break;
+		case CGrondTree::HIT:
+			if (!m_bRight)
+				SetFrame(L"GroundTree_HitL", 10.f, 2, 1);
+			else
+				SetFrame(L"GroundTree_HitR", 10.f, 2, 1);
+			SetInfo(62.f, 66.f);
+			break;
+		case CGrondTree::DEAD:
+			SetFrame(L"GroundTree_Dead", 15.f, 22, 1);
+			SetInfo(103.f, 93.f);
 			break;
 		default:
 			break;

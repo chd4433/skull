@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "CollisionMgr.h"
+#include "Obj.h"
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
 CCollisionMgr::~CCollisionMgr()
@@ -145,6 +146,30 @@ HRESULT CCollisionMgr::AddCollision(RECT* pRect)
 
 	return NOERROR;
 }
+
+bool CCollisionMgr::CollisionPlayertoMonster(list<CObj*> Dst, list<CObj*> Src)
+{
+	RECT temp = {};
+	if (!Dst.empty())
+	{
+		for (auto& pPlayerAtt : Dst)
+		{
+			for (auto& pMonster : Src)
+			{
+				if (IntersectRect(&temp, &(pPlayerAtt->GetSmallRect()), &(pMonster->GetSmallRect())))
+				{
+					pMonster->SetbChangeScene();
+					pPlayerAtt->SetbChangeScene();
+					//SafeDelete(pPlayerAtt);
+					return TRUE;
+				}
+
+			}
+		}
+	}
+	return TRUE;
+}
+
 
 void CCollisionMgr::Release()
 {

@@ -18,6 +18,9 @@ public:
 	VOID SetInfoXright() { m_tInfo.fX += 5; }
 	INFO GetInfo() { return m_tInfo; }
 	RECT& GetRect() { return m_tRect; }
+	RECT& GetSmallRect() { return m_tSmallRect; }
+	BOOL GetbChangeScene() { return b_ChangeSceneDead; }
+	void SetbChangeScene() { b_ChangeSceneDead = TRUE; }
 public:
 	// ±øÅë
 	virtual HRESULT Initialize();
@@ -34,13 +37,17 @@ protected:
 	void Update_Collision();
 	BOOL GetbGrave() { return m_bInterectGrave; }
 
+
 protected:
 	INFO m_tInfo;
 	RECT m_tRect;
 	FRAME m_tFrame;
 	SCENE_ID CurrScenes;
+	RECT m_tSmallRect;
 
 	bool m_bInterectGrave;
+	bool b_ChangeSceneDead;
+	int iMonsterHp;
 
 protected:
 	CObjMgr* m_pObjMgr = nullptr;

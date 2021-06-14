@@ -35,7 +35,7 @@ INT CPoisonFlask::Update(const float& fTimeDelta)
 	m_fDistance += 5;
 	if (m_fDistance >= 80) {
 		m_bOverRange = true;
-		m_pObjMgr->Add(ENERGYBALL, CPoisonGas::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+		m_pObjMgr->Add(PLAYER_ATT, CPoisonGas::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
 	}
 
 	FrameMove(fTimeDelta);

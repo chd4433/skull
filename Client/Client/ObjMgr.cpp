@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "ObjMgr.h"
 #include "Obj.h"
-
+#include "Collision.h"
 IMPLEMENT_SINGLETON(CObjMgr)
 
 CObjMgr::CObjMgr()
@@ -44,6 +44,7 @@ HRESULT CObjMgr::Update(const float& fTimeDelta)
 		}
 	}
 
+	CCollisionMgr::GetInstance()->CollisionPlayertoMonster(Get_ObjLst(PLAYER_ATT), Get_ObjLst(MONSTER));
 	return NOERROR;
 }
 

@@ -3,7 +3,7 @@
 class CGrondTree : public CObj
 {
 public:
-	enum STATE { IDLE, ATTACK, WALK,DEAD };
+	enum STATE { IDLE, ATTACK, WALK,HIT,DEAD };
 public:
 	explicit CGrondTree();
 	virtual ~CGrondTree();
@@ -33,5 +33,6 @@ private:
 	bool m_bGetTick;
 	bool m_bMotionGetTick;
 	bool m_bAttackMotion;
+	bool m_bDead;
 };
 

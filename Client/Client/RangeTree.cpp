@@ -17,6 +17,8 @@ HRESULT CRangeTree::Initialize(float fStartX, float fStartY)
 	m_tInfo.fCX = 115.f;
 	m_tInfo.fCY = 114.f;
 	ChangeState(IDLE);
+	iMonsterHp = 400;
+	m_bDead = FALSE;
 	return NOERROR;
 }
 
@@ -24,11 +26,31 @@ INT CRangeTree::Update(const float& fTimeDelta)
 {
 	CheckIdle();
 	CheckAttack();
+	if (b_ChangeSceneDead)
+	{
+		ChangeState(HIT);
+		if (m_tFrame.fX == 0)
+			b_ChangeSceneDead = FALSE;
+	}
+	if (iMonsterHp <= 0)
+	{
+		ChangeState(DEAD);
+	}
 	switch (m_eCurrState)
 	{
 	case CRangeTree::IDLE:
 		break;
 	case CRangeTree::ATTACK:
+		break;
+	case CRangeTree::HIT:
+		if (m_tFrame.fX == 0)
+			iMonsterHp -= PLAYERATT;
+		break;
+	case CRangeTree::DEAD:
+		if (m_tFrame.fX == 0 && m_bDead)
+			return OBJ_DEAD;
+		if (m_tFrame.fX == 0 && !m_bDead)
+			m_bDead = !m_bDead;
 		break;
 	default:
 		break;
@@ -82,6 +104,14 @@ HRESULT CRangeTree::ChangeState(STATE eState)
 		case CRangeTree::ATTACK:
 			SetFrame(L"RangeTree_Attack", 4.f, 7, 1);
 			SetInfo(140.f, 112.f);
+			break;
+		case CRangeTree::HIT:
+			SetFrame(L"RangeTree_Hit", 10.f, 6, 1);
+			SetInfo(115.f, 112.f);
+			break;
+		case CRangeTree::DEAD:
+			SetFrame(L"RangeTree_Death", 1.f, 5, 1);
+			SetInfo(100.f, 77.f);
 			break;
 		default:
 			break;

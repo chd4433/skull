@@ -40,6 +40,8 @@ ClassName* ClassName::m_pInstance = nullptr;
 #define OBJ_NOEVENT 0
 #define OBJ_DEAD 1
 
+#define  PLAYERATT 50
+
 extern HWND g_hWnd;
 
 // ±ÍÂ÷´ÏÁò

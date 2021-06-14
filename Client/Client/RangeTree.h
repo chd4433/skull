@@ -3,7 +3,7 @@
 class CRangeTree : public CObj
 {
 public:
-	enum STATE { IDLE, ATTACK, DEAD };
+	enum STATE { IDLE, ATTACK, HIT,DEAD };
 public:
 	explicit CRangeTree();
 	virtual ~CRangeTree();
@@ -32,5 +32,6 @@ private:
 	DWORD	AttackMotion_Time;
 	bool m_bGetTick;
 	bool m_bMotionGetTick;
+	bool m_bDead;
 };
 

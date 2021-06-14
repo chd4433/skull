@@ -580,8 +580,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 		else {
 			// ≈ı√¥
 			if (m_fAttackCount <= 1) {
-				if (m_bLeft)	m_pObjMgr->Add(ENERGYBALL, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
-				else			m_pObjMgr->Add(ENERGYBALL, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10, m_bLeft));
+				if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
+				else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10, m_bLeft));
 			}
 
 			// ªÛ≈¬ ∫π±∏
@@ -684,7 +684,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			m_fAttackCount++;
 
 			// ≈ı√¥
-			if (m_fAttackCount == 6 * 5)	m_pObjMgr->Add(POISON_FLASK, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+			if (m_fAttackCount == 6 * 5)	m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
 
 			if (m_fAttackCount >= 8 * 5) {
 				ChangeState(IDLE);

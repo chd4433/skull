@@ -40,6 +40,10 @@ void CObj::UpdateRect()
 	m_tRect.top = LONG(m_tInfo.fY - m_tInfo.fCY * 0.5f);
 	m_tRect.right = LONG(m_tInfo.fX + m_tInfo.fCX * 0.5f);
 	m_tRect.bottom = LONG(m_tInfo.fY + m_tInfo.fCY * 0.5f);
+	m_tSmallRect.left = m_tRect.left + 5;
+	m_tSmallRect.right = m_tRect.right - 5;
+	m_tSmallRect.top = m_tRect.top + 5;
+	m_tSmallRect.bottom = m_tRect.bottom - 5;
 }
 
 void CObj::SetFrame(wstring strKey, float fSpeed, float fCntX, float fCntY, float fX, float fY)

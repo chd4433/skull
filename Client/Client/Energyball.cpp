@@ -38,10 +38,10 @@ INT CEnergyball::Update(const float& fTimeDelta)
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
 	FrameMove(fTimeDelta);
+	if(b_ChangeSceneDead||m_bOverRange)
+		return OBJ_DEAD;
 	if (!m_bOverRange) // 이걸 그릴지 말지 결정하는 조건
 		m_pRenderMgr->AddBack(this);
-	else
-		return OBJ_DEAD;//CEnergyball::~CEnergyball();
 	return 0;
 }
 
