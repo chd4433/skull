@@ -19,6 +19,7 @@ HRESULT CGroundTreeAttack::Initialize()
 	SetFrame(L"GroundTree_Attack_Motion", 5.f, 8, 1);
 	m_bframe = FALSE;
 	TargetPlayer();
+	iCollisonFrame = 0;
 	return NOERROR;
 }
 
@@ -29,6 +30,10 @@ INT CGroundTreeAttack::Update(const float& fTimeDelta)
 		m_bframe = TRUE;
 	if (m_bframe)
 		return OBJ_DEAD;
+	//if (b_ChangeSceneDead)
+	//{
+	//	return OBJ_DEAD;
+	//}
 	if (true) // 이걸 그릴지 말지 결정하는 조건
 		m_pRenderMgr->AddFront(this);
 	
@@ -42,7 +47,7 @@ VOID CGroundTreeAttack::Render(HDC hDC)
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
 	HDC hMemDC = m_pBmpMgr->FindBmp(m_tFrame.strFrameKey);
 	GdiTransparentBlt(hDC,
-		m_tRect.left + iScrollX, m_tRect.top + iScrollY,
+		m_tRect.left + iScrollX, m_tRect.top + iScrollY+iCollisonFrame,
 		m_tInfo.fCX, m_tInfo.fCY,
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표. 

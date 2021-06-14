@@ -44,7 +44,10 @@ HRESULT CObjMgr::Update(const float& fTimeDelta)
 		}
 	}
 
-	CCollisionMgr::GetInstance()->CollisionPlayertoMonster(Get_ObjLst(PLAYER_ATT), Get_ObjLst(MONSTER));
+	CCollisionMgr::GetInstance()->CollisionDstToSrc(Get_ObjLst(PLAYER_ATT), Get_ObjLst(MONSTER));
+	CCollisionMgr::GetInstance()->CollisionDstToSrcClose(Get_ObjLst(PLAYER_CLOSEATT), Get_ObjLst(MONSTER));
+	CCollisionMgr::GetInstance()->CollisionDstToSrc(Get_ObjLst(MON_ATT), Get_ObjLst(PLAYER));
+	CCollisionMgr::GetInstance()->CollisionDstToSrcClose(Get_ObjLst(MON_CLOSEATT), Get_ObjLst(PLAYER));
 	return NOERROR;
 }
 

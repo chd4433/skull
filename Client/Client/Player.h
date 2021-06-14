@@ -5,7 +5,7 @@
 class CPlayer : public CObj
 {
 public:
-	enum STATE { IDLE, CHANGE, RUN, DASH, JUMP, FALL, ATTACK, SKILL, END };
+	enum STATE { IDLE, CHANGE, RUN, DASH, JUMP, FALL, ATTACK, SKILL, HIT,END };
 
 public:
 	explicit CPlayer();
@@ -61,6 +61,7 @@ public:
 	float	m_fAttackCount = 0.f;
 	float	m_fSkillDelay = 0.f;
 	int		m_iSwordAttackMotion = 0;
+	int iAttDamageBool = 0;
 
 public:
 	float	m_fMapCount = 0.f;

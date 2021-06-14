@@ -29,14 +29,14 @@ HRESULT CStage1::Initialize()
 	//m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
 	CObj* pGroundMonster = CGrondTree::Create(1000, 495);
 	pGroundMonster->SetObjScene(SCENE_STAGE1);
-	//m_pObjMgr->Add(MONSTER, pGroundMonster);
+	m_pObjMgr->Add(MONSTER, pGroundMonster);
 	CObj* pGroundMonster2 = CGrondTree::Create(1600, 495);
 	CObj* pGroundMonster3 = CGrondTree::Create(2200, 495);
 	pGroundMonster2->SetObjScene(SCENE_STAGE1);
 	pGroundMonster3->SetObjScene(SCENE_STAGE1);
-//	m_pObjMgr->Add(MONSTER, pGroundMonster2);
+	m_pObjMgr->Add(MONSTER, pGroundMonster2);
 	//m_pObjMgr->Add(MONSTER, pGroundMonster3);
-	//m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
+	m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
 	CObj* pPortal = CPortal::Create(2120, 225);
 	pPortal->SetObjScene(SCENE_STAGE1);
 	m_pObjMgr->Add(PORTAL, pPortal);

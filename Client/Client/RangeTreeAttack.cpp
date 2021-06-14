@@ -30,6 +30,8 @@ INT CRangeTreeAttack::Update(const float& fTimeDelta)
 		m_bframe = TRUE;
 	if (m_bframe)
 		return OBJ_DEAD;
+	if (b_ChangeDeadCloseAtt)
+		return OBJ_DEAD;
 	return 0;
 }
 

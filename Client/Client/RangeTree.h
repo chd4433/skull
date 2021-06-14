@@ -33,5 +33,6 @@ private:
 	bool m_bGetTick;
 	bool m_bMotionGetTick;
 	bool m_bDead;
+	int iAttDamageBool;
 };
 

@@ -14,7 +14,8 @@ public:
 	static bool Check_ObjRect(CObj* pDst, CObj* pSrc, float* pMoveX, float* pMoveY);
 	static bool Check_Rect(RECT tDst, RECT tSrc, float* pMoveX, float* pMoveY);
 	static bool Check_Sphere(CObj* pDst, CObj* pSrc);
-	bool CollisionPlayertoMonster(list<CObj*> Dst, list<CObj*> Src);
+	bool CollisionDstToSrc(list<CObj*> Dst, list<CObj*> Src);
+	bool CollisionDstToSrcClose(list<CObj*> Dst, list<CObj*> Src);
 public:
 
 	HRESULT LoadCollisionFromPath(wstring strPath);

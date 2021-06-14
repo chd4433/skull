@@ -21,6 +21,8 @@ public:
 	RECT& GetSmallRect() { return m_tSmallRect; }
 	BOOL GetbChangeScene() { return b_ChangeSceneDead; }
 	void SetbChangeScene() { b_ChangeSceneDead = TRUE; }
+	BOOL GetbChangeSceneClose() { return b_ChangeDeadCloseAtt; }
+	void SetbChangeSceneClose() { b_ChangeDeadCloseAtt = TRUE; }
 public:
 	// ±øÅë
 	virtual HRESULT Initialize();
@@ -47,7 +49,9 @@ protected:
 
 	bool m_bInterectGrave;
 	bool b_ChangeSceneDead;
+	bool b_ChangeDeadCloseAtt;
 	int iMonsterHp;
+	int iPlayerHp;
 
 protected:
 	CObjMgr* m_pObjMgr = nullptr;

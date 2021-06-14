@@ -46,7 +46,7 @@ HRESULT CPlayer::Initialize()
 	m_bLeft = false;
 
 	ChangeState(FALL);
-
+	iPlayerHp = 500;
 	return NOERROR;
 }
 
@@ -61,6 +61,26 @@ INT CPlayer::Update(const float& fTimeDelta)
 	else
 	{
 		m_bChangeCharacter = dynamic_cast<CGrave*>(m_pObjMgr->Get_SingleObjLst(GRAVE))->GetbGrave();
+	}
+	if (b_ChangeSceneDead)
+	{
+		iPlayerHp -= MONSTERDISTANCEATT;
+		b_ChangeSceneDead = FALSE;
+		//ChangeState(HIT);
+		//iAttDamageBool = 1;
+		//if (m_tFrame.fX == 0)
+		//	b_ChangeSceneDead = FALSE;
+		cout << "플레이어 체력: " << iPlayerHp << endl;
+	}
+	if (b_ChangeDeadCloseAtt)
+	{
+		iPlayerHp -= MONSTERCLOSEATT;
+		b_ChangeDeadCloseAtt = FALSE;
+		//ChangeState(HIT);
+		//iAttDamageBool = 2;
+		//if (m_tFrame.fX == 0)
+		//	b_ChangeDeadCloseAtt = FALSE;
+		cout << "플레이어 체력: " << iPlayerHp << endl;
 	}
 	switch (m_eCurrState)
 	{
@@ -753,6 +773,9 @@ INT CPlayer::Update(const float& fTimeDelta)
 			}
 		}
 		break;
+	case CPlayer::HIT:
+
+		break;
 	default:
 		break;
 	}
@@ -926,7 +949,7 @@ HRESULT CPlayer::ChangeState(STATE eState)
 		case CPlayer::ATTACK:
 			if (m_bCharacter1)
 			{
-				m_pObjMgr->Add(PLAYER_ATT, CSwordmanAttack::Create(m_tInfo.fX, m_tInfo.fY, m_iSwordAttackMotion, m_bLeft));//
+				m_pObjMgr->Add(PLAYER_CLOSEATT, CSwordmanAttack::Create(m_tInfo.fX, m_tInfo.fY, m_iSwordAttackMotion, m_bLeft));//
 
 				switch (m_iSwordAttackMotion)
 				{
@@ -961,7 +984,7 @@ HRESULT CPlayer::ChangeState(STATE eState)
 		case CPlayer::SKILL:
 			if (m_bCharacter1)
 			{
-				m_pObjMgr->Add(PLAYER_ATT, CSwordmanSkill::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));//
+				m_pObjMgr->Add(PLAYER_CLOSEATT, CSwordmanSkill::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));//
 
 				m_tInfo.fCX = 60.f;
 				m_tInfo.fCY = 40.f;
@@ -975,6 +998,8 @@ HRESULT CPlayer::ChangeState(STATE eState)
 				if (!m_bLeft)	SetFrame(L"A_SkillR", 10.f, 8, 1, 0, 0);
 				else			SetFrame(L"A_SkillL", 10.f, 8, 1, 0, 0);
 			}
+			break;
+		case CPlayer::HIT:
 			break;
 		default:
 			break;

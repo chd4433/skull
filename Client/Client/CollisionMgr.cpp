@@ -147,7 +147,7 @@ HRESULT CCollisionMgr::AddCollision(RECT* pRect)
 	return NOERROR;
 }
 
-bool CCollisionMgr::CollisionPlayertoMonster(list<CObj*> Dst, list<CObj*> Src)
+bool CCollisionMgr::CollisionDstToSrc(list<CObj*> Dst, list<CObj*> Src)
 {
 	RECT temp = {};
 	if (!Dst.empty())
@@ -160,6 +160,29 @@ bool CCollisionMgr::CollisionPlayertoMonster(list<CObj*> Dst, list<CObj*> Src)
 				{
 					pMonster->SetbChangeScene();
 					pPlayerAtt->SetbChangeScene();
+					//SafeDelete(pPlayerAtt);
+					return TRUE;
+				}
+
+			}
+		}
+	}
+	return TRUE;
+}
+
+bool CCollisionMgr::CollisionDstToSrcClose(list<CObj*> Dst, list<CObj*> Src)
+{
+	RECT temp = {};
+	if (!Dst.empty())
+	{
+		for (auto& pPlayerAtt : Dst)
+		{
+			for (auto& pMonster : Src)
+			{
+				if (IntersectRect(&temp, &(pPlayerAtt->GetSmallRect()), &(pMonster->GetSmallRect())))
+				{
+					pMonster->SetbChangeSceneClose();
+					pPlayerAtt->SetbChangeSceneClose();
 					//SafeDelete(pPlayerAtt);
 					return TRUE;
 				}

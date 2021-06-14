@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "RangeTree.h"
+#include "RangeTreeAttack.h"
 
 CRangeTree::CRangeTree()
 {
@@ -19,6 +20,7 @@ HRESULT CRangeTree::Initialize(float fStartX, float fStartY)
 	ChangeState(IDLE);
 	iMonsterHp = 400;
 	m_bDead = FALSE;
+	iAttDamageBool = 0;
 	return NOERROR;
 }
 
@@ -29,8 +31,16 @@ INT CRangeTree::Update(const float& fTimeDelta)
 	if (b_ChangeSceneDead)
 	{
 		ChangeState(HIT);
+		iAttDamageBool = 1;
 		if (m_tFrame.fX == 0)
 			b_ChangeSceneDead = FALSE;
+	}
+	if (b_ChangeDeadCloseAtt)
+	{
+		ChangeState(HIT);
+		iAttDamageBool = 2;
+		if (m_tFrame.fX == 0)
+			b_ChangeDeadCloseAtt = FALSE;
 	}
 	if (iMonsterHp <= 0)
 	{
@@ -41,11 +51,17 @@ INT CRangeTree::Update(const float& fTimeDelta)
 	case CRangeTree::IDLE:
 		break;
 	case CRangeTree::ATTACK:
-		m_pObjMgr->Add(MON_ATT, CRangeTree::Create(m_tInfo.fX, m_tInfo.fY));
+		if (m_tFrame.fX == 0)
+			m_pObjMgr->Add(MON_CLOSEATT, CRangeTreeAttack::Create(m_tInfo.fX, m_tInfo.fY));
 		break;
 	case CRangeTree::HIT:
 		if (m_tFrame.fX == 0)
-			iMonsterHp -= PLAYERATT;
+		{
+			if (iAttDamageBool == 1)
+				iMonsterHp -= PLAYERATT;
+			else if (iAttDamageBool == 2)
+				iMonsterHp -= PLAYERATTCLOSE;
+		}
 		break;
 	case CRangeTree::DEAD:
 		if (m_tFrame.fX == 0 && m_bDead)

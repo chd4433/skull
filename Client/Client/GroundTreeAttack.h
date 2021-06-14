@@ -17,5 +17,6 @@ public:
 private:
 	virtual void Release();
 	BOOL m_bframe;
+	int iCollisonFrame;
 };
 

@@ -25,7 +25,7 @@ HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
 	m_bAttackMotion = FALSE;
 	m_bDead = FALSE;
 	ChangeState(IDLE);
-
+	iAttDamageBool = 0;
 	iMonsterHp = 200;
 	return NOERROR;
 }
@@ -39,8 +39,16 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	if (b_ChangeSceneDead)
 	{
 		ChangeState(HIT);
+		iAttDamageBool = 1;
 		if (m_tFrame.fX == 0)
 			b_ChangeSceneDead = FALSE;
+	}
+	if (b_ChangeDeadCloseAtt)
+	{
+		ChangeState(HIT);
+		iAttDamageBool = 2;
+		if (m_tFrame.fX == 0)
+			b_ChangeDeadCloseAtt = FALSE;
 	}
 	if (iMonsterHp <= 0)
 	{
@@ -136,7 +144,12 @@ INT CGrondTree::Update(const float& fTimeDelta)
 		else
 			--m_tInfo.fX;
 		if (m_tFrame.fX == 0)
-			iMonsterHp -= PLAYERATT;
+		{
+			if (iAttDamageBool == 1)
+				iMonsterHp -= PLAYERATT;
+			else if (iAttDamageBool == 2)
+				iMonsterHp -= PLAYERATTCLOSE;
+		}
 		break;
 	case CGrondTree::DEAD:
 		if(m_tFrame.fX == 0 && m_bDead)
