@@ -18,7 +18,7 @@ HRESULT CStage2::Initialize()
 	//CScrollManager::Set_ScrollY(0);
 	CScene::Initialize();
 	CObj* pPlayer = CPlayer::Create();
-	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
+	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE2);
 	m_pObjMgr->Add(PLAYER, pPlayer);
 	return NOERROR;
 }

@@ -36,14 +36,14 @@ HRESULT CPlayer::Initialize()
 	CObj::Initialize();
 
 	m_tInfo.fX = 50.f;
-	m_tInfo.fY = 345.f;
+	m_tInfo.fY = 200.f;
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
 	m_bCharacter1 = true;
 	m_bLeft = false;
 
-	ChangeState(IDLE);
+	ChangeState(FALL);
 
 	return NOERROR;
 }
@@ -77,6 +77,10 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 1035 && m_tInfo.fX <= 1480 && m_tInfo.fY < 385)	ChangeState(FALL);
 			if (m_tInfo.fX > 1480 && m_tInfo.fX <= 1720 && m_tInfo.fY < 500) ChangeState(FALL);
 			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
+			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX <= 350 && m_tInfo.fY <= 295) ChangeState(FALL);
+			if (m_tInfo.fX > 350 && m_tInfo.fX <= 1250 && m_tInfo.fY < 655)	ChangeState(FALL);
 			break;
 		}
 
@@ -172,6 +176,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 5;
 			if (m_tInfo.fX + 5 >= 2400)	m_tInfo.fX -= 5;
 			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX - 5 <= 0)						m_tInfo.fX += 5;
+			if (m_tInfo.fX - 5 <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += 5;
+			if (m_tInfo.fX + 5 >= 1240)						m_tInfo.fX -= 5;
+			break;
 		}
 
 		// 발 아래에 타일이 없으면 낙하
@@ -188,6 +197,10 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 1035 && m_tInfo.fX <= 1480 && m_tInfo.fY < 385)	ChangeState(FALL);
 			if (m_tInfo.fX > 1480 && m_tInfo.fX <= 1720 && m_tInfo.fY < 500) ChangeState(FALL);
 			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
+			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX <= 350 && m_tInfo.fY <= 295)						ChangeState(FALL);
+			if (m_tInfo.fX > 350 && m_tInfo.fX <= 1250 && m_tInfo.fY < 655)	ChangeState(FALL);
 			break;
 		}
 
@@ -293,6 +306,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
 				if (m_tInfo.fX + 10 >= 2400)										m_tInfo.fX -= 10;
 				break;
+			case SCENE_STAGE2:
+				if (m_tInfo.fX - 10 <= 0)							m_tInfo.fX += 10;
+				if (m_tInfo.fX - 10 <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += 10;
+				if (m_tInfo.fX + 10 >= 1240)						m_tInfo.fX -= 10;
+				break;
 			}
 
 			// 일정 거리 대쉬하면 대쉬 종료
@@ -337,6 +355,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
 				if (m_tInfo.fX + m_fDashLen >= 2400)								m_tInfo.fX = 2400 - m_fDashLen;
 				break;
+			case SCENE_STAGE2:
+				if (m_tInfo.fX - m_fDashLen <= 0)							m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX - m_fDashLen <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX + m_fDashLen >= 1240)						m_tInfo.fX -= m_fDashLen;
+				break;
 			}
 
 			// 일정 거리 대쉬하면 대쉬 종료
@@ -354,7 +377,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		m_tInfo.fY -= 8.f;
 		m_fJumpHeight += 8.f;
-		CScrollManager::Set_ScrollY(8);
+		if (!m_bBossFight)	CScrollManager::Set_ScrollY(8);
 
 		// 일정 높이 점프하면 떨어짐
 		if (m_fJumpHeight >= 144)	ChangeState(FALL);
@@ -395,6 +418,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 4;
 			if (m_tInfo.fX + 4 >= 2400)	m_tInfo.fX -= 4;
 			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX - 4 <= 0)						m_tInfo.fX += 4;
+			if (m_tInfo.fX - 4 <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += 4;
+			if (m_tInfo.fX + 4 >= 1240)						m_tInfo.fX -= 4;
+			break;
 		}
 
 		// 점프 중 대쉬
@@ -416,7 +444,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 		m_tInfo.fY += 1.f + m_fGravityAccel * m_fGravityAccel;
 		//m_fGravityAccel += 0.35f;
 		m_fGravityAccel += 0.13f;
-		CScrollManager::Set_ScrollY(-(1.f + m_fGravityAccel * m_fGravityAccel));
+		// 카메라 이동
+		if ((CurrScene == SCENE_STAGE2) && !m_bBossFight) {
+			if (m_tRect.bottom + iScrollY >= 531)
+				CScrollManager::Set_ScrollY(-(1.f + m_fGravityAccel * m_fGravityAccel));
+		}
+		//else
+		//	CScrollManager::Set_ScrollY(-(1.f + m_fGravityAccel * m_fGravityAccel));
 
 		switch (CurrScene) {
 		case SCENE_TUTORIAL:
@@ -458,7 +492,17 @@ INT CPlayer::Update(const float& fTimeDelta)
 				m_tInfo.fY = 265;
 				ChangeState(IDLE);
 			}
-				
+			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX <= 350 && m_tInfo.fY >= 300) {
+				m_tInfo.fY = 300;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 350 && m_tInfo.fX <= 1240 && m_tInfo.fY >= 660) {
+				m_tInfo.fY = 660;
+				m_bBossFight = true;
+				ChangeState(IDLE);
+			}
 			break;
 		}
 
@@ -497,6 +541,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
 			if (m_tInfo.fX + 3 >= 2400)	m_tInfo.fX -= 3;
+			break;
+		case SCENE_STAGE2:
+			if (m_tInfo.fX - 3 <= 0)						m_tInfo.fX += 3;
+			if (m_tInfo.fX - 3 <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += 3;
+			if (m_tInfo.fX + 3 >= 1240)						m_tInfo.fX -= 3;
 			break;
 		}
 
@@ -595,6 +644,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_bFall) {
 			m_tInfo.fY += 1.f + m_fGravityAccel;
 			m_fGravityAccel += 0.35f;
+			// 카메라이동
+			if ((CurrScene == SCENE_STAGE2) && !m_bBossFight) {
+				if (m_tRect.bottom + iScrollY >= 531)
+					CScrollManager::Set_ScrollY(-(1.f + m_fGravityAccel * m_fGravityAccel));
+			}
+			//else
+			//	CScrollManager::Set_ScrollY(-(1.f + m_fGravityAccel * m_fGravityAccel));
 
 			// 발판 아래로 떨어지는 것 방지
 			switch (CurrScene) {
@@ -629,7 +685,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX > 1720 && m_tInfo.fY >= 265 && m_tInfo.fY <= 275) {
 					m_tInfo.fY = 264;
 				}
-
+				break;
+			case SCENE_STAGE2:
+				if (m_tInfo.fX <= 350 && m_tInfo.fY >= 300) {
+					m_tInfo.fY = 300;
+				}
+				if (m_tInfo.fX > 350 && m_tInfo.fX <= 1240 && m_tInfo.fY >= 660) {
+					m_tInfo.fY = 660;
+				}
 				break;
 			}
 		}
@@ -665,6 +728,11 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
 				if (m_tInfo.fX + 15 >= 2400)										m_tInfo.fX -= 15;
+				break;
+			case SCENE_STAGE2:
+				if (m_tInfo.fX - 15 <= 0)							m_tInfo.fX += 15;
+				if (m_tInfo.fX - 15 <= 350 && m_tInfo.fY >= 305)	m_tInfo.fX += 15;
+				if (m_tInfo.fX + 15 >= 1240)						m_tInfo.fX -= 15;
 				break;
 			}
 
