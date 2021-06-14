@@ -177,6 +177,8 @@
     </ClInclude>
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="Struct.h" />
+    <ClInclude Include="SwordmanAttack.h" />
+    <ClInclude Include="SwordmanSkill.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TurorialStage.h" />
   </ItemGroup>
@@ -213,6 +215,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="SwordmanAttack.cpp" />
+    <ClCompile Include="SwordmanSkill.cpp" />
     <ClCompile Include="TurorialStage.cpp" />
   </ItemGroup>
   <ItemGroup>

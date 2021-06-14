@@ -98,6 +98,12 @@
     <Filter Include="01 Obj\02 Monster\02 Boss">
       <UniqueIdentifier>{59340016-48d9-450d-9d6f-59a5e298d294}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\00 Player\00 Player">
+      <UniqueIdentifier>{198c0118-c818-4eed-9fc0-f9349354a5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\00 Player\01 Player Attack">
+      <UniqueIdentifier>{c9900cf4-65d2-4cfb-ae51-b9beef8c2954}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -154,9 +160,6 @@
     <ClInclude Include="Scene.h">
       <Filter>02 Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>01 Obj\00 Player</Filter>
-    </ClInclude>
     <ClInclude Include="SceneLogo.h">
       <Filter>02 Scene\00 Logo</Filter>
     </ClInclude>
@@ -204,6 +207,15 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>01 Obj\02 Monster\02 Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>01 Obj\00 Player\00 Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordmanAttack.h">
+      <Filter>01 Obj\00 Player\01 Player Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordmanSkill.h">
+      <Filter>01 Obj\00 Player\01 Player Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +265,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>02 Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>01 Obj\00 Player</Filter>
-    </ClCompile>
     <ClCompile Include="SceneLogo.cpp">
       <Filter>02 Scene\00 Logo</Filter>
     </ClCompile>
@@ -303,6 +312,15 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>01 Obj\02 Monster\02 Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>01 Obj\00 Player\00 Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SwordmanAttack.cpp">
+      <Filter>01 Obj\00 Player\01 Player Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="SwordmanSkill.cpp">
+      <Filter>01 Obj\00 Player\01 Player Attack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

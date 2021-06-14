@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "Player.h"
+#include "SwordmanAttack.h"
+#include "SwordmanSkill.h"
 #include "Energyball.h"
 #include "PoisonFlask.h"
 #include "Grave.h"
@@ -577,32 +579,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 		m_fAttackCount++;
 
 		if (m_bCharacter1) {
-			switch (m_iSwordAttackMotion)
-			{
-			case 0:
-				if (m_fAttackCount >= 5 * 3) {
-					if (m_bFall)	ChangeState(FALL);
-					else			ChangeState(IDLE);
-					m_fAttackCount = 0;
-					m_iSwordAttackMotion++;
-				}
-				break;
-			case 1:
-				if (m_fAttackCount >= 4 * 3) {
-					if (m_bFall)	ChangeState(FALL);
-					else			ChangeState(IDLE);
-					m_fAttackCount = 0;
-					m_iSwordAttackMotion++;
-				}
-				break;
-			case 2:
-				if (m_fAttackCount >= 6 * 3) {
-					if (m_bFall)	ChangeState(FALL);
-					else			ChangeState(IDLE);
-					m_fAttackCount = 0;
-					m_iSwordAttackMotion = 0;
-				}
+			if (m_tFrame.fX == 0) {
+				if (m_bFall)	ChangeState(FALL);
+				else			ChangeState(IDLE);
+				m_fAttackCount = 0;
+				if (m_iSwordAttackMotion == 2)	m_iSwordAttackMotion = 0;
+				else							m_iSwordAttackMotion++;
 			}
+
 			// ¥ÎΩ¨ ∏º«ƒµΩΩ
 			if (!m_bDash) {
 				if (m_pKeyMgr->KeyDown(KEY_DASH)) {
@@ -629,8 +613,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 		else {
 			// ≈ı√¥
 			if (m_fAttackCount <= 1) {
-				if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
-				else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10, m_bLeft));
+				if (CurrScene == SCENE_STAGE2) {
+					if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10 + iScrollY, m_bLeft));
+					else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10 + iScrollY, m_bLeft));
+				}
+				else {
+					if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
+					else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10, m_bLeft));
+				}
 			}
 
 			// ªÛ≈¬ ∫π±∏
@@ -752,7 +742,10 @@ INT CPlayer::Update(const float& fTimeDelta)
 			m_fAttackCount++;
 
 			// ≈ı√¥
-			if (m_fAttackCount == 6 * 5)	m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+			if (m_fAttackCount == 6 * 5) {
+				if (CurrScene == SCENE_STAGE2)	m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY + iScrollY, m_bLeft));
+				else							m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
+			}
 
 			if (m_fAttackCount >= 8 * 5) {
 				ChangeState(IDLE);
@@ -933,6 +926,8 @@ HRESULT CPlayer::ChangeState(STATE eState)
 		case CPlayer::ATTACK:
 			if (m_bCharacter1)
 			{
+				m_pObjMgr->Add(PLAYER_ATT, CSwordmanAttack::Create(m_tInfo.fX, m_tInfo.fY, m_iSwordAttackMotion, m_bLeft));//
+
 				switch (m_iSwordAttackMotion)
 				{
 				case 0:
@@ -966,6 +961,8 @@ HRESULT CPlayer::ChangeState(STATE eState)
 		case CPlayer::SKILL:
 			if (m_bCharacter1)
 			{
+				m_pObjMgr->Add(PLAYER_ATT, CSwordmanSkill::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));//
+
 				m_tInfo.fCX = 60.f;
 				m_tInfo.fCY = 40.f;
 				if (!m_bLeft)		SetFrame(L"S_SkillR", 10.f, 6, 1, 0, 0);
