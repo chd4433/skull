@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Energyball.h" />
     <ClInclude Include="Grave.h" />
     <ClInclude Include="Client.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="PoisonGas.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="RangeTree.h" />
+    <ClInclude Include="RangeTreeAttack.h" />
     <ClInclude Include="RenderMgr.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -181,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Energyball.cpp" />
     <ClCompile Include="Grave.cpp" />
     <ClCompile Include="Client.cpp" />
@@ -197,6 +200,7 @@
     <ClCompile Include="PoisonGas.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RangeTree.cpp" />
+    <ClCompile Include="RangeTreeAttack.cpp" />
     <ClCompile Include="RenderMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneLogo.cpp" />

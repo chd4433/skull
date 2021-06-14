@@ -63,3 +63,15 @@ RangeTree_Death ../Binary/Monster/RangeTree/Death/Range_Tree_Dead00.bmp
 RangeTree_Hit ../Binary/Monster/RangeTree/Hit/Range_Tree_Hit.bmp
 Grave ../Binary/Grave/Grave_sheet.bmp
 GroundTree_Dead ../Binary/Monster/GroundTree/Dead/ShadowStep.bmp
+Boss_AttackL_A ../Binary/Monster/Boss/Attack/Boss_AttackL_A.bmp
+Boss_AttackL_B ../Binary/Monster/Boss/Attack/Boss_AttackL_B.bmp
+Boss_AttackR_A ../Binary/Monster/Boss/Attack/Boss_AttackR_A.bmp
+Boss_AttackR_B ../Binary/Monster/Boss/Attack/Boss_AttackR2-sheet.bmp
+Boss_DashL ../Binary/Monster/Boss/Dash/Boss_DashL.bmp
+Boss_DashR ../Binary/Monster/Boss/Dash/Boss_DashR-sheet.bmp
+Boss_DeadL ../Binary/Monster/Boss/Death/Boss_DeadL.bmp
+Boss_DeadR ../Binary/Monster/Boss/Death/Boss_DeadR-sheet.bmp
+Boss_HitL ../Binary/Monster/Boss/Hit/Boss_HitL.bmp
+Boss_HitR ../Binary/Monster/Boss/Hit/Boss_HitR-sheet.bmp
+Boss_IdleL ../Binary/Monster/Boss/Idle/Boss_PotionL.bmp
+Boss_IdleR ../Binary/Monster/Boss/Idle/Boss_PotionR-sheet.bmp

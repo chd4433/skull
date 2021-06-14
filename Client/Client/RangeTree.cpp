@@ -41,6 +41,7 @@ INT CRangeTree::Update(const float& fTimeDelta)
 	case CRangeTree::IDLE:
 		break;
 	case CRangeTree::ATTACK:
+		m_pObjMgr->Add(MON_ATT, CRangeTree::Create(m_tInfo.fX, m_tInfo.fY));
 		break;
 	case CRangeTree::HIT:
 		if (m_tFrame.fX == 0)

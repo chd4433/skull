@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "Stage2.h"
 #include "Player.h"
+#include "Boss.h"
 
 CStage2::CStage2()
 {
@@ -20,6 +21,9 @@ HRESULT CStage2::Initialize()
 	CObj* pPlayer = CPlayer::Create();
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE2);
 	m_pObjMgr->Add(PLAYER, pPlayer);
+	CObj* pBoss = CBoss::Create(1135, 645);
+	pBoss->SetObjScene(SCENE_STAGE2);
+	m_pObjMgr->Add(MONSTER, pBoss);
 	return NOERROR;
 }
 

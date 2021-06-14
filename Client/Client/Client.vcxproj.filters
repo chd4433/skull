@@ -74,9 +74,6 @@
     <Filter Include="01 Obj\03 Monster Attack">
       <UniqueIdentifier>{0cc97553-82b9-46d5-817e-0ba83bf32d6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01 Obj\03 Monster Attack\GroundTree Attack">
-      <UniqueIdentifier>{e7ab1dcc-ab9e-48ba-80c8-f0a42e1164e8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01 Obj\02 Monster\01 RangeTree">
       <UniqueIdentifier>{4baebb9d-d72d-4e51-b655-d74bedd2a732}</UniqueIdentifier>
     </Filter>
@@ -91,6 +88,15 @@
     </Filter>
     <Filter Include="01 Obj\04 Throw\01 Alchemist">
       <UniqueIdentifier>{dc858568-dad0-40a8-9495-08d92322302f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\01 RangeTree Attack">
+      <UniqueIdentifier>{f5d660db-01ee-40b0-b65b-4a417cf4da72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\00 GroundTree Attack">
+      <UniqueIdentifier>{e7ab1dcc-ab9e-48ba-80c8-f0a42e1164e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\02 Monster\02 Boss">
+      <UniqueIdentifier>{59340016-48d9-450d-9d6f-59a5e298d294}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +179,7 @@
       <Filter>01 Obj\02 Monster\00 GroundTree</Filter>
     </ClInclude>
     <ClInclude Include="GroundTreeAttack.h">
-      <Filter>01 Obj\03 Monster Attack\GroundTree Attack</Filter>
+      <Filter>01 Obj\03 Monster Attack\00 GroundTree Attack</Filter>
     </ClInclude>
     <ClInclude Include="RangeTree.h">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
@@ -192,6 +198,12 @@
     </ClInclude>
     <ClInclude Include="PoisonGas.h">
       <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeTreeAttack.h">
+      <Filter>01 Obj\03 Monster Attack\01 RangeTree Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>01 Obj\02 Monster\02 Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +278,7 @@
       <Filter>01 Obj\02 Monster\00 GroundTree</Filter>
     </ClCompile>
     <ClCompile Include="GroundTreeAttack.cpp">
-      <Filter>01 Obj\03 Monster Attack\GroundTree Attack</Filter>
+      <Filter>01 Obj\03 Monster Attack\00 GroundTree Attack</Filter>
     </ClCompile>
     <ClCompile Include="RangeTree.cpp">
       <Filter>01 Obj\02 Monster\01 RangeTree</Filter>
@@ -285,6 +297,12 @@
     </ClCompile>
     <ClCompile Include="PoisonGas.cpp">
       <Filter>01 Obj\04 Throw\01 Alchemist</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeTreeAttack.cpp">
+      <Filter>01 Obj\03 Monster Attack\01 RangeTree Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>01 Obj\02 Monster\02 Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
