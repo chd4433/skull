@@ -253,7 +253,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 5;
 			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 5;
 			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 5;
-			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 5;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4350 && m_tInfo.fY >= 220)	m_tInfo.fX += 5;
 			if (m_tInfo.fX + 5 >= 4790)	m_tInfo.fX -= 5;
 			break;
 		case SCENE_STAGE2:
@@ -399,7 +399,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 10;
 				if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
 				if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 10;
-				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 10;
+				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4350 && m_tInfo.fY >= 220)	m_tInfo.fX += 10;
 				if (m_tInfo.fX + 10 >= 4790)	m_tInfo.fX -= 10;
 				break;
 			case SCENE_STAGE2:
@@ -527,7 +527,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 4;
 			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 4;
 			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 4;
-			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 4;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4350 && m_tInfo.fY >= 220)	m_tInfo.fX += 4;
 			if (m_tInfo.fX + 4 >= 4790)	m_tInfo.fX -= 4;
 			break;
 		case SCENE_STAGE2:
@@ -681,7 +681,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
 			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
 			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 3;
-			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 3;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4350 && m_tInfo.fY >= 220)	m_tInfo.fX += 3;
 			if (m_tInfo.fX + 3 >= 4790)	m_tInfo.fX -= 3;
 			break;
 		case SCENE_STAGE2:
@@ -861,7 +861,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
 				if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
 				if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 15;
-				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 15;
+				if (m_tInfo.fX >= 4335 && m_tInfo.fX <= 4355 && m_tInfo.fY >= 220)	m_tInfo.fX += 15;
 				if (m_tInfo.fX + 15 >= 4790)	m_tInfo.fX -= 15;
 				break;
 			case SCENE_STAGE2:
