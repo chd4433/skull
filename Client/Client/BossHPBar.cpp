@@ -61,7 +61,7 @@ VOID CBossHPBar::Render(HDC hDC)
 	HDC hMemDC = m_pBmpMgr->FindBmp(L"B_HealthBar");
 	GdiTransparentBlt(hDC,
 		m_tRect.left + iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
-		m_tInfo.fCX * (m_ibossHP * 1 / 10) - 10, m_tInfo.fCY * 2,
+		m_tInfo.fCX * (int)(540 * ((float)m_ibossHP / 3000.f)), m_tInfo.fCY * 2,// 보스체력 바뀌면 3000.f 수정하면됨
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표.
 		m_tInfo.fCX, m_tInfo.fCY,//그림의 전체 가로세로 크기 

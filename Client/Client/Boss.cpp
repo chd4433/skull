@@ -29,7 +29,7 @@ HRESULT CBoss::Initialize(float fStartX, float fStartY)
 	m_bDead = FALSE;
 	ChangeState(IDLE);
 
-	iMonsterHp = 5500;
+	iMonsterHp = 3000;
 	return NOERROR;
 }
 

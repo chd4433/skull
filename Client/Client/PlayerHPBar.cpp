@@ -61,7 +61,7 @@ VOID CPlayerHPBar::Render(HDC hDC)
 	HDC hMemDC = m_pBmpMgr->FindBmp(L"P_HealthBar");
 	GdiTransparentBlt(hDC,
 		m_tRect.left + iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
-		m_tInfo.fCX + m_iPlayerHP * 3 / 10, m_tInfo.fCY * 2,
+		m_tInfo.fCX * (int)(149 * ((float)m_iPlayerHP / 500.f)), m_tInfo.fCY * 2,
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표.
 		m_tInfo.fCX, m_tInfo.fCY,//그림의 전체 가로세로 크기 
