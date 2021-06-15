@@ -43,6 +43,8 @@ void CKeyMgr::UpdateKey()
 		m_dwCurKey |= KEY_INTERECT;
 	if (GetAsyncKeyState('A') & 0x8000)
 		m_dwCurKey |= KEY_SKILL;
+	if (GetAsyncKeyState('P') & 0x8000)
+		m_dwCurKey |= KEY_CHEAT;
 }
 
 bool CKeyMgr::KeyDown(DWORD dwCurKey)

@@ -54,6 +54,8 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	{
 		ChangeState(DEAD);
 	}
+	if (m_pKeyMgr->KeyDown(KEY_CHEAT))
+		return OBJ_DEAD;
 	switch (m_eCurrState)
 	{
 	case CGrondTree::IDLE:

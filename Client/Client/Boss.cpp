@@ -56,7 +56,7 @@ INT CBoss::Update(const float& fTimeDelta)
 		b_ChangeDeadCloseAtt = FALSE;
 		cout << "보스 체력: " << iMonsterHp << endl;
 	}
-	if (iMonsterHp <= 0)
+	if (iMonsterHp <= 0 || m_pKeyMgr->KeyDown(KEY_CHEAT))
 		ChangeState(DEAD);
 	switch (m_eCurrState)
 	{
