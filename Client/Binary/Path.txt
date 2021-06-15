@@ -1,5 +1,11 @@
 Back ../Binary/Back.bmp
 Back2 ../Binary/Back.bmp
+Sonly_State ../Binary/State/Sonly_State.bmp
+S_State ../Binary/State/S_State.bmp
+A_State ../Binary/State/A_State.bmp
+Boss_State ../Binary/State/Boss_State.bmp
+P_HealthBar ../Binary/HpBar/P_HealthBar.bmp
+B_HealthBar ../Binary/HpBar/B_HealthBar.bmp
 S_IdleR ../Binary/Player/Swordman/S_IdleR.bmp
 S_IdleL ../Binary/Player/Swordman/S_IdleL.bmp
 S_SwitchR ../Binary/Player/Swordman/S_SwitchR.bmp

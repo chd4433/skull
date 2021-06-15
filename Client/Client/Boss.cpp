@@ -4,6 +4,8 @@
 #include "CloseAttack1.h"
 #include "CCloseAttack2.h"
 #include "DistnaceAttack.h"
+#include "BossState.h"
+#include "BossHPBar.h"
 
 CBoss::CBoss()
 {
@@ -27,7 +29,7 @@ HRESULT CBoss::Initialize(float fStartX, float fStartY)
 	m_bDead = FALSE;
 	ChangeState(IDLE);
 
-	iMonsterHp = 200;
+	iMonsterHp = 5500;
 	return NOERROR;
 }
 
@@ -35,6 +37,12 @@ INT CBoss::Update(const float& fTimeDelta)
 {
 	CheckDash();
 	CheckAttackA();
+
+	// 보스 UI 출력
+	m_pObjMgr->Add(BOSS_STATE, CBossState::Create());
+	// 캐릭터 체력바
+	m_pObjMgr->Add(PLAYER_HPBAR, CBossHPBar::Create(iMonsterHp));
+
 	if (b_ChangeSceneDead)
 	{
 		iMonsterHp -= PLAYERATT;

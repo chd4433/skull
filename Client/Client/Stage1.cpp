@@ -24,7 +24,7 @@ HRESULT CStage1::Initialize()
 	CSceneMgr::GetInstance()->Get_ChangeScene() = FALSE;
 	//CScrollManager::Set_ScrollY(0);
 	CScene::Initialize();
-	CObj* pPlayer = CPlayer::Create();
+	CObj* pPlayer = CPlayer::Create(50, 500, 500, true, true);
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
 	m_pObjMgr->Add(PLAYER, pPlayer);
 	//m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));

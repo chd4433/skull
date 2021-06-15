@@ -5,6 +5,8 @@
 #include "Energyball.h"
 #include "PoisonFlask.h"
 #include "Grave.h"
+#include "PlayerState.h"
+#include "PlayerHPBar.h"
 
 SCENE_ID CurrScene = SCENE_END;
 
@@ -33,20 +35,21 @@ VOID CPlayer::SetRectPlayer(float fCX, float fCY)
 	}
 }
 
-HRESULT CPlayer::Initialize()
+HRESULT CPlayer::Initialize(float fStartX, float fStartY, int currHP, bool possible_Change, bool isSwordman)
 {
 	CObj::Initialize();
 
-	m_tInfo.fX = 50.f;
-	m_tInfo.fY = 200.f;
+	m_tInfo.fX = fStartX;
+	m_tInfo.fY = fStartY;
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
-	m_bCharacter1 = true;
+	m_bChangeCharacter = possible_Change;
+	m_bCharacter1 = isSwordman;
 	m_bLeft = false;
 
 	ChangeState(FALL);
-	iPlayerHp = 500;
+	iPlayerHp = currHP;
 	return NOERROR;
 }
 
@@ -54,6 +57,16 @@ INT CPlayer::Update(const float& fTimeDelta)
 {
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
+
+	// 캐릭터 UI 출력
+	if (!m_bChangeCharacter)	m_iStateType = 0;
+	else if (m_bCharacter1)		m_iStateType = 1;
+	else						m_iStateType = 2;
+	m_pObjMgr->Add(PLAYER_STATE, CPlayerState::Create(m_iStateType));
+	// 캐릭터 체력바
+	m_pObjMgr->Add(PLAYER_HPBAR, CPlayerHPBar::Create(iPlayerHp));
+
+	// 무덤
 	if (m_pObjMgr->Get_SingleObjLst(GRAVE)==nullptr)
 	{
 		m_bChangeCharacter = TRUE;
@@ -62,6 +75,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 	{
 		m_bChangeCharacter = dynamic_cast<CGrave*>(m_pObjMgr->Get_SingleObjLst(GRAVE))->GetbGrave();
 	}
+	// 피격
 	if (b_ChangeSceneDead)
 	{
 		iPlayerHp -= MONSTERDISTANCEATT;
@@ -89,6 +103,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 		b_Patration = TRUE;
 		cout << "플레이어 체력: " << iPlayerHp << endl;
 	}
+
+	// 사망
+	if (iPlayerHp <= 0) {
+		cout << "Game Over" << endl;
+		iPlayerHp = 1;	//Hp Bar test
+	}
+
 	switch (m_eCurrState)
 	{
 	case CPlayer::IDLE:
@@ -186,8 +207,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 		else {
 			m_tInfo.fX += 5;
-			if (m_tRect.left + iScrollX >= 301)
-				CScrollManager::Set_ScrollX(-5);
+			if (CurrScene == SCENE_STAGE2) {
+				if (m_tRect.left >= 301 && m_tRect.left + 5 < 1090)
+					CScrollManager::Set_ScrollX(-5);
+			}
+			else {
+				if (m_tRect.left + iScrollX >= 301)
+					CScrollManager::Set_ScrollX(-5);
+			}
 		}
 		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
@@ -315,8 +342,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 			}
 			else {
 				m_tInfo.fX += 10;
-				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-10);
+				if (CurrScene == SCENE_STAGE2) {
+					if (m_tRect.left >= 301 && m_tRect.left + 10 < 1090)
+						CScrollManager::Set_ScrollX(-10);
+				}
+				else {
+					if (m_tRect.left + iScrollX >= 301)
+						CScrollManager::Set_ScrollX(-10);
+				}
 			}
 			m_fDashLen += 10;
 			// 옆에 타일로 막혀있으면 이동불가
@@ -364,8 +397,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 			}
 			else {
 				m_tInfo.fX += m_fDashLen;
-				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-m_fDashLen);
+				if (CurrScene == SCENE_STAGE2) {
+					if (m_tRect.left >= 301 && m_tRect.left + m_fDashLen < 1090)
+						CScrollManager::Set_ScrollX(-m_fDashLen);
+				}
+				else {
+					if (m_tRect.left + iScrollX >= 301)
+						CScrollManager::Set_ScrollX(-m_fDashLen);
+				}
 			}
 			m_fDashCount++;
 			// 옆에 타일로 막혀있으면 이동불가
@@ -428,8 +467,20 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_pKeyMgr->KeyPressing(KEY_RIGHT)) {
 			m_bLeft = false;
 			m_tInfo.fX += 4;
-			if (m_tRect.left + iScrollX >= 301)
-				CScrollManager::Set_ScrollX(-4);
+			if (CurrScene == SCENE_STAGE2) {
+				if (m_tRect.left >= 301 && m_tRect.left + 4 < 1090)
+					CScrollManager::Set_ScrollX(-4);
+			}
+			else {
+				if (CurrScene == SCENE_STAGE2) {
+					if (m_tRect.left >= 301 && m_tRect.left + 4 < 1090)
+						CScrollManager::Set_ScrollX(-4);
+				}
+				else {
+					if (m_tRect.left + iScrollX >= 301)
+						CScrollManager::Set_ScrollX(-4);
+				}
+			}
 		}
 		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
@@ -553,8 +604,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_pKeyMgr->KeyPressing(KEY_RIGHT)) {
 			m_bLeft = false;
 			m_tInfo.fX += 3;
-			if (m_tRect.left + iScrollX >= 301)
-				CScrollManager::Set_ScrollX(-3);
+			if (CurrScene == SCENE_STAGE2) {
+				if (m_tRect.left >= 301 && m_tRect.left + 3 < 1090)
+					CScrollManager::Set_ScrollX(-3);
+			}
+			else {
+				if (m_tRect.left + iScrollX >= 301)
+					CScrollManager::Set_ScrollX(-3);
+			}
 		}
 		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
@@ -724,8 +781,14 @@ INT CPlayer::Update(const float& fTimeDelta)
 				}
 				else {
 					m_tInfo.fX += 15;
-					if (m_tRect.left + iScrollX >= 301)
-						CScrollManager::Set_ScrollX(-15);
+					if (CurrScene == SCENE_STAGE2) {
+						if (m_tRect.left >= 301 && m_tRect.left + 15 < 1090)
+							CScrollManager::Set_ScrollX(-15);
+					}
+					else {
+						if (m_tRect.left + iScrollX >= 301)
+							CScrollManager::Set_ScrollX(-15);
+					}
 				}
 				m_fDashLen += 15;
 			}
@@ -1047,10 +1110,10 @@ void CPlayer::Release()
 {
 }
 
-CPlayer* CPlayer::Create()
+CPlayer* CPlayer::Create(float fStartX, float fStartY, int currHP, bool possible_Change, bool isSwordman)
 {
 	CPlayer* pInstance = new CPlayer;
-	if (FAILED(pInstance->Initialize()))
+	if (FAILED(pInstance->Initialize(fStartX, fStartY, currHP, possible_Change, isSwordman)))
 		SafeDelete(pInstance);
 	return pInstance;
 }

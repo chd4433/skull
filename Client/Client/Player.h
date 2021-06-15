@@ -20,7 +20,7 @@ public:
 	RECT GetRectPlayer() { return rectPlayer; }
 public:
 	// ±øÅë
-	virtual HRESULT Initialize();
+	virtual HRESULT Initialize(float fStartX, float fStartY, int currHP, bool possible_Change, bool isSwordman);
 	virtual INT Update(const float& fTimeDelta);
 	virtual VOID Render(HDC hDC);
 
@@ -36,7 +36,7 @@ private:
 	virtual void Release();
 
 public:
-	static CPlayer* Create();
+	static CPlayer* Create(float fStartX, float fStartY, int currHP, bool possible_Change, bool isSwordman);
 private:
 	bool bScrollrock = false;
 	RECT rectPlayer;
@@ -61,7 +61,8 @@ public:
 	float	m_fAttackCount = 0.f;
 	float	m_fSkillDelay = 0.f;
 	int		m_iSwordAttackMotion = 0;
-	int iAttDamageBool = 0;
+	int		iAttDamageBool = 0;
+	int		m_iStateType = 0;
 
 public:
 	float	m_fMapCount = 0.f;

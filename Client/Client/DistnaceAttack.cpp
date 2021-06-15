@@ -17,7 +17,7 @@ HRESULT CDistnaceAttack::Initialize(float fStartX, float fStartY,BOOL bRight)
 	m_tInfo.fY = fStartY;
 	m_tInfo.fCX = 70.f;
 	m_tInfo.fCY = 70.f;
-	SetFrame(L"Boss_Ball", 5.f, 21, 1);
+	SetFrame(L"Boss_Ball", 5.f, 8, 1);
 	m_bframe = FALSE;
 	m_bRight = bRight;
 	//TargetPlayer();

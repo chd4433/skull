@@ -142,6 +142,8 @@
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossHPBar.h" />
+    <ClInclude Include="BossState.h" />
     <ClInclude Include="CCloseAttack2.h" />
     <ClInclude Include="CloseAttack1.h" />
     <ClInclude Include="DistnaceAttack.h" />
@@ -163,6 +165,8 @@
     <ClInclude Include="Obj.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHPBar.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="PoisonFlask.h" />
     <ClInclude Include="PoisonGas.h" />
     <ClInclude Include="Portal.h" />
@@ -191,6 +195,8 @@
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossHPBar.cpp" />
+    <ClCompile Include="BossState.cpp" />
     <ClCompile Include="CCloseAttack2.cpp" />
     <ClCompile Include="CloseAttack1.cpp" />
     <ClCompile Include="DistnaceAttack.cpp" />
@@ -208,6 +214,8 @@
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHPBar.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PoisonFlask.cpp" />
     <ClCompile Include="PoisonGas.cpp" />
     <ClCompile Include="Portal.cpp" />

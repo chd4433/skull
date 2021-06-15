@@ -19,7 +19,7 @@ CTutorialStage::~CTutorialStage()
 HRESULT CTutorialStage::Initialize()
 {
 	CScene::Initialize();
-	CObj* pPlayer = CPlayer::Create();
+	CObj* pPlayer = CPlayer::Create(50, 345, 500, false, true);
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_TUTORIAL);
 	m_pObjMgr->Add(PLAYER, pPlayer);
 	CObj* pPortal = CPortal::Create(1379, 290);

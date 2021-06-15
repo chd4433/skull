@@ -122,6 +122,18 @@
     <Filter Include="01 Obj\03 Monster Attack\03 MovingTree Attack">
       <UniqueIdentifier>{6716b3a5-16d3-4591-91db-ff07b41c682c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\06 UI">
+      <UniqueIdentifier>{1ca6500c-8283-481b-8140-0f174d321656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\00 Player State">
+      <UniqueIdentifier>{a1f81b64-383e-498a-95c7-d406d1ee917a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\01 Boss State">
+      <UniqueIdentifier>{361a5a1f-8395-4e91-920f-3433df162ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\02 Health Bar">
+      <UniqueIdentifier>{7e07e362-a99d-45ee-b01f-754f7d92d2e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -250,6 +262,18 @@
     <ClInclude Include="MovingTreeAttack.h">
       <Filter>01 Obj\03 Monster Attack\03 MovingTree Attack</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>01 Obj\06 UI\00 Player State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossState.h">
+      <Filter>01 Obj\06 UI\01 Boss State</Filter>
+    </ClInclude>
+    <ClInclude Include="BossHPBar.h">
+      <Filter>01 Obj\06 UI\02 Health Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHPBar.h">
+      <Filter>01 Obj\06 UI\02 Health Bar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -369,6 +393,18 @@
     </ClCompile>
     <ClCompile Include="MovingTreeAttack.cpp">
       <Filter>01 Obj\03 Monster Attack\03 MovingTree Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>01 Obj\06 UI\00 Player State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossState.cpp">
+      <Filter>01 Obj\06 UI\01 Boss State</Filter>
+    </ClCompile>
+    <ClCompile Include="BossHPBar.cpp">
+      <Filter>01 Obj\06 UI\02 Health Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHPBar.cpp">
+      <Filter>01 Obj\06 UI\02 Health Bar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
