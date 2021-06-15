@@ -27,23 +27,29 @@ HRESULT CStage1::Initialize()
 	CObj* pPlayer = CPlayer::Create(50, 500, 500, true, true);
 	static_cast<CPlayer*>(pPlayer)->Set_Scene(SCENE_STAGE1);
 	m_pObjMgr->Add(PLAYER, pPlayer);
-	//m_pObjMgr->Add(PORTAL, CPortal::Create(2126, 450));
-	//CObj* pGroundMonster = CGrondTree::Create(1000, 495);
-	//pGroundMonster->SetObjScene(SCENE_STAGE1);
-	CObj* pGroundMonster = CMovingTree::Create(1000, 495);
-	pGroundMonster->SetObjScene(SCENE_STAGE1);
-	m_pObjMgr->Add(MONSTER, pGroundMonster);
+	CObj* pGroundMonster = CGrondTree::Create(1000, 495);
 	CObj* pGroundMonster2 = CGrondTree::Create(1600, 495);
 	CObj* pGroundMonster3 = CGrondTree::Create(2200, 495);
+	CObj* pMovingMonster = CMovingTree::Create(1000, 495);
+	CObj* pMovingMonster2 = CMovingTree::Create(2000, 495);
+	pGroundMonster->SetObjScene(SCENE_STAGE1);
 	pGroundMonster2->SetObjScene(SCENE_STAGE1);
 	pGroundMonster3->SetObjScene(SCENE_STAGE1);
-	//m_pObjMgr->Add(MONSTER, pGroundMonster2);
-	//m_pObjMgr->Add(MONSTER, pGroundMonster3);
+	pMovingMonster->SetObjScene(SCENE_STAGE1);
+	pMovingMonster2->SetObjScene(SCENE_STAGE1);
+	m_pObjMgr->Add(MONSTER, pMovingMonster);
+	m_pObjMgr->Add(MONSTER, pMovingMonster2);
+	m_pObjMgr->Add(MONSTER, pGroundMonster);
+	m_pObjMgr->Add(MONSTER, pGroundMonster2);
+	m_pObjMgr->Add(MONSTER, pGroundMonster3);
+	m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
 	//m_pObjMgr->Add(MONSTER, CRangeTree::Create(805, 313));
+	
+	
+	
 	CObj* pPortal = CPortal::Create(2120, 225);
 	pPortal->SetObjScene(SCENE_STAGE1);
 	m_pObjMgr->Add(PORTAL, pPortal);
-	//CCollisionMgr::GetInstance()->LoadCollisionFromPath(L"../Binary/Map2Collision.txt");
 	return NOERROR;
 }
 
@@ -58,7 +64,7 @@ VOID CStage1::Render(HDC hDC)
 	int iScrollX = CScrollManager::Get_ScrollX();
 	int iScrollY = CScrollManager::Get_ScrollY();
 	HDC hMemDC = m_pBmpMgr->FindBmp(L"Map2");
-	BitBlt(hDC, iScrollX, iScrollY, 2400, 600, hMemDC, 0, 0, SRCCOPY);
+	BitBlt(hDC, iScrollX, iScrollY, 4800, 600, hMemDC, 0, 0, SRCCOPY);
 	if (m_pSCenceMgr->Get_ChangeScene())
 	{
 		m_pSCenceMgr->ChangeScene(m_pSCenceMgr->Get_NextScene());

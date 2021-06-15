@@ -3,6 +3,7 @@ Back2 ../Binary/Back.bmp
 Sonly_State ../Binary/State/Sonly_State.bmp
 S_State ../Binary/State/S_State.bmp
 A_State ../Binary/State/A_State.bmp
+F ../Binary/State/F.bmp
 Boss_State ../Binary/State/Boss_State.bmp
 P_HealthBar ../Binary/HpBar/P_HealthBar.bmp
 B_HealthBar ../Binary/HpBar/B_HealthBar.bmp

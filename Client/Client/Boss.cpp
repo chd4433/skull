@@ -30,7 +30,7 @@ HRESULT CBoss::Initialize(float fStartX, float fStartY)
 	m_bDead = FALSE;
 	ChangeState(IDLE);
 
-	iMonsterHp = 100;
+	iMonsterHp = 3000;
 	return NOERROR;
 }
 
@@ -72,13 +72,25 @@ INT CBoss::Update(const float& fTimeDelta)
 		break;
 	case CBoss::ATTACK3:
 		if (m_tFrame.fX == 0)
-			m_pObjMgr->Add(BOSS_ATT, CDistnaceAttack::Create(m_tInfo.fX-52, m_tInfo.fY,m_bRight));
+		{
+			if(!m_bRight)
+				m_pObjMgr->Add(BOSS_ATT, CDistnaceAttack::Create(m_tInfo.fX - 52, m_tInfo.fY, m_bRight));
+			else
+				m_pObjMgr->Add(BOSS_ATT, CDistnaceAttack::Create(m_tInfo.fX + 52, m_tInfo.fY, m_bRight));
+		}
 		break;
 	case CBoss::DASH:
 		if (!m_bAttackMotion)
-			m_tInfo.fX -= 5;
+		{
+			if(m_tInfo.fX>370)
+				m_tInfo.fX -= 5;			
+		}
 		else
-			m_tInfo.fX += 5;
+		{
+			if(m_tInfo.fX < 1230)
+				m_tInfo.fX += 5;
+		}
+
 		break;
 	case CBoss::HIT:
 		break;
@@ -196,8 +208,8 @@ BOOL CBoss::CheckDash()
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	RECT CheckPlayerL = m_tRect;
 	RECT CheckPlayerR = m_tRect;
-	CheckPlayerL.left -= 150;//원래 870
-	CheckPlayerR.right += 150;
+	CheckPlayerL.left -= 870;//원래 870
+	CheckPlayerR.right += 870;
 	if (IntersectRect(&temp, &CheckPlayerL, &PlayerRect) && m_tFrame.fX == 0)
 	{
 		if (!m_bMotionGetTick)
