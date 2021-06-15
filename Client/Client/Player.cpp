@@ -141,8 +141,18 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 650 && m_tInfo.fX <= 1000 && m_tInfo.fY < 340)	ChangeState(FALL);
 			if (m_tInfo.fX > 1000 && m_tInfo.fX <= 1035 && m_tInfo.fY < 500)	ChangeState(FALL);
 			if (m_tInfo.fX > 1035 && m_tInfo.fX <= 1480 && m_tInfo.fY < 385)	ChangeState(FALL);
+			// 여기부터
 			if (m_tInfo.fX > 1480 && m_tInfo.fX <= 1720 && m_tInfo.fY < 500) ChangeState(FALL);
-			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 1720 && m_tInfo.fX <= 2440 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 2440 && m_tInfo.fX <= 2480 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 2480 && m_tInfo.fX <= 2750 && m_tInfo.fY < 385) ChangeState(FALL);
+			if (m_tInfo.fX > 2750 && m_tInfo.fX <= 3010 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3010 && m_tInfo.fX <= 3150 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 3150 && m_tInfo.fX <= 3600 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3600 && m_tInfo.fX <= 3750 && m_tInfo.fY < 220) ChangeState(FALL);
+			if (m_tInfo.fX > 3750 && m_tInfo.fX <= 3850 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3850 && m_tInfo.fX <= 4350 && m_tInfo.fY < 220) ChangeState(FALL);
+			if (m_tInfo.fX > 4350 && m_tInfo.fY < 500) ChangeState(FALL);
 			break;
 		case SCENE_STAGE2:
 			if (m_tInfo.fX <= 350 && m_tInfo.fY <= 295) ChangeState(FALL);
@@ -214,8 +224,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 
 		break;
 	case CPlayer::RUN:
-		//cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
-		// 이동
+		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		if (m_bLeft) {
 			m_tInfo.fX -= 5;
 			if (m_tRect.left + iScrollX <= 800 - 500)//윈도우 - 사진크기 사진 왼쪽 기준  
@@ -223,14 +232,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 		else {
 			m_tInfo.fX += 5;
-			if (CurrScene == SCENE_STAGE2) {
-				if (m_tRect.left >= 301 && m_tRect.left + 5 < 1090)
-					CScrollManager::Set_ScrollX(-5);
-			}
-			else {
-				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-5);
-			}
+			if (m_tRect.left + iScrollX >= 301)
+				CScrollManager::Set_ScrollX(-5);
 		}
 		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
@@ -246,7 +249,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 5;
 			if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 5;
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 5;
-			if (m_tInfo.fX + 5 >= 2400)	m_tInfo.fX -= 5;
+			// 여기부터
+			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 5;
+			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 5;
+			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 5;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 5;
+			if (m_tInfo.fX + 5 >= 4790)	m_tInfo.fX -= 5;
 			break;
 		case SCENE_STAGE2:
 			if (m_tInfo.fX - 5 <= 0)						m_tInfo.fX += 5;
@@ -267,8 +275,19 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX > 650 && m_tInfo.fX <= 1000 && m_tInfo.fY < 340)	ChangeState(FALL);
 			if (m_tInfo.fX > 1000 && m_tInfo.fX <= 1035 && m_tInfo.fY < 500)	ChangeState(FALL);
 			if (m_tInfo.fX > 1035 && m_tInfo.fX <= 1480 && m_tInfo.fY < 385)	ChangeState(FALL);
+			// 여기부터
 			if (m_tInfo.fX > 1480 && m_tInfo.fX <= 1720 && m_tInfo.fY < 500) ChangeState(FALL);
-			if (m_tInfo.fX > 1720 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 1720 && m_tInfo.fX <= 2440 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 2440 && m_tInfo.fX <= 2480 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 2480 && m_tInfo.fX <= 2750 && m_tInfo.fY < 385) ChangeState(FALL);
+			if (m_tInfo.fX > 2750 && m_tInfo.fX <= 3010 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3010 && m_tInfo.fX <= 3150 && m_tInfo.fY < 265) ChangeState(FALL);
+			if (m_tInfo.fX > 3150 && m_tInfo.fX <= 3600 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3600 && m_tInfo.fX <= 3750 && m_tInfo.fY < 220) ChangeState(FALL);
+			if (m_tInfo.fX > 3750 && m_tInfo.fX <= 3850 && m_tInfo.fY < 500) ChangeState(FALL);
+			if (m_tInfo.fX > 3850 && m_tInfo.fX <= 4350 && m_tInfo.fY < 220) ChangeState(FALL);
+			if (m_tInfo.fX > 4350 && m_tInfo.fY < 500) ChangeState(FALL);
+
 			break;
 		case SCENE_STAGE2:
 			if (m_tInfo.fX <= 350 && m_tInfo.fY <= 295)						ChangeState(FALL);
@@ -358,14 +377,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 			}
 			else {
 				m_tInfo.fX += 10;
-				if (CurrScene == SCENE_STAGE2) {
-					if (m_tRect.left >= 301 && m_tRect.left + 10 < 1090)
-						CScrollManager::Set_ScrollX(-10);
-				}
-				else {
-					if (m_tRect.left + iScrollX >= 301)
-						CScrollManager::Set_ScrollX(-10);
-				}
+				if (m_tRect.left + iScrollX >= 301)
+					CScrollManager::Set_ScrollX(-10);
 			}
 			m_fDashLen += 10;
 			// 옆에 타일로 막혀있으면 이동불가
@@ -382,7 +395,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
 				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 10;
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
-				if (m_tInfo.fX + 10 >= 2400)										m_tInfo.fX -= 10;
+				// 여기부터
+				if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 10;
+				if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 10;
+				if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 10;
+				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 10;
+				if (m_tInfo.fX + 10 >= 4790)	m_tInfo.fX -= 10;
 				break;
 			case SCENE_STAGE2:
 				if (m_tInfo.fX - 10 <= 0)							m_tInfo.fX += 10;
@@ -413,14 +431,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 			}
 			else {
 				m_tInfo.fX += m_fDashLen;
-				if (CurrScene == SCENE_STAGE2) {
-					if (m_tRect.left >= 301 && m_tRect.left + m_fDashLen < 1090)
-						CScrollManager::Set_ScrollX(-m_fDashLen);
-				}
-				else {
-					if (m_tRect.left + iScrollX >= 301)
-						CScrollManager::Set_ScrollX(-m_fDashLen);
-				}
+				if (m_tRect.left + iScrollX >= 301)
+					CScrollManager::Set_ScrollX(-m_fDashLen);
 			}
 			m_fDashCount++;
 			// 옆에 타일로 막혀있으면 이동불가
@@ -437,7 +449,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
 				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= m_fDashLen;
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
-				if (m_tInfo.fX + m_fDashLen >= 2400)								m_tInfo.fX = 2400 - m_fDashLen;
+				// 여기부터
+				if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= m_fDashLen;
+				if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= m_fDashLen;
+				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += m_fDashLen;
+				if (m_tInfo.fX + m_fDashLen >= 4790)	m_tInfo.fX -= m_fDashLen;
 				break;
 			case SCENE_STAGE2:
 				if (m_tInfo.fX - m_fDashLen <= 0)							m_tInfo.fX += m_fDashLen;
@@ -458,7 +475,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 		break;
 	case CPlayer::JUMP:
-		//cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
+		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		m_tInfo.fY -= 8.f;
 		m_fJumpHeight += 8.f;
 		if (!m_bBossFight)	CScrollManager::Set_ScrollY(8);
@@ -488,14 +505,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 					CScrollManager::Set_ScrollX(-4);
 			}
 			else {
-				if (CurrScene == SCENE_STAGE2) {
-					if (m_tRect.left >= 301 && m_tRect.left + 4 < 1090)
-						CScrollManager::Set_ScrollX(-4);
-				}
-				else {
-					if (m_tRect.left + iScrollX >= 301)
-						CScrollManager::Set_ScrollX(-4);
-				}
+				if (m_tRect.left + iScrollX >= 301)
+					CScrollManager::Set_ScrollX(-4);
 			}
 		}
 		// 옆에 타일로 막혀있으면 이동불가
@@ -512,7 +523,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 4;
 			if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 4;
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 4;
-			if (m_tInfo.fX + 4 >= 2400)	m_tInfo.fX -= 4;
+			// 여기부터
+			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 4;
+			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 4;
+			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 4;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 4;
+			if (m_tInfo.fX + 4 >= 4790)	m_tInfo.fX -= 4;
 			break;
 		case SCENE_STAGE2:
 			if (m_tInfo.fX - 4 <= 0)						m_tInfo.fX += 4;
@@ -580,12 +596,37 @@ INT CPlayer::Update(const float& fTimeDelta)
 				m_tInfo.fY = 385;
 				ChangeState(IDLE);
 			}
-			if (m_tInfo.fX > 1480 && m_tInfo.fY >= 505) {
+			// 여기부터
+			if (m_tInfo.fX > 1480 && m_tInfo.fX <= 2480 && m_tInfo.fY >= 505) {
 				m_tInfo.fY = 505;
 				ChangeState(IDLE);
 			}
-			if (m_tInfo.fX > 1720 && m_tInfo.fY >= 265 && m_tInfo.fY <= 275) {
+			if (m_tInfo.fX > 1720 && m_tInfo.fX <= 2440 && m_tInfo.fY >= 265 && m_tInfo.fY <= 275) {
 				m_tInfo.fY = 265;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 2500 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385) {
+				m_tInfo.fY = 385;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 2750 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 505) {
+				m_tInfo.fY = 505;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 3010 && m_tInfo.fX <= 3150 && m_tInfo.fY >= 265 && m_tInfo.fY <= 275) {
+				m_tInfo.fY = 265;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 3600 && m_tInfo.fX <= 3750 && m_tInfo.fY >= 230 && m_tInfo.fY <= 240) {
+				m_tInfo.fY = 230;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 3850 && m_tInfo.fX <= 4350 && m_tInfo.fY >= 230 && m_tInfo.fY <= 240) {
+				m_tInfo.fY = 230;
+				ChangeState(IDLE);
+			}
+			if (m_tInfo.fX > 4350 && m_tInfo.fY >= 505) {
+				m_tInfo.fY = 505;
 				ChangeState(IDLE);
 			}
 			break;
@@ -620,14 +661,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 		if (m_pKeyMgr->KeyPressing(KEY_RIGHT)) {
 			m_bLeft = false;
 			m_tInfo.fX += 3;
-			if (CurrScene == SCENE_STAGE2) {
-				if (m_tRect.left >= 301 && m_tRect.left + 3 < 1090)
-					CScrollManager::Set_ScrollX(-3);
-			}
-			else {
-				if (m_tRect.left + iScrollX >= 301)
-					CScrollManager::Set_ScrollX(-3);
-			}
+			if (m_tRect.left + iScrollX >= 301)
+				CScrollManager::Set_ScrollX(-3);
 		}
 		// 옆에 타일로 막혀있으면 이동불가
 		switch (CurrScene) {
@@ -642,7 +677,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 			if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
 			if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
 			if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
-			if (m_tInfo.fX + 3 >= 2400)	m_tInfo.fX -= 3;
+			// 여기부터
+			if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 3;
+			if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 3;
+			if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 3;
+			if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 3;
+			if (m_tInfo.fX + 3 >= 4790)	m_tInfo.fX -= 3;
 			break;
 		case SCENE_STAGE2:
 			if (m_tInfo.fX - 3 <= 0)						m_tInfo.fX += 3;
@@ -797,14 +837,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 				}
 				else {
 					m_tInfo.fX += 15;
-					if (CurrScene == SCENE_STAGE2) {
-						if (m_tRect.left >= 301 && m_tRect.left + 15 < 1090)
-							CScrollManager::Set_ScrollX(-15);
-					}
-					else {
-						if (m_tRect.left + iScrollX >= 301)
-							CScrollManager::Set_ScrollX(-15);
-					}
+					if (m_tRect.left + iScrollX >= 301)
+						CScrollManager::Set_ScrollX(-15);
 				}
 				m_fDashLen += 15;
 			}
@@ -823,7 +857,12 @@ INT CPlayer::Update(const float& fTimeDelta)
 				if (m_tInfo.fX >= 515 && m_tInfo.fX <= 525 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
 				if (m_tInfo.fX >= 1035 && m_tInfo.fX <= 1045 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
 				if (m_tInfo.fX >= 1470 && m_tInfo.fX <= 1480 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
-				if (m_tInfo.fX + 15 >= 2400)										m_tInfo.fX -= 15;
+				// 여기부터
+				if (m_tInfo.fX >= 2490 && m_tInfo.fX <= 2500 && m_tInfo.fY >= 385)	m_tInfo.fX -= 15;
+				if (m_tInfo.fX >= 2740 && m_tInfo.fX <= 2750 && m_tInfo.fY >= 385)	m_tInfo.fX += 15;
+				if (m_tInfo.fX >= 4040 && m_tInfo.fX <= 4050 && m_tInfo.fY >= 250)	m_tInfo.fX -= 15;
+				if (m_tInfo.fX >= 4340 && m_tInfo.fX <= 4340 && m_tInfo.fY >= 220)	m_tInfo.fX += 15;
+				if (m_tInfo.fX + 15 >= 4790)	m_tInfo.fX -= 15;
 				break;
 			case SCENE_STAGE2:
 				if (m_tInfo.fX - 15 <= 0)							m_tInfo.fX += 15;
