@@ -7,6 +7,16 @@ F ../Binary/State/F.bmp
 Boss_State ../Binary/State/Boss_State.bmp
 P_HealthBar ../Binary/HpBar/P_HealthBar.bmp
 B_HealthBar ../Binary/HpBar/B_HealthBar.bmp
+Frame_Tutorial ../Binary/UI/Frame_Tutorial.bmp
+Frame_Stage1 ../Binary/UI/Frame_Stage1.bmp
+Frame_Stage2 ../Binary/UI/Frame_Stage2.bmp
+Inform_Tutorial1 ../Binary/UI/Inform_Tutorial1.bmp
+Frame_GameOver5 ../Binary/UI/Frame_GameOver5.bmp
+Frame_GameOver4 ../Binary/UI/Frame_GameOver4.bmp
+Frame_GameOver3 ../Binary/UI/Frame_GameOver3.bmp
+Frame_GameOver2 ../Binary/UI/Frame_GameOver2.bmp
+Frame_GameOver1 ../Binary/UI/Frame_GameOver1.bmp
+Revival ../Binary/Player/Revival.bmp
 S_IdleR ../Binary/Player/Swordman/S_IdleR.bmp
 S_IdleL ../Binary/Player/Swordman/S_IdleL.bmp
 S_SwitchR ../Binary/Player/Swordman/S_SwitchR.bmp
@@ -27,6 +37,8 @@ S_Attack2L ../Binary/Player/Swordman/S_Attack2L.bmp
 S_Attack3L ../Binary/Player/Swordman/S_Attack3L.bmp
 S_SkillR ../Binary/Player/Swordman/S_SkillR.bmp
 S_SkillL ../Binary/Player/Swordman/S_SkillL.bmp
+S_DeadR ../Binary/Player/Swordman/S_DeadR.bmp
+S_DeadL ../Binary/Player/Swordman/S_DeadL.bmp
 A_IdleR ../Binary/Player/Alchemist/A_IdleR.bmp
 A_IdleL ../Binary/Player/Alchemist/A_IdleL.bmp
 A_SwitchR ../Binary/Player/Alchemist/A_SwitchR.bmp
@@ -41,6 +53,8 @@ A_FallR ../Binary/Player/Alchemist/A_FallR.bmp
 A_FallL ../Binary/Player/Alchemist/A_FallL.bmp
 A_SkillR ../Binary/Player/Alchemist/A_SkillR.bmp
 A_SkillL ../Binary/Player/Alchemist/A_SkillL.bmp
+A_DeadR ../Binary/Player/Alchemist/A_DeadR.bmp
+A_DeadL ../Binary/Player/Alchemist/A_DeadL.bmp
 A_Energyball ../Binary/Throw/A_Energyball.bmp
 Posion ../Binary/Throw/Posion.bmp
 PoisonGasR ../Binary/Throw/PoisonGasR.bmp

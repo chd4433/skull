@@ -5,7 +5,7 @@
 class CPlayer : public CObj
 {
 public:
-	enum STATE { IDLE, CHANGE, RUN, DASH, JUMP, FALL, ATTACK, SKILL, HIT,END };
+	enum STATE { IDLE, CHANGE, RUN, DASH, JUMP, FALL, ATTACK, SKILL, HIT, DIE, DEAD, REVIVAL, END };
 
 public:
 	explicit CPlayer();
@@ -53,6 +53,8 @@ public:
 	bool	m_bUsedSkill1 = false;
 	bool	m_bBossFight = false;
 	bool    m_bInvincibility = false;
+	bool	m_bShowMapPopUp = true;
+	bool	m_bDead = false;
 	float	m_fChangeCount = 0.f;
 	float	m_fMoveLen = 0.f;
 	float	m_fDashLen = 0.f;
@@ -67,5 +69,11 @@ public:
 
 public:
 	float	m_fMapCount = 0.f;
+
+public:
+	DWORD	Popup_Time;
+	bool	m_bGetTick = false;
+	bool	m_bRevival = false;
+	int		m_iRevivalWaitCount = 4;
 };
 

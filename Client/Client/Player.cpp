@@ -8,6 +8,9 @@
 #include "PlayerState.h"
 #include "PlayerHPBar.h"
 #include "ShotedPlayer.h"
+#include "MapPopUp.h"
+#include "DiePopUp.h"
+#include "TutorialInform1.h"
 
 SCENE_ID CurrScene = SCENE_END;
 
@@ -48,6 +51,7 @@ HRESULT CPlayer::Initialize(float fStartX, float fStartY, int currHP, bool possi
 	m_bChangeCharacter = possible_Change;
 	m_bCharacter1 = isSwordman;
 	m_bLeft = false;
+	m_bShowMapPopUp = true;
 
 	ChangeState(FALL);
 	iPlayerHp = currHP;
@@ -58,6 +62,16 @@ INT CPlayer::Update(const float& fTimeDelta)
 {
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
 	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
+
+	// 맵정보 UI 출력
+	if (m_bShowMapPopUp) {
+		m_pObjMgr->Add(FRAME_MAP, CMapPopUp::Create(CurrScene));
+		if (CurrScene == SCENE_TUTORIAL) {
+			m_pObjMgr->Add(FRAME_INFORM, CTutorialInform1::Create());
+		}
+		m_bShowMapPopUp = !m_bShowMapPopUp;
+		cout << m_bShowMapPopUp << endl;
+	}
 
 	// 캐릭터 UI 출력
 	if (!m_bChangeCharacter)	m_iStateType = 0;
@@ -77,36 +91,39 @@ INT CPlayer::Update(const float& fTimeDelta)
 		m_bChangeCharacter = dynamic_cast<CGrave*>(m_pObjMgr->Get_SingleObjLst(GRAVE))->GetbGrave();
 	}
 	// 피격
-	if (!m_bInvincibility)
+	if (!m_bDash && !m_bDead && !m_bRevival)
 	{
-		if (b_ChangeSceneDead)
+		if (!m_bInvincibility)
 		{
-			iPlayerHp -= MONSTERDISTANCEATT;
-			b_ChangeSceneDead = FALSE;
-			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX,m_tInfo.fY));
-			cout << "플레이어 체력: " << iPlayerHp << endl;
-		}
-		if (b_ChangeDeadCloseAtt)
-		{
-			iPlayerHp -= MONSTERCLOSEATT;
-			b_ChangeDeadCloseAtt = FALSE;
-			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
-			cout << "플레이어 체력: " << iPlayerHp << endl;
-		}
-		if (b_ChangePatrationAtt)
-		{
-			iPlayerHp -= MONSTERDISTANCEATT;
-			b_ChangePatrationAtt = FALSE;
-			b_Patration = TRUE;
-			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
-			cout << "플레이어 체력: " << iPlayerHp << endl;
+			if (b_ChangeSceneDead)
+			{
+				iPlayerHp -= MONSTERDISTANCEATT;
+				b_ChangeSceneDead = FALSE;
+				m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
+				cout << "플레이어 체력: " << iPlayerHp << endl;
+			}
+			if (b_ChangeDeadCloseAtt)
+			{
+				iPlayerHp -= MONSTERCLOSEATT;
+				b_ChangeDeadCloseAtt = FALSE;
+				m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
+				cout << "플레이어 체력: " << iPlayerHp << endl;
+			}
+			if (b_ChangePatrationAtt)
+			{
+				iPlayerHp -= MONSTERDISTANCEATT;
+				b_ChangePatrationAtt = FALSE;
+				b_Patration = TRUE;
+				m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
+				cout << "플레이어 체력: " << iPlayerHp << endl;
+			}
 		}
 	}
 
 	// 사망
-	if (iPlayerHp <= 0) {
-		cout << "Game Over" << endl;
-		iPlayerHp = 1;	//Hp Bar test
+	if (!m_bDead && iPlayerHp <= 0) {
+		m_bDead = true;
+		ChangeState(DEAD);
 	}
 
 	switch (m_eCurrState)
@@ -845,6 +862,47 @@ INT CPlayer::Update(const float& fTimeDelta)
 	case CPlayer::HIT:
 
 		break;
+	case CPlayer::DEAD:
+		iPlayerHp = 0;
+		if (m_iRevivalWaitCount >= 0 && !m_bGetTick)
+		{
+			Popup_Time = GetTickCount();
+			m_bGetTick = !m_bGetTick;
+		}
+		if (m_iRevivalWaitCount >= 0 && Popup_Time + 1000 < GetTickCount())
+		{
+			if (m_iRevivalWaitCount > 0)
+				m_pObjMgr->Add(FRAME_GAMEOVER, CDiePopUp::Create(m_iRevivalWaitCount));//
+			m_iRevivalWaitCount--;
+
+			m_bGetTick = !m_bGetTick;
+		}
+
+		if (m_iRevivalWaitCount == -1) {
+			//iPlayerHp = 60;//500
+			m_bCharacter1 = true;
+
+			ChangeState(REVIVAL);
+		}
+		break;
+	case CPlayer::REVIVAL:
+		if (!m_bGetTick)
+		{
+			Popup_Time = GetTickCount();
+			m_bGetTick = !m_bGetTick;
+		}
+		if (Popup_Time + 1000 < GetTickCount())
+		{
+			m_bGetTick = !m_bGetTick;
+
+			iPlayerHp = 500;
+			m_bDead = false;
+			m_bRevival = false;
+
+			ChangeState(IDLE);
+		}
+
+		break;
 	default:
 		break;
 	}
@@ -1069,6 +1127,34 @@ HRESULT CPlayer::ChangeState(STATE eState)
 			}
 			break;
 		case CPlayer::HIT:
+			break;
+		case CPlayer::DEAD:
+			iPlayerHp = 0;
+			m_bDead = true;
+			m_iRevivalWaitCount = 4;
+			m_pObjMgr->Add(FRAME_GAMEOVER, CDiePopUp::Create(5));//
+			if (m_bCharacter1)
+			{
+				m_tInfo.fCX = 40.f;
+				m_tInfo.fCY = 40.f;
+				if (!m_bLeft)		SetFrame(L"S_DeadR", 2.f, 1, 1, 0, 0);
+				else				SetFrame(L"S_DeadL", 2.f, 1, 1, 0, 0);
+			}
+			else
+			{
+				m_tInfo.fCX = 40.f;
+				m_tInfo.fCY = 40.f;
+				if (!m_bLeft)	SetFrame(L"A_DeadR", 2.f, 1, 1, 0, 0);
+				else			SetFrame(L"A_DeadL", 2.f, 1, 1, 0, 0);
+			}
+			break;
+		case CPlayer::REVIVAL:
+			m_bRevival = true;
+			iPlayerHp = 0;
+			m_tInfo.fCX = 600.f;
+			m_tInfo.fCY = 350.f;
+			SetFrame(L"Revival", 5.f, 6, 1, 0, 0);
+
 			break;
 		default:
 			break;

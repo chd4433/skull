@@ -146,7 +146,9 @@
     <ClInclude Include="BossState.h" />
     <ClInclude Include="CCloseAttack2.h" />
     <ClInclude Include="CloseAttack1.h" />
+    <ClInclude Include="DiePopUp.h" />
     <ClInclude Include="Last.h" />
+    <ClInclude Include="MapPopUp.h" />
     <ClInclude Include="ShotedPlayer.h" />
     <ClInclude Include="DistnaceAttack.h" />
     <ClInclude Include="Energyball.h" />
@@ -192,6 +194,7 @@
     <ClInclude Include="SwordmanSkill.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TurorialStage.h" />
+    <ClInclude Include="TutorialInform1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
@@ -200,8 +203,10 @@
     <ClCompile Include="BossHPBar.cpp" />
     <ClCompile Include="BossState.cpp" />
     <ClCompile Include="CCloseAttack2.cpp" />
+    <ClCompile Include="DiePopUp.cpp" />
     <ClCompile Include="Last.cpp" />
     <ClCompile Include="CloseAttack1.cpp" />
+    <ClCompile Include="MapPopUp.cpp" />
     <ClCompile Include="ShotedPlayer.cpp" />
     <ClCompile Include="DistnaceAttack.cpp" />
     <ClCompile Include="Energyball.cpp" />
@@ -240,6 +245,7 @@
     <ClCompile Include="SwordmanAttack.cpp" />
     <ClCompile Include="SwordmanSkill.cpp" />
     <ClCompile Include="TurorialStage.cpp" />
+    <ClCompile Include="TutorialInform1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

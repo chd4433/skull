@@ -140,6 +140,18 @@
     <Filter Include="02 Scene\04 Last">
       <UniqueIdentifier>{bed8d77f-0722-4c0e-8924-7db264f88a12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\06 UI\04 Pop Up">
+      <UniqueIdentifier>{b101ba23-fc6f-4c2c-890b-98f1e9bf6f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\04 Pop Up\00 Map Popup">
+      <UniqueIdentifier>{536a5633-1513-452a-a977-b54d166a94dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\04 Pop Up\01 Inform Pop">
+      <UniqueIdentifier>{0cbba9ea-18bb-43c0-92eb-b27ac598a2ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\06 UI\04 Pop Up\02 Die Pop">
+      <UniqueIdentifier>{7f5e9894-8f40-4b42-9391-dfedc2028650}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -286,6 +298,15 @@
     <ClInclude Include="Last.h">
       <Filter>02 Scene\04 Last</Filter>
     </ClInclude>
+    <ClInclude Include="MapPopUp.h">
+      <Filter>01 Obj\06 UI\04 Pop Up\00 Map Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialInform1.h">
+      <Filter>01 Obj\06 UI\04 Pop Up\01 Inform Pop</Filter>
+    </ClInclude>
+    <ClInclude Include="DiePopUp.h">
+      <Filter>01 Obj\06 UI\04 Pop Up\02 Die Pop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -423,6 +444,15 @@
     </ClCompile>
     <ClCompile Include="Last.cpp">
       <Filter>02 Scene\04 Last</Filter>
+    </ClCompile>
+    <ClCompile Include="MapPopUp.cpp">
+      <Filter>01 Obj\06 UI\04 Pop Up\00 Map Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialInform1.cpp">
+      <Filter>01 Obj\06 UI\04 Pop Up\01 Inform Pop</Filter>
+    </ClCompile>
+    <ClCompile Include="DiePopUp.cpp">
+      <Filter>01 Obj\06 UI\04 Pop Up\02 Die Pop</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
