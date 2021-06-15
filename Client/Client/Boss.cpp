@@ -1,6 +1,9 @@
 #include "framework.h"
 #include "Boss.h"
 #include<random>
+#include "CloseAttack1.h"
+#include "CCloseAttack2.h"
+#include "DistnaceAttack.h"
 
 CBoss::CBoss()
 {
@@ -32,13 +35,35 @@ INT CBoss::Update(const float& fTimeDelta)
 {
 	CheckDash();
 	CheckAttackA();
+	if (b_ChangeSceneDead)
+	{
+		iMonsterHp -= PLAYERATT;
+		b_ChangeSceneDead = FALSE;
+		cout << "보스 체력: " << iMonsterHp << endl;
+	}
+	if (b_ChangeDeadCloseAtt)
+	{
+		iMonsterHp -= PLAYERATTCLOSE;
+		b_ChangeDeadCloseAtt = FALSE;
+		cout << "보스 체력: " << iMonsterHp << endl;
+	}
+	if (iMonsterHp <= 0)
+		ChangeState(DEAD);
 	switch (m_eCurrState)
 	{
 	case CBoss::IDLE:
 		break;
 	case CBoss::ATTACK1:
+		if (m_tFrame.fX == 0)
+			m_pObjMgr->Add(MON_CLOSEATT, CCloseAttack1::Create(m_tInfo.fX, m_tInfo.fY));
 		break;
 	case CBoss::ATTACK2:
+		if (m_tFrame.fX == 0)
+			m_pObjMgr->Add(MON_CLOSEATT, CCloseAttack2::Create(m_tInfo.fX, m_tInfo.fY));
+		break;
+	case CBoss::ATTACK3:
+		if (m_tFrame.fX == 0)
+			m_pObjMgr->Add(BOSS_ATT, CDistnaceAttack::Create(m_tInfo.fX-52, m_tInfo.fY,m_bRight));
 		break;
 	case CBoss::DASH:
 		if (!m_bAttackMotion)
@@ -49,6 +74,13 @@ INT CBoss::Update(const float& fTimeDelta)
 	case CBoss::HIT:
 		break;
 	case CBoss::DEAD:
+		if (m_tFrame.fX == 0 && m_bDead)
+		{
+			return OBJ_DEAD;
+			//포탈
+		}
+		if (m_tFrame.fX == 0 && !m_bDead)
+			m_bDead = !m_bDead;
 		break;
 	default:
 		break;
@@ -96,7 +128,7 @@ HRESULT CBoss::ChangeState(STATE eState)
 			if (!m_bRight)
 				SetFrame(L"Boss_IdleL", 10.f, 6, 1);
 			else
-				SetFrame(L"Boss_IdleL", 10.f, 6, 1);
+				SetFrame(L"Boss_IdleR", 10.f, 6, 1);
 			break;
 		case CBoss::ATTACK1:
 			if (!m_bAttackMotion)
@@ -112,6 +144,13 @@ HRESULT CBoss::ChangeState(STATE eState)
 				SetFrame(L"Boss_AttackR_B", 10.f, 4, 1);
 			SetInfo(139.f, 108.f);
 			break;
+		case CBoss::ATTACK3:
+			if (!m_bAttackMotion)
+				SetFrame(L"Boss_AttackL_C", 10.f, 15, 1);
+			else
+				SetFrame(L"Boss_AttackR_C", 10.f, 15, 1);
+			SetInfo(104.f, 89.f);
+			break;
 		case CBoss::DASH:
 			if (!m_bAttackMotion)
 				SetFrame(L"Boss_DashL", 10.f, 3, 1);
@@ -122,6 +161,12 @@ HRESULT CBoss::ChangeState(STATE eState)
 		case CBoss::HIT:
 			break;
 		case CBoss::DEAD:
+			if (!m_bRight)
+				SetFrame(L"Boss_DeadL", 10.f, 6, 1);
+			else
+				SetFrame(L"Boss_DeadR", 10.f, 6, 1);
+			SetInfo(70.f, 50.f);
+			m_tInfo.fY += 10;
 			break;
 		default:
 			break;
@@ -152,7 +197,10 @@ BOOL CBoss::CheckDash()
 		{
 			m_bAttackMotion = FALSE;
 			m_bRight = FALSE;
-			ChangeState(DASH);
+			if (RandAttack() == 1)
+				ChangeState(DASH);
+			else
+				ChangeState(ATTACK3);
 		}
 
 	}
@@ -167,7 +215,10 @@ BOOL CBoss::CheckDash()
 		{
 			m_bAttackMotion = TRUE;
 			m_bRight = TRUE;
-			ChangeState(DASH);
+			if (RandAttack() == 1)
+				ChangeState(DASH);
+			else
+				ChangeState(ATTACK3);
 		}
 
 	}

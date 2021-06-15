@@ -193,6 +193,31 @@ bool CCollisionMgr::CollisionDstToSrcClose(list<CObj*> Dst, list<CObj*> Src)
 	return TRUE;
 }
 
+bool CCollisionMgr::CollisionPenetration(list<CObj*> Dst, list<CObj*> Src)
+{
+	RECT temp = {};
+	if (!Dst.empty())
+	{
+		for (auto& pDst : Dst)
+		{
+			for (auto& pSrc : Src)
+			{
+				if (!(pSrc->GetbPatration()))
+				{
+					if (IntersectRect(&temp, &(pDst->GetSmallRect()), &(pSrc->GetSmallRect())))
+					{
+						pSrc->SetbPatrationAtt();
+						pDst->SetbPatrationAtt();
+						//SafeDelete(pPlayerAtt);
+						return TRUE;
+					}
+				}
+			}
+		}
+	}
+	return TRUE;
+}
+
 
 void CCollisionMgr::Release()
 {

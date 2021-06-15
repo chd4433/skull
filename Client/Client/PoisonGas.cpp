@@ -34,10 +34,10 @@ INT CPoisonGas::Update(const float& fTimeDelta)
 	if (m_fFrameCount >= 9 * 5)	m_bOverRange = true;
 
 	FrameMove(fTimeDelta);
+	if (b_ChangeSceneDead || m_bOverRange)
+		return OBJ_DEAD;
 	if (!m_bOverRange) // 이걸 그릴지 말지 결정하는 조건
 		m_pRenderMgr->AddBack(this);
-	else
-		return OBJ_DEAD; //CPoisonGas::~CPoisonGas();
 	return 0;
 }
 
@@ -50,7 +50,7 @@ VOID CPoisonGas::Render(HDC hDC)
 	if (m_bLeft)	hMemDC = m_pBmpMgr->FindBmp(L"PoisonGasR");
 	else			hMemDC = m_pBmpMgr->FindBmp(L"PoisonGasL");
 	GdiTransparentBlt(hDC,
-		m_tRect.left + iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
+		m_tRect.left + iScrollX, m_tRect.top + iScrollY,//이거 스크롤 값에 맞게 고쳐야함
 		m_tInfo.fCX, m_tInfo.fCY,
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표. 

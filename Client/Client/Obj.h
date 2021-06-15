@@ -23,6 +23,11 @@ public:
 	void SetbChangeScene() { b_ChangeSceneDead = TRUE; }
 	BOOL GetbChangeSceneClose() { return b_ChangeDeadCloseAtt; }
 	void SetbChangeSceneClose() { b_ChangeDeadCloseAtt = TRUE; }
+	BOOL GetbPatration() { return b_Patration; }
+	void SetbPatration(bool a) { b_Patration = a; }
+	BOOL GetFirstCollison() { return b_Patration; } //?
+	BOOL GetbPatrationAtt() { return b_ChangePatrationAtt; }
+	void SetbPatrationAtt() { b_ChangePatrationAtt = TRUE; }
 public:
 	// ±øÅë
 	virtual HRESULT Initialize();
@@ -50,8 +55,11 @@ protected:
 	bool m_bInterectGrave;
 	bool b_ChangeSceneDead;
 	bool b_ChangeDeadCloseAtt;
+	bool b_Patration;
+	bool b_ChangePatrationAtt;
 	int iMonsterHp;
 	int iPlayerHp;
+	bool bFirstCollisoion;
 
 protected:
 	CObjMgr* m_pObjMgr = nullptr;

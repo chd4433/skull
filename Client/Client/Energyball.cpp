@@ -52,7 +52,7 @@ VOID CEnergyball::Render(HDC hDC)
 	UpdateRect();
 	HDC hMemDC = m_pBmpMgr->FindBmp(L"A_Energyball");
 	GdiTransparentBlt(hDC,
-		m_tRect.left + iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
+		m_tRect.left + iScrollX, m_tRect.top + iScrollY,//이거 스크롤 값에 맞게 고쳐야함
 		m_tInfo.fCX, m_tInfo.fCY,
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표. 

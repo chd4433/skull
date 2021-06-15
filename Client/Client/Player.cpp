@@ -82,6 +82,13 @@ INT CPlayer::Update(const float& fTimeDelta)
 		//	b_ChangeDeadCloseAtt = FALSE;
 		cout << "플레이어 체력: " << iPlayerHp << endl;
 	}
+	if (b_ChangePatrationAtt)
+	{
+		iPlayerHp -= MONSTERDISTANCEATT;
+		b_ChangePatrationAtt = FALSE;
+		b_Patration = TRUE;
+		cout << "플레이어 체력: " << iPlayerHp << endl;
+	}
 	switch (m_eCurrState)
 	{
 	case CPlayer::IDLE:
@@ -170,7 +177,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 
 		break;
 	case CPlayer::RUN:
-		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
+		//cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		// 이동
 		if (m_bLeft) {
 			m_tInfo.fX -= 5;
@@ -396,7 +403,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 		}
 		break;
 	case CPlayer::JUMP:
-		cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
+		//cout << "x:" << m_tInfo.fX << ", y:" << m_tInfo.fY << endl;//
 		m_tInfo.fY -= 8.f;
 		m_fJumpHeight += 8.f;
 		if (!m_bBossFight)	CScrollManager::Set_ScrollY(8);
@@ -634,8 +641,8 @@ INT CPlayer::Update(const float& fTimeDelta)
 			// 투척
 			if (m_fAttackCount <= 1) {
 				if (CurrScene == SCENE_STAGE2) {
-					if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10 + iScrollY, m_bLeft));
-					else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10 + iScrollY, m_bLeft));
+					if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10 , m_bLeft));
+					else			m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX + 10, m_tInfo.fY - 10 , m_bLeft));
 				}
 				else {
 					if (m_bLeft)	m_pObjMgr->Add(PLAYER_ATT, CEnergyball::Create(m_tInfo.fX - 10, m_tInfo.fY - 10, m_bLeft));
@@ -763,7 +770,7 @@ INT CPlayer::Update(const float& fTimeDelta)
 
 			// 투척
 			if (m_fAttackCount == 6 * 5) {
-				if (CurrScene == SCENE_STAGE2)	m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY + iScrollY, m_bLeft));
+				if (CurrScene == SCENE_STAGE2)	m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
 				else							m_pObjMgr->Add(PLAYER_ATT, CPoisonFlask::Create(m_tInfo.fX, m_tInfo.fY, m_bLeft));
 			}
 
@@ -830,7 +837,7 @@ VOID CPlayer::Render(HDC hDC)
 HRESULT CPlayer::ChangeState(STATE eState)
 {
 	m_eCurrState = eState;
-	cout << (int)m_eCurrState << endl;
+	//cout << (int)m_eCurrState << endl;
 	if (m_ePreState != m_eCurrState)
 	{
 		switch (m_eCurrState)

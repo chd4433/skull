@@ -104,6 +104,24 @@
     <Filter Include="01 Obj\00 Player\01 Player Attack">
       <UniqueIdentifier>{c9900cf4-65d2-4cfb-ae51-b9beef8c2954}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\02 Boss Attack">
+      <UniqueIdentifier>{5fd26505-7d20-4fe6-8857-9c3161dc2a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\02 Boss Attack\00 CloseAttack1">
+      <UniqueIdentifier>{a197e1b4-9cab-42ee-afcb-64e520499035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\02 Boss Attack\01 CloseAttack2">
+      <UniqueIdentifier>{2ea5d2b4-0f0e-4bc2-8d7c-16a170ace61b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\02 Boss Attack\02 DistanceAttack">
+      <UniqueIdentifier>{22f44f1a-8dcd-4fd6-ab7e-599823e1e2c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\02 Monster\03 MovingTree">
+      <UniqueIdentifier>{3f23f318-da5a-4074-addc-c304fd2b718f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01 Obj\03 Monster Attack\03 MovingTree Attack">
+      <UniqueIdentifier>{6716b3a5-16d3-4591-91db-ff07b41c682c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -217,6 +235,21 @@
     <ClInclude Include="SwordmanSkill.h">
       <Filter>01 Obj\00 Player\01 Player Attack</Filter>
     </ClInclude>
+    <ClInclude Include="CloseAttack1.h">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\00 CloseAttack1</Filter>
+    </ClInclude>
+    <ClInclude Include="CCloseAttack2.h">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\01 CloseAttack2</Filter>
+    </ClInclude>
+    <ClInclude Include="DistnaceAttack.h">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\02 DistanceAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingTree.h">
+      <Filter>01 Obj\02 Monster\03 MovingTree</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingTreeAttack.h">
+      <Filter>01 Obj\03 Monster Attack\03 MovingTree Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -321,6 +354,21 @@
     </ClCompile>
     <ClCompile Include="SwordmanSkill.cpp">
       <Filter>01 Obj\00 Player\01 Player Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="CloseAttack1.cpp">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\00 CloseAttack1</Filter>
+    </ClCompile>
+    <ClCompile Include="CCloseAttack2.cpp">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\01 CloseAttack2</Filter>
+    </ClCompile>
+    <ClCompile Include="DistnaceAttack.cpp">
+      <Filter>01 Obj\03 Monster Attack\02 Boss Attack\02 DistanceAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingTree.cpp">
+      <Filter>01 Obj\02 Monster\03 MovingTree</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingTreeAttack.cpp">
+      <Filter>01 Obj\03 Monster Attack\03 MovingTree Attack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

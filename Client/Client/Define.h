@@ -42,7 +42,7 @@ ClassName* ClassName::m_pInstance = nullptr;
 
 #define  PLAYERATT 50
 #define  PLAYERATTCLOSE 100
-#define MONSTERDISTANCEATT 1
+#define MONSTERDISTANCEATT 10
 #define  MONSTERCLOSEATT 30
 
 extern HWND g_hWnd;

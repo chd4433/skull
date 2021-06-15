@@ -16,6 +16,7 @@ public:
 	static bool Check_Sphere(CObj* pDst, CObj* pSrc);
 	bool CollisionDstToSrc(list<CObj*> Dst, list<CObj*> Src);
 	bool CollisionDstToSrcClose(list<CObj*> Dst, list<CObj*> Src);
+	bool CollisionPenetration(list<CObj*> Dst, list<CObj*> Src);
 public:
 
 	HRESULT LoadCollisionFromPath(wstring strPath);

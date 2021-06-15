@@ -1,36 +1,34 @@
 #include "framework.h"
-#include "GrondTree.h"
-#include "Player.h"
-#include "GroundTreeAttack.h"
+#include "MovingTree.h"
+#include "MovingTreeAttack.h"
 
-CGrondTree::CGrondTree():CObj()
+CMovingTree::CMovingTree()
 {
 }
 
-CGrondTree::~CGrondTree()
+CMovingTree::~CMovingTree()
 {
-	Release();
 }
 
-HRESULT CGrondTree::Initialize(float fStartX, float fStartY)
+HRESULT CMovingTree::Initialize(float fStartX, float fStartY)
 {
-	m_bRight = false;
 	CObj::Initialize();
 	m_tInfo.fX = fStartX;
 	m_tInfo.fY = fStartY;
-	m_tInfo.fCX = 57.f;
-	m_tInfo.fCY = 66.f;
+	m_tInfo.fCX = 53.f;
+	m_tInfo.fCY = 65.f;
+	m_bRight = FALSE;
 	m_bGetTick = FALSE;
 	m_bMotionGetTick = FALSE;
 	m_bAttackMotion = FALSE;
 	m_bDead = FALSE;
-	ChangeState(IDLE);
+	ChangeState(WALK);
 	iAttDamageBool = 0;
-	iMonsterHp = 200;
+	iMonsterHp = 300;
 	return NOERROR;
 }
 
-INT CGrondTree::Update(const float& fTimeDelta)
+INT CMovingTree::Update(const float& fTimeDelta)
 {
 	SetRect();
 	CheckWalk();
@@ -56,18 +54,18 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	}
 	switch (m_eCurrState)
 	{
-	case CGrondTree::IDLE:
-		if (!m_bRight)
-		//else
-			break;
-	case CGrondTree::WALK:
+	case CMovingTree::ATTACK:
+		if (m_tFrame.fX == 0)
+			m_pObjMgr->Add(MON_CLOSEATT, CMovingTreeAttack::Create(m_tInfo.fX, m_tInfo.fY));
+		break;
+	case CMovingTree::WALK:
 		if (!m_bRight)
 		{
 			for (auto pCollRect : m_pCollisionMgr->GetlistCollision())
 			{
 				RECT tTemp = {};
 				RECT tDstRect = { pCollRect->left,pCollRect->top,pCollRect->right,pCollRect->bottom };
-				if (IntersectRect(&tTemp, &rectGroundTree, &tDstRect))
+				if (IntersectRect(&tTemp, &rectMovingTree, &tDstRect))
 				{
 					float fDstX = (float)tDstRect.right - tDstRect.left;
 					float fDstY = (float)tDstRect.bottom - tDstRect.top;
@@ -78,28 +76,28 @@ INT CGrondTree::Update(const float& fTimeDelta)
 					{
 						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
 						{
-							m_tInfo.fX -= fMoveX+1;
+							m_tInfo.fX -= fMoveX + 1;
 							m_bRight = !m_bRight;
-							SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
+							SetFrame(L"MovingTree_WalkL", 10.f, 6, 1);
 						}
 						else
 						{
-							m_tInfo.fX += fMoveX+1;
+							m_tInfo.fX += fMoveX + 1;
 							m_bRight = !m_bRight;
-							SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
+							SetFrame(L"MovingTree_WalkR", 10.f, 6, 1);
 						}
 					}
 				}
 			}
 			--m_tInfo.fX;
-		}	
+		}
 		else
 		{
 			for (auto pCollRect : m_pCollisionMgr->GetlistCollision())
 			{
 				RECT tTemp = {};
 				RECT tDstRect = { pCollRect->left,pCollRect->top,pCollRect->right,pCollRect->bottom };
-				if (IntersectRect(&tTemp, &rectGroundTree, &tDstRect))
+				if (IntersectRect(&tTemp, &rectMovingTree, &tDstRect))
 				{
 					float fDstX = (float)tDstRect.right - tDstRect.left;
 					float fDstY = (float)tDstRect.bottom - tDstRect.top;
@@ -110,15 +108,15 @@ INT CGrondTree::Update(const float& fTimeDelta)
 					{
 						if (m_tInfo.fX < (tDstRect.right + tDstRect.left) / 2)
 						{
-							m_tInfo.fX -= fMoveX+1;
+							m_tInfo.fX -= fMoveX + 1;
 							m_bRight = !m_bRight;
-							SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
+							SetFrame(L"MovingTree_WalkL", 10.f, 6, 1);
 						}
 						else
 						{
-							m_tInfo.fX += fMoveX+1;
+							m_tInfo.fX += fMoveX + 1;
 							m_bRight = !m_bRight;
-							SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
+							SetFrame(L"MovingTree_WalkR", 10.f, 6, 1);
 						}
 					}
 				}
@@ -126,19 +124,7 @@ INT CGrondTree::Update(const float& fTimeDelta)
 			++m_tInfo.fX;
 		}
 		break;
-	case CGrondTree::ATTACK:
-		if (!m_bGetTick)
-		{
-			Attack_Time = GetTickCount();
-			m_bGetTick = !m_bGetTick;
-		}
-		if (Attack_Time + 1000 < GetTickCount()&& m_tFrame.fX > 6)
-		{
-			m_pObjMgr->Add(MON_ATT, CGroundTreeAttack::Create());
-			m_bGetTick = !m_bGetTick;
-		}
-		break;
-	case CGrondTree::HIT:
+	case CMovingTree::HIT:
 		if (!m_bRight)
 			++m_tInfo.fX;
 		else
@@ -151,8 +137,8 @@ INT CGrondTree::Update(const float& fTimeDelta)
 				iMonsterHp -= PLAYERATTCLOSE;
 		}
 		break;
-	case CGrondTree::DEAD:
-		if(m_tFrame.fX == 0 && m_bDead)
+	case CMovingTree::DEAD:
+		if (m_tFrame.fX == 0 && m_bDead)
 			return OBJ_DEAD;
 		if (m_tFrame.fX == 0 && !m_bDead)
 			m_bDead = !m_bDead;
@@ -169,7 +155,7 @@ INT CGrondTree::Update(const float& fTimeDelta)
 	return 0;
 }
 
-VOID CGrondTree::Render(HDC hDC)
+VOID CMovingTree::Render(HDC hDC)
 {
 	UpdateRect();
 	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
@@ -184,7 +170,15 @@ VOID CGrondTree::Render(HDC hDC)
 		RGB(255, 0, 255));
 }
 
-HRESULT CGrondTree::ChangeState(STATE eState)
+CMovingTree* CMovingTree::Create(float fStartX, float fStartY)
+{
+	CMovingTree* pInstance = new CMovingTree;
+	if (FAILED(pInstance->Initialize(fStartX, fStartY)))
+		SafeDelete(pInstance);
+	return pInstance;
+}
+
+HRESULT CMovingTree::ChangeState(STATE eState)
 {
 	m_eCurrState = eState;
 
@@ -192,46 +186,42 @@ HRESULT CGrondTree::ChangeState(STATE eState)
 	{
 		switch (m_eCurrState)
 		{
-		case CGrondTree::IDLE:
-			// 처음 이 상태로 들어갈때 해줘야 하는것들 여기ㅓ ㅅ해
-			//m_tInfo.fCX = 197.f;
-			//m_tInfo.fCY = 226.f;
-			if (!m_bRight)
-				SetFrame(L"GroundTree_IdleL", 10.f, 5, 1);
-			else
-				SetFrame(L"GroundTree_IdleR", 10.f, 5, 1);
-			break;
-		case CGrondTree::WALK:
-			if (!m_bRight)
-				SetFrame(L"GroundTree_WalkL", 10.f, 6, 1);
-			else
-				SetFrame(L"GroundTree_WalkR", 10.f, 6, 1);
-			SetInfo(54.f, 65.f);
-			break;
-		case CGrondTree::ATTACK:
+		case CMovingTree::ATTACK:
 			if (!m_bAttackMotion)
 			{
-				SetFrame(L"GroundTree_AttackL", 5.f, 8, 1);
+				SetFrame(L"MovingTree_AttackL", 5.f, 4, 1);
 				m_bRight = FALSE;
 			}
 			else
 			{
-				SetFrame(L"GroundTree_AttackR", 5.f, 8, 1);
+				SetFrame(L"MovingTree_AttackR", 5.f, 4, 1);
 				m_bRight = TRUE;
 			}
-			
-			SetInfo(82.f, 67.f);
+			SetInfo(59.f, 64.f);
 			break;
-		case CGrondTree::HIT:
+		case CMovingTree::WALK:
 			if (!m_bRight)
-				SetFrame(L"GroundTree_HitL", 10.f, 2, 1);
+				SetFrame(L"MovingTree_WalkL", 10.f, 6, 1);
 			else
-				SetFrame(L"GroundTree_HitR", 10.f, 2, 1);
-			SetInfo(62.f, 66.f);
+				SetFrame(L"MovingTree_WalkR", 10.f, 6, 1);
+			m_tInfo.fCX = 53.f;
+			m_tInfo.fCY = 65.f;
 			break;
-		case CGrondTree::DEAD:
-			SetFrame(L"GroundTree_Dead", 15.f, 22, 1);
-			SetInfo(103.f, 93.f);
+		case CMovingTree::HIT:
+			if (!m_bRight)
+				SetFrame(L"MovingTree_HitL", 10.f, 5, 1);
+			else
+				SetFrame(L"MovingTree_HitR", 10.f, 5, 1);
+			SetInfo(56.f, 66.f);
+			break;
+		case CMovingTree::DEAD:
+			if (!m_bRight)
+				SetFrame(L"MovingTree_DeadL", 10.f, 1, 1);
+			else
+				SetFrame(L"MovingTree_DeadR", 10.f, 1, 1);
+			SetInfo(76.f, 33.f);
+			m_tInfo.fY += 20;
+			break;
 			break;
 		default:
 			break;
@@ -242,29 +232,29 @@ HRESULT CGrondTree::ChangeState(STATE eState)
 	return NOERROR;
 }
 
-BOOL CGrondTree::CheckWalk()
+BOOL CMovingTree::CheckWalk()
 {
 	UpdateRect();
 	RECT temp;
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	RECT CheckPlayer = m_tRect;
 	CheckPlayer.left -= 450, CheckPlayer.right += 500, CheckPlayer.top -= 520;
-	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect)&&m_tFrame.fX==0)
+	if (IntersectRect(&temp, &CheckPlayer, &PlayerRect) && m_tFrame.fX == 0)
 	{
 		ChangeState(WALK);
 	}
 	return 0;
 }
 
-BOOL CGrondTree::CheckAttack()
+BOOL CMovingTree::CheckAttack()
 {
 	UpdateRect();
 	RECT temp;
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	RECT CheckPlayerL = m_tRect;
 	RECT CheckPlayerR = m_tRect;
-	CheckPlayerL.left -= 200;
-	CheckPlayerR.right += 200;
+	CheckPlayerL.left -= 50, CheckPlayerL.right = m_tInfo.fX;
+	CheckPlayerR.right += 50, CheckPlayerR.left = m_tInfo.fX;
 	if (IntersectRect(&temp, &CheckPlayerL, &PlayerRect) && m_tFrame.fX == 0)
 	{
 		if (!m_bMotionGetTick)
@@ -295,22 +285,14 @@ BOOL CGrondTree::CheckAttack()
 	return 0;
 }
 
-void CGrondTree::SetRect()
+void CMovingTree::SetRect()
 {
-	rectGroundTree.left = m_tInfo.fX - 18;
-	rectGroundTree.right = m_tInfo.fX + 18;
-	rectGroundTree.top = m_tRect.top;
-	rectGroundTree.bottom = m_tRect.bottom;
+	rectMovingTree.left = m_tInfo.fX - 18;
+	rectMovingTree.right = m_tInfo.fX + 18;
+	rectMovingTree.top = m_tRect.top;
+	rectMovingTree.bottom = m_tRect.bottom;
 }
 
-CGrondTree* CGrondTree::Create(float fStartX, float fStartY)
-{
-	CGrondTree* pInstance = new CGrondTree;
-	if (FAILED(pInstance->Initialize(fStartX, fStartY)))
-		SafeDelete(pInstance);
-	return pInstance;
-}
-
-void CGrondTree::Release()
+void CMovingTree::Release()
 {
 }
