@@ -5,6 +5,7 @@
 #include "TurorialStage.h"
 #include "Stage1.h"
 #include "Stage2.h"
+#include "Last.h"
 
 IMPLEMENT_SINGLETON(CSceneMgr)
 
@@ -49,6 +50,9 @@ HRESULT CSceneMgr::ChangeScene(SCENE_ID eID)
 		case SCENE_STAGE2:
 			m_pScene = CStage2::Create();
 			break;
+		case SCENE_END:
+			m_pScene = CLast::Create();
+			break;
 		default:
 			break;
 		}
@@ -65,6 +69,18 @@ HRESULT CSceneMgr::ChangeScene(SCENE_ID eID)
 HRESULT CSceneMgr::Change_NextScene()
 {
 	m_eNextScene = SCENE_ID(m_ePreScene + 1);
+	return NOERROR;
+}
+
+HRESULT CSceneMgr::Change_LastScene()
+{
+	m_eNextScene = SCENE_ID(SCENE_END);
+	return NOERROR;
+}
+
+HRESULT CSceneMgr::Change_GameOverScene()
+{
+	m_eNextScene = SCENE_ID(SCENE_GAMEOVER);
 	return NOERROR;
 }
 

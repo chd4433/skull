@@ -17,7 +17,7 @@ HRESULT CDistnaceAttack::Initialize(float fStartX, float fStartY,BOOL bRight)
 	m_tInfo.fY = fStartY;
 	m_tInfo.fCX = 70.f;
 	m_tInfo.fCY = 70.f;
-	SetFrame(L"Boss_Ball", 5.f, 8, 1);
+	SetFrame(L"Boss_Ball", 10.f, 8, 1);
 	m_bframe = FALSE;
 	m_bRight = bRight;
 	//TargetPlayer();
@@ -28,9 +28,9 @@ HRESULT CDistnaceAttack::Initialize(float fStartX, float fStartY,BOOL bRight)
 INT CDistnaceAttack::Update(const float& fTimeDelta)
 {
 	if (!m_bRight)
-		--m_tInfo.fX;
+		m_tInfo.fX-=2;
 	else
-		++m_tInfo.fX;
+		m_tInfo.fX+=2;
 	FrameMove(fTimeDelta);
 	if (m_tFrame.fX == 0)
 		return OBJ_DEAD;

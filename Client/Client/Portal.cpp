@@ -59,7 +59,7 @@ VOID CPortal::Render(HDC hDC)
 	UpdateRect();
 	HDC hMemDC = m_pBmpMgr->FindBmp(m_tFrame.strFrameKey);
 	GdiTransparentBlt(hDC,
-		m_tRect.left+iScrollX, m_tRect.top,//이거 스크롤 값에 맞게 고쳐야함
+		m_tRect.left+iScrollX, m_tRect.top+iScrollY,//이거 스크롤 값에 맞게 고쳐야함
 		m_tInfo.fCX, m_tInfo.fCY,
 		hMemDC,
 		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표. 
@@ -99,6 +99,9 @@ HRESULT CPortal::ChangeScene(SCENE_ID eState)
 			SetFrame(L"Deactive0_Portal2", 10.f, 1, 1);
 			break;
 		case SCENE_STAGE2:
+			m_tInfo.fCX = 215.f;
+			m_tInfo.fCY = 159.f;
+			SetFrame(L"Portal", 10.f, 8, 1);
 			break;
 		case SCENE_GAMEOVER:
 			break;

@@ -44,10 +44,13 @@ A_Energyball ../Binary/Throw/A_Energyball.bmp
 Posion ../Binary/Throw/Posion.bmp
 PoisonGasR ../Binary/Throw/PoisonGasR.bmp
 PoisonGasL ../Binary/Throw/PoisonGasL.bmp
+ShotedPlayer ../Binary/Player/Attak/ShotedPlayer.bmp
 Menu ../Binary/Map/Menu.bmp
 Map1 ../Binary/Map/Map1.bmp
 Map2 ../Binary/Map/Map2.bmp
 Map3 ../Binary/Map/Map3.bmp
+Last1 ../Binary/Map/Last1.bmp
+Last2 ../Binary/Map/Last2.bmp
 WalkR ../Binary/Player/Walk/Player_Walk_HeadR.bmp
 WalkL ../Binary/Player/Walk/Player_Walk_HeadL.bmp
 GroundTree_AttackL ../Binary/Monster/GroundTree/Attack/Ground_Tree_AttackL-sheet.bmp

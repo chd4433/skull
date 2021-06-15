@@ -6,6 +6,7 @@
 #include "DistnaceAttack.h"
 #include "BossState.h"
 #include "BossHPBar.h"
+#include "Portal.h"
 
 CBoss::CBoss()
 {
@@ -29,7 +30,7 @@ HRESULT CBoss::Initialize(float fStartX, float fStartY)
 	m_bDead = FALSE;
 	ChangeState(IDLE);
 
-	iMonsterHp = 3000;
+	iMonsterHp = 100;
 	return NOERROR;
 }
 
@@ -84,8 +85,11 @@ INT CBoss::Update(const float& fTimeDelta)
 	case CBoss::DEAD:
 		if (m_tFrame.fX == 0 && m_bDead)
 		{
+			CObj* pPortal = CPortal::Create(m_tInfo.fX, m_tInfo.fY - 40);
+			pPortal->SetObjScene(SCENE_STAGE2);
+			m_pObjMgr->Add(PORTAL, pPortal);
 			return OBJ_DEAD;
-			//Æ÷Å»
+			
 		}
 		if (m_tFrame.fX == 0 && !m_bDead)
 			m_bDead = !m_bDead;

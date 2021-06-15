@@ -20,6 +20,8 @@ public:
 public:
 	HRESULT	ChangeScene(SCENE_ID eID);
 	HRESULT Change_NextScene();
+	HRESULT Change_LastScene();
+	HRESULT Change_GameOverScene();
 
 private:
 	CScene* m_pScene = nullptr;

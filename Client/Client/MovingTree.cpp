@@ -201,9 +201,9 @@ HRESULT CMovingTree::ChangeState(STATE eState)
 			break;
 		case CMovingTree::WALK:
 			if (!m_bRight)
-				SetFrame(L"MovingTree_WalkL", 10.f, 6, 1);
+				SetFrame(L"MovingTree_WalkL", 15.f, 6, 1);
 			else
-				SetFrame(L"MovingTree_WalkR", 10.f, 6, 1);
+				SetFrame(L"MovingTree_WalkR", 15.f, 6, 1);
 			m_tInfo.fCX = 53.f;
 			m_tInfo.fCY = 65.f;
 			break;
@@ -253,7 +253,7 @@ BOOL CMovingTree::CheckAttack()
 	RECT PlayerRect = m_pObjMgr->Get_Player()->GetRect();
 	RECT CheckPlayerL = m_tRect;
 	RECT CheckPlayerR = m_tRect;
-	CheckPlayerL.left -= 50, CheckPlayerL.right = m_tInfo.fX;
+	CheckPlayerL.left -= 0, CheckPlayerL.right = m_tInfo.fX;
 	CheckPlayerR.right += 50, CheckPlayerR.left = m_tInfo.fX;
 	if (IntersectRect(&temp, &CheckPlayerL, &PlayerRect) && m_tFrame.fX == 0)
 	{

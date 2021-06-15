@@ -134,6 +134,12 @@
     <Filter Include="01 Obj\06 UI\02 Health Bar">
       <UniqueIdentifier>{7e07e362-a99d-45ee-b01f-754f7d92d2e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01 Obj\06 UI\03 ShotedPlayer">
+      <UniqueIdentifier>{0907a792-d874-4c24-9343-248b55a911b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02 Scene\04 Last">
+      <UniqueIdentifier>{bed8d77f-0722-4c0e-8924-7db264f88a12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -274,6 +280,12 @@
     <ClInclude Include="PlayerHPBar.h">
       <Filter>01 Obj\06 UI\02 Health Bar</Filter>
     </ClInclude>
+    <ClInclude Include="ShotedPlayer.h">
+      <Filter>01 Obj\06 UI\03 ShotedPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Last.h">
+      <Filter>02 Scene\04 Last</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -405,6 +417,12 @@
     </ClCompile>
     <ClCompile Include="PlayerHPBar.cpp">
       <Filter>01 Obj\06 UI\02 Health Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotedPlayer.cpp">
+      <Filter>01 Obj\06 UI\03 ShotedPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="Last.cpp">
+      <Filter>02 Scene\04 Last</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

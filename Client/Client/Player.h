@@ -52,6 +52,7 @@ public:
 	bool	m_bChangeCharacter = false;
 	bool	m_bUsedSkill1 = false;
 	bool	m_bBossFight = false;
+	bool    m_bInvincibility = false;
 	float	m_fChangeCount = 0.f;
 	float	m_fMoveLen = 0.f;
 	float	m_fDashLen = 0.f;

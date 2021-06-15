@@ -36,6 +36,17 @@ INT CMovingTreeAttack::Update(const float& fTimeDelta)
 
 VOID CMovingTreeAttack::Render(HDC hDC)
 {
+	UpdateRect();
+	int iScrollX = (int)CScrollManager::GetInstance()->Get_ScrollX();
+	int iScrollY = (int)CScrollManager::GetInstance()->Get_ScrollY();
+	HDC hMemDC = m_pBmpMgr->FindBmp(m_tFrame.strFrameKey);
+	GdiTransparentBlt(hDC,
+		m_tRect.left + iScrollX, m_tRect.top + iScrollY,
+		m_tInfo.fCX, m_tInfo.fCY,
+		hMemDC,
+		int(m_tFrame.fX) * m_tInfo.fCX, int(m_tFrame.fY) * m_tInfo.fCY,// 출력할 그림의 시작 좌표. 
+		m_tInfo.fCX, m_tInfo.fCY,//그림의 전체 가로세로 크기 
+		RGB(255, 0, 255));
 }
 
 CMovingTreeAttack* CMovingTreeAttack::Create(float fStartX, float fStartY)

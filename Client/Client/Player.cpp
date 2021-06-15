@@ -7,6 +7,7 @@
 #include "Grave.h"
 #include "PlayerState.h"
 #include "PlayerHPBar.h"
+#include "ShotedPlayer.h"
 
 SCENE_ID CurrScene = SCENE_END;
 
@@ -76,32 +77,30 @@ INT CPlayer::Update(const float& fTimeDelta)
 		m_bChangeCharacter = dynamic_cast<CGrave*>(m_pObjMgr->Get_SingleObjLst(GRAVE))->GetbGrave();
 	}
 	// 피격
-	if (b_ChangeSceneDead)
+	if (!m_bInvincibility)
 	{
-		iPlayerHp -= MONSTERDISTANCEATT;
-		b_ChangeSceneDead = FALSE;
-		//ChangeState(HIT);
-		//iAttDamageBool = 1;
-		//if (m_tFrame.fX == 0)
-		//	b_ChangeSceneDead = FALSE;
-		cout << "플레이어 체력: " << iPlayerHp << endl;
-	}
-	if (b_ChangeDeadCloseAtt)
-	{
-		iPlayerHp -= MONSTERCLOSEATT;
-		b_ChangeDeadCloseAtt = FALSE;
-		//ChangeState(HIT);
-		//iAttDamageBool = 2;
-		//if (m_tFrame.fX == 0)
-		//	b_ChangeDeadCloseAtt = FALSE;
-		cout << "플레이어 체력: " << iPlayerHp << endl;
-	}
-	if (b_ChangePatrationAtt)
-	{
-		iPlayerHp -= MONSTERDISTANCEATT;
-		b_ChangePatrationAtt = FALSE;
-		b_Patration = TRUE;
-		cout << "플레이어 체력: " << iPlayerHp << endl;
+		if (b_ChangeSceneDead)
+		{
+			iPlayerHp -= MONSTERDISTANCEATT;
+			b_ChangeSceneDead = FALSE;
+			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX,m_tInfo.fY));
+			cout << "플레이어 체력: " << iPlayerHp << endl;
+		}
+		if (b_ChangeDeadCloseAtt)
+		{
+			iPlayerHp -= MONSTERCLOSEATT;
+			b_ChangeDeadCloseAtt = FALSE;
+			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
+			cout << "플레이어 체력: " << iPlayerHp << endl;
+		}
+		if (b_ChangePatrationAtt)
+		{
+			iPlayerHp -= MONSTERDISTANCEATT;
+			b_ChangePatrationAtt = FALSE;
+			b_Patration = TRUE;
+			m_pObjMgr->Add(ShotedPlayer, CShotedPlayer::Create(m_tInfo.fX, m_tInfo.fY));
+			cout << "플레이어 체력: " << iPlayerHp << endl;
+		}
 	}
 
 	// 사망

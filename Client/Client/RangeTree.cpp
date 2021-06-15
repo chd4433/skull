@@ -129,7 +129,7 @@ HRESULT CRangeTree::ChangeState(STATE eState)
 		case CRangeTree::DEAD:
 			SetFrame(L"RangeTree_Death", 1.f, 5, 1);
 			SetInfo(100.f, 77.f);
-			m_tInfo.fX -= 10;
+			m_tInfo.fX += 10;
 			break;
 		default:
 			break;

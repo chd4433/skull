@@ -146,6 +146,8 @@
     <ClInclude Include="BossState.h" />
     <ClInclude Include="CCloseAttack2.h" />
     <ClInclude Include="CloseAttack1.h" />
+    <ClInclude Include="Last.h" />
+    <ClInclude Include="ShotedPlayer.h" />
     <ClInclude Include="DistnaceAttack.h" />
     <ClInclude Include="Energyball.h" />
     <ClInclude Include="Grave.h" />
@@ -198,7 +200,9 @@
     <ClCompile Include="BossHPBar.cpp" />
     <ClCompile Include="BossState.cpp" />
     <ClCompile Include="CCloseAttack2.cpp" />
+    <ClCompile Include="Last.cpp" />
     <ClCompile Include="CloseAttack1.cpp" />
+    <ClCompile Include="ShotedPlayer.cpp" />
     <ClCompile Include="DistnaceAttack.cpp" />
     <ClCompile Include="Energyball.cpp" />
     <ClCompile Include="Grave.cpp" />
